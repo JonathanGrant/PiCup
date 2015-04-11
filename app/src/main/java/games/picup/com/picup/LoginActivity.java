@@ -54,6 +54,8 @@ public class LoginActivity extends FragmentActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
+
+    static SignUpFragment signup;
     public static class LoginFragment extends Fragment {
 
         public LoginFragment() {
@@ -66,7 +68,19 @@ public class LoginActivity extends FragmentActivity {
 
             FragmentManager fm = getFragmentManager();
             FragmentTransaction trans = fm.beginTransaction();
+            trans.add(R.id.login_container, signup, "User Sign-Up Fragment");
+            trans.commit();
 
+
+            return rootView;
+        }
+    }
+
+    public static class SignUpFragment extends Fragment {
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_signup, container, false);
 
             return rootView;
         }
