@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.os.Build;
 
 
-public class LoginActivity extends ActionBarActivity {
+public class LoginActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class LoginActivity extends ActionBarActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+    public static class LoginFragment extends Fragment {
 
         public PlaceholderFragment() {
         }
