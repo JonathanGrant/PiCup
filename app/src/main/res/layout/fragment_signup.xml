@@ -9,7 +9,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign up with Phone Number"
+        android:text="Sign Up"
         android:id="@+id/sign_up_button"
         android:gravity="center"
         android:layout_gravity="center_horizontal" />
