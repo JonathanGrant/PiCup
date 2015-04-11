@@ -1,5 +1,6 @@
 package games.picup.com.picup;
 
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -53,7 +54,7 @@ public class LoginActivity extends FragmentActivity {
      */
     public static class LoginFragment extends Fragment {
 
-        public PlaceholderFragment() {
+        public LoginFragment() {
         }
 
         @Override
