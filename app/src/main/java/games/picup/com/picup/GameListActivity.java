@@ -1,12 +1,18 @@
 package games.picup.com.picup;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.gc.materialdesign.views.Button;
 
 /**
  * Created by Freddie4 on 4/11/2015.
@@ -14,7 +20,7 @@ import android.widget.Toast;
 public class GameListActivity extends Activity {
 
     Toolbar toolbar;
-    ImageButton FAB;
+    Button FAB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,17 +28,15 @@ public class GameListActivity extends Activity {
         setContentView(R.layout.activity_games_list);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        toolbar.setTitle("Available Games");
+//        setSupportActionBar(toolbar);
 
-        FAB = (ImageButton) findViewById(R.id.imageButton);
+        FAB = (Button) findViewById(R.id.buttonFloat);
         FAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                Toast.makeText(GameListActivity.this, "Hello World", Toast.LENGTH_SHORT).show();
-
-
+                Intent i = new Intent(GameListActivity.this, LoginActivity.class);
+                startActivity(i);
             }
         });
     }
