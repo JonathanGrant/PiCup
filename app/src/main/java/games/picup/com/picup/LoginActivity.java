@@ -1,6 +1,8 @@
 package games.picup.com.picup;
 
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -21,7 +23,7 @@ public class LoginActivity extends FragmentActivity {
         setContentView(R.layout.activity_login);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .add(R.id.container, new LoginFragment())
                     .commit();
         }
     }
@@ -61,6 +63,11 @@ public class LoginActivity extends FragmentActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_login, container, false);
+
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction trans = fm.beginTransaction();
+
+
             return rootView;
         }
     }
