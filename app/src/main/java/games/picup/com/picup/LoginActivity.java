@@ -140,8 +140,8 @@ public class LoginActivity extends FragmentActivity {
 //                    testObject.put("Number", phoneString);
 //                    testObject.saveInBackground();
 //
-//                    Intent i = new Intent(getActivity(), FeedActivity.class);
-//                    startActivity(i);
+                    Intent i = new Intent(getActivity(), GameListActivity.class);
+                    startActivity(i);
                 }
             });
 
