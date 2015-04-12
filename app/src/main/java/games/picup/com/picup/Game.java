@@ -12,7 +12,7 @@ public class Game {
 
     public int getImageResourceId(Context context) {
         try {
-            return context.getResources().getIdentifier(name, "drawable", context.getPackageName());
+            return context.getResources().getIdentifier(description, "drawable", context.getPackageName());
 
 
         } catch (Exception e) {

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle"
+    android:id="@+id/buttonPressed">
+    <stroke
+        android:layout_width="100dp"
+        android:layout_height="75dp"
+        android:color="#FF404040" />
+    <corners android:radius="20dp" />
+    <gradient
+        android:startColor="#850707"
+        android:centerColor="#bf0a0a"
+        android:endColor="#850707"
+        android:angle="180" />
+</shape>

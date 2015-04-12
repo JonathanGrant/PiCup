@@ -36,6 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="Confirm"
-        android:id="@+id/confirm_signup"/>
+        android:id="@+id/confirm_signup"
+        android:background="@drawable/button_background2"/>
 
 </LinearLayout>
