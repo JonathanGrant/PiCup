@@ -1,6 +1,6 @@
 ![alt tag](http://i.imgur.com/XAq452m.png)
 
-###### Bringing communities together, PiCup creates and spreads local pick-up sports games.
+Bringing communities together, PiCup creates and spreads local pick-up sports games.
 
 
 ## Motivation
