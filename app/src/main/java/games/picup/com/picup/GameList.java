@@ -31,6 +31,9 @@ public class GameList extends Activity {
         toolbar.setTitle("Available Games");
 //        setSupportActionBar(toolbar);
         setUpButton();
+
+        NewGame g1 = new NewGame();
+        getGameData(g1.setSport(), g1.setLocation(), g1.setDate(), 4.6);
     }
 
     private void setUpButton() {
@@ -38,27 +41,33 @@ public class GameList extends Activity {
         FAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(GameList.this, CreateGameActivity.class);
+                Intent i = new Intent(GameList.this, NewGame.class);
                 startActivity(i);
             }
         });
     }
 
     public void getGameData(String sport, String location, String date, double distance) {
-
         final Card card = new Card(getApplicationContext());
         CardHeader header = new CardHeader(getApplicationContext());
-        header.setTitle("Sport: " + sport + "\nDate: " + date
-                +  "\nDistance: " + Double.toString(distance) + " mi");
-        //Add Header to card
-        card.addCardHeader(header);
+        if (sport == null || location == null || date == null || distance < 0) {
+            header.setTitle("Sport: " + "\nDate: "
+                    + "\nDistance: ");
+            //Add Header to card
+            card.addCardHeader(header);
+        }
 
-        card.setTitle("Location: " + location);
+        else {
+            header.setTitle("Sport: " + sport + "\nDate: " + date
+                    + "\nDistance: " + Double.toString(distance) + " mi");
+            //Add Header to card
+            card.addCardHeader(header);
 
-        //Set card in the cardView
-        CardViewNative cardView = (CardViewNative) findViewById(R.id.carddemo);
-
-        cardView.setCard(card);
+            card.setTitle("Location: " + location);
+            //Set card in the cardView
+            CardViewNative cardView = (CardViewNative) findViewById(R.id.carddemo);
+            cardView.setCard(card);
+        }
     }
 
 

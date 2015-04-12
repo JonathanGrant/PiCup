@@ -12,7 +12,7 @@ import android.widget.EditText;
  * Created by Freddie4 on 4/11/2015.
  */
 
-public class CreateGameActivity extends Activity {
+public class NewGame extends Activity {
 
     EditText setSport;
     EditText setLocation;
@@ -24,8 +24,9 @@ public class CreateGameActivity extends Activity {
         setContentView(R.layout.activity_creategame);
         setToolbar();
 
-        GameList gl = new GameList();
-        gl.getGameData(setSport(), setLocation(), setDate(), 4.6);
+        setSport = (EditText) findViewById(R.id.sport_set);
+        setLocation = (EditText) findViewById(R.id.location_set);
+        setDate = (EditText) findViewById(R.id.date_set);
 
     }
 
@@ -46,22 +47,22 @@ public class CreateGameActivity extends Activity {
         }
     }
 
-    private String setSport() {
-        setSport = (EditText) findViewById(R.id.sport_set);
+    public String setSport() {
+
         String sport = String.valueOf(setSport.getText());
 
         return sport;
     }
 
-    private String setLocation() {
-        setLocation = (EditText) findViewById(R.id.location_set);
-        String location = String.valueOf(setLocation.getText());
+    public String setLocation() {
 
+
+        String location = String.valueOf(setLocation.getText());
         return location;
     }
 
-    private String setDate() {
-        setDate = (EditText) findViewById(R.id.date_set);
+    public String setDate() {
+
         String date = String.valueOf(setDate.getText());
 
         return date;

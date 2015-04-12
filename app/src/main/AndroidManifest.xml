@@ -19,6 +19,9 @@
         <activity
             android:name=".GameList"
             android:label="@string/app_name" />
+        <activity
+            android:name=".NewGame"
+            android:label="@string/app_name" />
     </application>
 
 </manifest>
