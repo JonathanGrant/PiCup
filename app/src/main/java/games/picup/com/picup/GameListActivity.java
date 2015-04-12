@@ -14,6 +14,12 @@ import android.widget.Toast;
 
 import com.gc.materialdesign.views.Button;
 
+import it.gmariotti.cardslib.library.internal.Card;
+import it.gmariotti.cardslib.library.internal.CardExpand;
+import it.gmariotti.cardslib.library.internal.CardHeader;
+import it.gmariotti.cardslib.library.internal.ViewToClickToExpand;
+import it.gmariotti.cardslib.library.view.CardViewNative;
+
 /**
  * Created by Freddie4 on 4/11/2015.
  */
@@ -30,7 +36,12 @@ public class GameListActivity extends Activity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Available Games");
 //        setSupportActionBar(toolbar);
+        setUpButton();
+        getGameData("Soccer", "Boston", "4/11/2015", 0.0);
 
+    }
+
+    private void setUpButton() {
         FAB = (Button) findViewById(R.id.buttonFloat);
         FAB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +50,23 @@ public class GameListActivity extends Activity {
                 startActivity(i);
             }
         });
+    }
+
+    public void getGameData(String sport, String location, String date, double distance) {
+
+        final Card card = new Card(getApplicationContext());
+        CardHeader header = new CardHeader(getApplicationContext());
+        header.setTitle("Sport: " + sport + "\nDate: " + date
+                +  "\nDistance: " + Double.toString(distance) + " mi");
+        //Add Header to card
+        card.addCardHeader(header);
+
+        card.setTitle("Location: " + location);
+
+        //Set card in the cardView
+        CardViewNative cardView = (CardViewNative) findViewById(R.id.carddemo);
+
+        cardView.setCard(card);
     }
 
 
