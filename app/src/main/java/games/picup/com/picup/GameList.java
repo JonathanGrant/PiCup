@@ -30,7 +30,6 @@ public class GameList extends Activity {
         toolbar.setTitle("Available Games");
 //        setSupportActionBar(toolbar);
         setUpButton();
-
     }
 
     private void setUpButton() {

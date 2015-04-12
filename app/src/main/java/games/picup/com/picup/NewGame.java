@@ -47,14 +47,14 @@ public class NewGame extends Activity {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Bundle bundle = new Bundle();
-//                bundle.putString("SPORT", setSport());
-//                bundle.putString("LOCATION", setLocation());
-//                bundle.putString("DATE", setDate());
-//
-//                Intent i = new Intent(NewGame.this, GameList.class);
-//                i.putExtras(bundle);
-//                startActivityForResult(i, SECONDARY_ACTIVITY_REQUEST_CODE);
+                Bundle bundle = new Bundle();
+                bundle.putString("SPORT", setSport());
+                bundle.putString("LOCATION", setLocation());
+                bundle.putString("DATE", setDate());
+
+                Intent i = new Intent(NewGame.this, GameList.class);
+                i.putExtras(bundle);
+                startActivityForResult(i, SECONDARY_ACTIVITY_REQUEST_CODE);
             }
         });
     }
