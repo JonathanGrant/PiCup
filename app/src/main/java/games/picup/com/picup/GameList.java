@@ -23,7 +23,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolygonOptions;
 
 /**
- * Created by Freddie4 on 4/11/2015.
+ * Authors: FreddieV4 & JonathanGrant
+ * Purpose: Hack UMass II (Apr. 11-12th, 2015)
  */
 public class GameList extends FragmentActivity implements OnMapReadyCallback {
 

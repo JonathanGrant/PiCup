@@ -13,7 +13,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 /**
- * Created by Freddie4 on 4/11/2015.
+ * Authors: FreddieV4 & JonathanGrant
+ * Purpose: Hack UMass II (Apr. 11-12th, 2015)
  */
 
 public class NewGame extends Activity {

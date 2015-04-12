@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Freddie4 on 4/12/2015.
+ * Authors: FreddieV4 & JonathanGrant
+ * Purpose: Hack UMass II (Apr. 11-12th, 2015)
  */
 public class GameManager {
 

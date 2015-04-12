@@ -18,6 +18,10 @@ import android.widget.EditText;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
+/**
+ * Authors: FreddieV4 & JonathanGrant
+ * Purpose: Hack UMass II (Apr. 11-12th, 2015)
+ */
 
 public class LoginActivity extends FragmentActivity {
 
