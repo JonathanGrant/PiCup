@@ -142,6 +142,6 @@ public class GameMapFragment extends Fragment implements OnMapReadyCallback, Loc
 
     }
 
-
+    
 }
 
