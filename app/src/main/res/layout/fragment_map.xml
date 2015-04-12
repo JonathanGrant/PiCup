@@ -7,6 +7,8 @@
     <com.google.android.gms.maps.MapView
         android:id="@+id/store_map_frag"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:onClick="onMapClicked"
+        android:nestedScrollingEnabled="false" />
 
 </RelativeLayout>

@@ -3,13 +3,16 @@ package games.picup.com.picup;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,17 +25,20 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolygonOptions;
 
+import java.util.List;
+
 /**
  * Authors: FreddieV4 & JonathanGrant
  * Purpose: Hack UMass II (Apr. 11-12th, 2015)
  */
-public class GameList extends FragmentActivity implements OnMapReadyCallback {
+public class GameList extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener {
 
     Toolbar toolbar;
     Button FAB;
     RecyclerView mRecyclerView;
     GameAdapter mAdapter;
     MapFragment map;
+    private static double[] latlon = {0.0,0.0};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +107,6 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback {
     public void onMapReady(GoogleMap map) {
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(-18.142, 178.431), 2));
-
         // Polylines are useful for marking paths and routes on the map.
         map.addPolygon(new PolygonOptions().geodesic(true)
                         .add(new LatLng(42.375660, -72.536554))  // top left
@@ -112,6 +117,9 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback {
                         .fillColor(Color.RED)
         );
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(42.375660, -72.536554), 15.0f));
+
+        map.setOnMapClickListener(this);
+        map.setOnMapLongClickListener(this);
     }
 
     public void onBostonSoccerOne(){
@@ -140,4 +148,16 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onMapClick(LatLng latLng) {
+
+    }
+
+    @Override
+    public void onMapLongClick(LatLng latLng) {
+        Uri gmmIntentUri = Uri.parse("google.navigation:q="+latLng.latitude+","+latLng.longitude);
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        startActivity(mapIntent);
+    }
 }

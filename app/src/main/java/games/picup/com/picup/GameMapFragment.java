@@ -1,16 +1,19 @@
 package games.picup.com.picup;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.content.pm.PackageManager;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -19,9 +22,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 
-/**
- * Created by Freddie4 on 4/12/2015.
- */
+import java.util.List;
+
 public class GameMapFragment extends Fragment implements OnMapReadyCallback, LocationListener {
 
     MapView mapView;
@@ -141,7 +143,5 @@ public class GameMapFragment extends Fragment implements OnMapReadyCallback, Loc
     public void onProviderDisabled(String provider) {
 
     }
-
-    
 }
 
