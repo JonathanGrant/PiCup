@@ -24,35 +24,37 @@ public class GameManager extends Activity {
     }
 
     public List<Game> getGamesToPlay() {
-        NewGame g1 = new NewGame();
-        Bundle e1 = getIntent().getExtras();
-        if(e1 != null) {
-            String spo = e1.getString("SPORT");
-            String loc = e1.getString("LOCATION");
-            String date = e1.getString("DATE");
+//        NewGame g1 = new NewGame();
+//        Bundle e1 = getIntent().getExtras();
+//        if(e1 != null) {
+//            String spo = e1.getString("SPORT");
+//            String loc = e1.getString("LOCATION");
+//            String date = e1.getString("DATE");
 
-            if (gamesToPlay == null) {
-                gamesToPlay = new ArrayList<Game>();
-
-                for (String gamesName : gamesArray) {
-                    Game game = new Game();
-                    game.name = gamesName;
-                    gamesToPlay.add(game);
-                }
-            }
-        }
-
-        else {
-        }
         if (gamesToPlay == null) {
             gamesToPlay = new ArrayList<Game>();
 
-            for (String countryName : gamesArray) {
+            for (String gamesName : gamesArray) {
                 Game game = new Game();
-                game.name = countryName;
+                game.name = gamesName;
                 gamesToPlay.add(game);
             }
         }
         return gamesToPlay;
     }
+//        }
+
+//        else {
+//        }
+//        if (gamesToPlay == null) {
+//            gamesToPlay = new ArrayList<Game>();
+//
+//            for (String countryName : gamesArray) {
+//                Game game = new Game();
+//                game.name = countryName;
+//                gamesToPlay.add(game);
+//            }
+//        }
+//        return gamesToPlay;
+//    }
 }

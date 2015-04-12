@@ -28,20 +28,22 @@ public class LoginActivity extends FragmentActivity {
     static Intent intent;
 
     //Give your SharedPreferences file a name and save it to a static variable
-    public static final String PREFS_NAME = "MyPrefsFile";
+    public static final String PREFFS = "LePrefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SharedPreferences settings1 = getSharedPreferences(LoginActivity.PREFS_NAME, 0);
+        SharedPreferences settings1 = getSharedPreferences(LoginActivity.PREFFS, 0);
         //Get "hasLoggedIn" value. If the value doesn't exist yet false is returned
         boolean parseInitialized = settings1.getBoolean("parseStarted", false);
 
-        if (parseInitialized) {
-            startParse();
-            LoginActivity.this.finish();
-        }
+        settings1.edit().clear().commit();
+
+//        if (parseInitialized) {
+//            startParse();
+//            LoginActivity.this.finish();
+//        }
 
         sign = new SignUpFragment();
 
@@ -50,16 +52,16 @@ public class LoginActivity extends FragmentActivity {
         trans.add(R.id.main_container, sign, "User Sign-Up Fragment");
         trans.commit();
 
-        SharedPreferences settings = getSharedPreferences(LoginActivity.PREFS_NAME, 0);
-        //Get "hasLoggedIn" value. If the value doesn't exist yet false is returned
-        boolean hasLoggedIn = settings.getBoolean("hasLoggedIn", false);
-
-        intent = new Intent(getApplicationContext(), GameList.class);
-
-        if (hasLoggedIn) {
-            startActivity(intent);
-            LoginActivity.this.finish();
-        }
+//        SharedPreferences settings = getSharedPreferences(LoginActivity.PREFFS, 0);
+//        //Get "hasLoggedIn" value. If the value doesn't exist yet false is returned
+//        boolean hasLoggedIn = settings.getBoolean("hasLoggedIn", false);
+//
+//        intent = new Intent(getApplicationContext(), GameList.class);
+//
+//        if (hasLoggedIn) {
+//            startActivity(intent);
+//            LoginActivity.this.finish();
+//        }
     }
 
     public void startParse(){
@@ -68,14 +70,15 @@ public class LoginActivity extends FragmentActivity {
 
         Parse.initialize(this, "AtjKLzP4q82ZmSNblvvsMt7mgyohcklLb8ryiMnR", "huX8xweyhhBZKdNBNpxQiOIgpZkutre2oX9rdM11");
 
-        SharedPreferences sets1 = getSharedPreferences(LoginActivity.PREFS_NAME, 0); // 0 - for private mode
+        SharedPreferences sets1 = getSharedPreferences(LoginActivity.PREFFS, 0); // 0 - for private mode
         SharedPreferences.Editor editor1 = sets1.edit();
-        //Set "hasLoggedIn" to true
-        editor1.putBoolean("parseStarted", true);
-        // Commit the edits!
-        editor1.commit();
-        startActivity(intent);
-        finish();
+        sets1.edit().clear().commit();
+//        //Set "hasLoggedIn" to true
+//        editor1.putBoolean("parseStarted", true);
+//        // Commit the edits!
+//        editor1.commit();
+//        startActivity(intent);
+//        finish();
     }
 
     @Override
@@ -148,24 +151,25 @@ public class LoginActivity extends FragmentActivity {
                     String userString = mUsername.getText().toString();
                     String passString = mPassword.getText().toString();
 
-                    ParseObject testObject = new ParseObject("SignUpObject");
-                    testObject.put("Username", userString);
-                    testObject.put("Password", passString);
-                    testObject.saveInBackground();
+//                    ParseObject testObject = new ParseObject("SignUpObject");
+//                    testObject.put("Username", userString);
+//                    testObject.put("Password", passString);
+//                    testObject.saveInBackground();
 
                     Intent i = new Intent(getActivity(), GameList.class);
                     startActivity(i);
 
                     // User has successfully logged in, save this information
                     // We need an Editor object to make preference changes.
-                    SharedPreferences sets = getActivity().getSharedPreferences(LoginActivity.PREFS_NAME, 0); // 0 - for private mode
+                    SharedPreferences sets = getActivity().getSharedPreferences(LoginActivity.PREFFS, 0); // 0 - for private mode
                     SharedPreferences.Editor editor = sets.edit();
-                    //Set "hasLoggedIn" to true
-                    editor.putBoolean("hasLoggedIn", true);
-                    // Commit the edits!
-                    editor.commit();
-                    startActivity(intent);
-                    getActivity().finish();
+                    sets.edit().clear().commit();
+//                    //Set "hasLoggedIn" to true
+//                    editor.putBoolean("hasLoggedIn", true);
+//                    // Commit the edits!
+//                    editor.commit();
+//                    startActivity(intent);
+//                    getActivity().finish();
                 }
             });
 

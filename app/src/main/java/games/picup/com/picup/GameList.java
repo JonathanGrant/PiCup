@@ -43,7 +43,15 @@ public class GameList extends Activity {
 //        else {
 //            getGameData("", "", "", 0.0);
 //        }
-        addNewCard();
+        // gets recyclerView
+        mRecyclerView = (RecyclerView) findViewById(R.id.list);
+        // manager for recyclerView
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        // animations for recyclerViews
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        mAdapter = new GameAdapter(GameManager.getInstance().getGamesToPlay(), R.layout.card_view, this);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     private void setUpButton() {
@@ -70,18 +78,6 @@ public class GameList extends Activity {
 //        //Set card in the cardView
 //        CardViewNative cardView = (CardViewNative) findViewById(R.id.carddemo);
 //        cardView.setCard(card);
-    }
-
-    public void addNewCard(){
-        // gets recyclerView
-        mRecyclerView = (RecyclerView) findViewById(R.id.list);
-        // manager for recyclerView
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        // animations for recyclerViews
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        mAdapter = new GameAdapter(GameManager.getInstance().getGamesToPlay(), R.layout.card_view, this);
-        mRecyclerView.setAdapter(mAdapter);
     }
 
 
