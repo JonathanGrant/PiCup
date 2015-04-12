@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -38,6 +40,12 @@ public class LoginActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //font
+        Typeface tp = Typeface.createFromAsset(getAssets(), "Logo.ttf");
+        TextView mit = (TextView) findViewById(R.id.Logz);
+        mit.setTypeface(tp);
+
 //        SharedPreferences settings1 = getSharedPreferences(LoginActivity.PREFFS, 0);
 //        boolean parseInitialized = settings1.getBoolean("parseStarted", false);
 

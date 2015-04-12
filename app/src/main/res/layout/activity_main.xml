@@ -20,7 +20,8 @@
         android:textStyle="bold"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textColor="#fff"/>
+        android:textColor="#fff"
+        android:id="@+id/Logz" />
 
 
     <FrameLayout
