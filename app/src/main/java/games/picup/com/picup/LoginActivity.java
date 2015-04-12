@@ -34,11 +34,8 @@ public class LoginActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SharedPreferences settings1 = getSharedPreferences(LoginActivity.PREFFS, 0);
-        //Get "hasLoggedIn" value. If the value doesn't exist yet false is returned
-        boolean parseInitialized = settings1.getBoolean("parseStarted", false);
-
-        settings1.edit().clear().commit();
+//        SharedPreferences settings1 = getSharedPreferences(LoginActivity.PREFFS, 0);
+//        boolean parseInitialized = settings1.getBoolean("parseStarted", false);
 
 //        if (parseInitialized) {
 //            startParse();
@@ -52,16 +49,16 @@ public class LoginActivity extends FragmentActivity {
         trans.add(R.id.main_container, sign, "User Sign-Up Fragment");
         trans.commit();
 
-//        SharedPreferences settings = getSharedPreferences(LoginActivity.PREFFS, 0);
-//        //Get "hasLoggedIn" value. If the value doesn't exist yet false is returned
-//        boolean hasLoggedIn = settings.getBoolean("hasLoggedIn", false);
-//
-//        intent = new Intent(getApplicationContext(), GameList.class);
-//
-//        if (hasLoggedIn) {
-//            startActivity(intent);
-//            LoginActivity.this.finish();
-//        }
+        SharedPreferences settings = getSharedPreferences(LoginActivity.PREFFS, 0);
+        //Get "hasLoggedIn" value. If the value doesn't exist yet false is returned
+        boolean hasLoggedIn = settings.getBoolean("hasLoggedIn", false);
+
+        intent = new Intent(getApplicationContext(), GameList.class);
+
+        if (hasLoggedIn) {
+            startActivity(intent);
+            LoginActivity.this.finish();
+        }
     }
 
     public void startParse(){
@@ -164,12 +161,12 @@ public class LoginActivity extends FragmentActivity {
                     SharedPreferences sets = getActivity().getSharedPreferences(LoginActivity.PREFFS, 0); // 0 - for private mode
                     SharedPreferences.Editor editor = sets.edit();
                     sets.edit().clear().commit();
-//                    //Set "hasLoggedIn" to true
-//                    editor.putBoolean("hasLoggedIn", true);
-//                    // Commit the edits!
-//                    editor.commit();
-//                    startActivity(intent);
-//                    getActivity().finish();
+                    //Set "hasLoggedIn" to true
+                    editor.putBoolean("hasLoggedIn", true);
+                    // Commit the edits!
+                    editor.commit();
+                    startActivity(intent);
+                    getActivity().finish();
                 }
             });
 

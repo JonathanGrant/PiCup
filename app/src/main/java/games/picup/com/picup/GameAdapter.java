@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
         private List<Game> games;
         private int rowLayout;
         private Context mContext;
+        private static View view;
 
         public GameAdapter(List<Game> games, int rowLayout, Context context) {
 
@@ -30,7 +32,8 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-            View v = LayoutInflater.from(viewGroup.getContext()).inflate(rowLayout, viewGroup, false);
+            final View v = LayoutInflater.from(viewGroup.getContext()).inflate(rowLayout, viewGroup, false);
+
             return new ViewHolder(v);
         }
 
@@ -38,7 +41,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
         public void onBindViewHolder(ViewHolder viewHolder, int i) {
             Game game = games.get(i);
             viewHolder.gameName.setText(game.name);
-//        viewHolder.teaImage.setImageDrawable(mContext.getDrawable(teaImage.getImageResourceId(mContext)));
         }
 
 
@@ -51,10 +53,17 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>{
             public TextView gameName;
             public ImageView teaImage;
 
-
-            public ViewHolder(View itemView) {
+            // Holds all of the cards within the RecyclerView
+            public ViewHolder(final View itemView) {
                 super(itemView);
+                view = itemView;
                 gameName = (TextView) itemView.findViewById(R.id.gameName);
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(itemView.getContext(), "on item click", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
         }

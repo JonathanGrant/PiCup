@@ -3,12 +3,14 @@ package games.picup.com.picup;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * Created by Freddie4 on 4/11/2015.
@@ -48,14 +50,15 @@ public class NewGame extends Activity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(NewGame.this, GameList.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putString("SPORT", setSport());
-//                bundle.putString("LOCATION", setLocation());
-//                bundle.putString("DATE", setDate());
-//                i.putExtras(bundle);
-//                startActivityForResult(i, SECONDARY_ACTIVITY_REQUEST_CODE);
-
-
+                Bundle bundle = new Bundle();
+                bundle.putString("SPORT", setSport());
+                bundle.putString("LOCATION", setLocation());
+                bundle.putString("DATE", setDate());
+                i.putExtras(bundle);
+                startActivityForResult(i, SECONDARY_ACTIVITY_REQUEST_CODE);
+                
+                Toast toast = Toast.makeText(NewGame.this, "New Event Created", Toast.LENGTH_LONG);
+                toast.show();
             }
         });
     }
