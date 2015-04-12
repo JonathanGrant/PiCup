@@ -1,13 +1,14 @@
 package games.picup.com.picup;
 
-import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,12 +18,13 @@ import com.gc.materialdesign.views.Button;
 /**
  * Created by Freddie4 on 4/11/2015.
  */
-public class GameList extends Activity {
+public class GameList extends FragmentActivity {
 
     Toolbar toolbar;
     Button FAB;
     RecyclerView mRecyclerView;
     GameAdapter mAdapter;
+    GameMapFragment map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,13 @@ public class GameList extends Activity {
         toolbar.setTitle("Available Games");
 //        setSupportActionBar(toolbar);
         setUpButton();
+
+        map = new GameMapFragment();
+
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction trans = fm.beginTransaction();
+        trans.add(R.id.container, map, "Map Fragment");
+        trans.commit();
 
         // gets recyclerView
         mRecyclerView = (RecyclerView) findViewById(R.id.list);

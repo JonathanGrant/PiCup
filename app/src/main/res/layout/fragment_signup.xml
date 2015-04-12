@@ -12,6 +12,7 @@
         android:id="@+id/sign_up_button"
         android:gravity="center"
         android:layout_gravity="center_horizontal"
+        android:padding="10dp"
         android:background="@drawable/button_background2"/>
 
 </LinearLayout>
