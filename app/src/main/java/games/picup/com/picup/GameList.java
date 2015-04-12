@@ -12,6 +12,7 @@ import com.gc.materialdesign.views.Button;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardHeader;
+import it.gmariotti.cardslib.library.view.CardView;
 import it.gmariotti.cardslib.library.view.CardViewNative;
 
 /**
@@ -30,6 +31,18 @@ public class GameList extends Activity {
         toolbar.setTitle("Available Games");
 //        setSupportActionBar(toolbar);
         setUpButton();
+        NewGame g1 = new NewGame();
+        Bundle e1 = getIntent().getExtras();
+        if(e1 != null) {
+            String spo = e1.getString("SPORT");
+            String loc = e1.getString("LOCATION");
+            String date = e1.getString("DATE");
+            getGameData(spo, loc, date, 4.6);
+        }
+
+        else {
+            getGameData("", "", "", 0.0);
+        }
     }
 
     private void setUpButton() {
@@ -44,26 +57,18 @@ public class GameList extends Activity {
     }
 
     public void getGameData(String sport, String location, String date, double distance) {
-        final Card card = new Card(getApplicationContext());
+        Card card = new Card(getApplicationContext());
         CardHeader header = new CardHeader(getApplicationContext());
-        if (sport == null || location == null || date == null || distance < 0) {
-            header.setTitle("Sport: " + "\nDate: "
-                    + "\nDistance: ");
-            //Add Header to card
-            card.addCardHeader(header);
-        }
 
-        else {
-            header.setTitle("Sport: " + sport + "\nDate: " + date
-                    + "\nDistance: " + Double.toString(distance) + " mi");
-            //Add Header to card
-            card.addCardHeader(header);
+        header.setTitle("Sport: " + sport + "\nDate: " + date
+                + "\nDistance: " + Double.toString(distance) + " mi");
+        //Add Header to card
+        card.addCardHeader(header);
 
-            card.setTitle("Location: " + location);
-            //Set card in the cardView
-            CardViewNative cardView = (CardViewNative) findViewById(R.id.carddemo);
-            cardView.setCard(card);
-        }
+        card.setTitle("Location: " + location);
+        //Set card in the cardView
+        CardViewNative cardView = (CardViewNative) findViewById(R.id.carddemo);
+        cardView.setCard(card);
     }
 
 

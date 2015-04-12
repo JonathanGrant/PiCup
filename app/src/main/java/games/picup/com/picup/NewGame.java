@@ -47,33 +47,32 @@ public class NewGame extends Activity {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i = new Intent(NewGame.this, GameList.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("SPORT", setSport());
                 bundle.putString("LOCATION", setLocation());
                 bundle.putString("DATE", setDate());
-
-                Intent i = new Intent(NewGame.this, GameList.class);
                 i.putExtras(bundle);
                 startActivityForResult(i, SECONDARY_ACTIVITY_REQUEST_CODE);
             }
         });
     }
 
-    private String setSport() {
+    public String setSport() {
         setSport = (EditText) findViewById(R.id.sport_set);
         String sport = String.valueOf(setSport.getText());
 
         return sport;
     }
 
-    private String setLocation() {
+    public String setLocation() {
         setLocation = (EditText) findViewById(R.id.location_set);
         String location = String.valueOf(setLocation.getText());
 
         return location;
     }
 
-    private String setDate() {
+    public String setDate() {
         setDate = (EditText) findViewById(R.id.date_set);
         String date = String.valueOf(setDate.getText());
 
