@@ -3,17 +3,15 @@ package games.picup.com.picup;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.gc.materialdesign.views.Button;
-
-import it.gmariotti.cardslib.library.internal.Card;
-import it.gmariotti.cardslib.library.internal.CardHeader;
-import it.gmariotti.cardslib.library.view.CardView;
-import it.gmariotti.cardslib.library.view.CardViewNative;
 
 /**
  * Created by Freddie4 on 4/11/2015.
@@ -22,6 +20,8 @@ public class GameList extends Activity {
 
     Toolbar toolbar;
     Button FAB;
+    RecyclerView mRecyclerView;
+    GameAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,18 +31,19 @@ public class GameList extends Activity {
         toolbar.setTitle("Available Games");
 //        setSupportActionBar(toolbar);
         setUpButton();
-        NewGame g1 = new NewGame();
-        Bundle e1 = getIntent().getExtras();
-        if(e1 != null) {
-            String spo = e1.getString("SPORT");
-            String loc = e1.getString("LOCATION");
-            String date = e1.getString("DATE");
-            getGameData(spo, loc, date, 4.6);
-        }
-
-        else {
-            getGameData("", "", "", 0.0);
-        }
+//        NewGame g1 = new NewGame();
+//        Bundle e1 = getIntent().getExtras();
+//        if(e1 != null) {
+//            String spo = e1.getString("SPORT");
+//            String loc = e1.getString("LOCATION");
+//            String date = e1.getString("DATE");
+//            getGameData(spo, loc, date, 4.6);
+//        }
+//
+//        else {
+//            getGameData("", "", "", 0.0);
+//        }
+        addNewCard();
     }
 
     private void setUpButton() {
@@ -57,18 +58,30 @@ public class GameList extends Activity {
     }
 
     public void getGameData(String sport, String location, String date, double distance) {
-        Card card = new Card(getApplicationContext());
-        CardHeader header = new CardHeader(getApplicationContext());
+//        Card card = new Card(getApplicationContext());
+//        CardHeader header = new CardHeader(getApplicationContext());
+//
+//        header.setTitle("Sport: " + sport + "\nDate: " + date
+//                + "\nDistance: " + Double.toString(distance) + " mi");
+//        //Add Header to card
+//        card.addCardHeader(header);
+//
+//        card.setTitle("Location: " + location);
+//        //Set card in the cardView
+//        CardViewNative cardView = (CardViewNative) findViewById(R.id.carddemo);
+//        cardView.setCard(card);
+    }
 
-        header.setTitle("Sport: " + sport + "\nDate: " + date
-                + "\nDistance: " + Double.toString(distance) + " mi");
-        //Add Header to card
-        card.addCardHeader(header);
+    public void addNewCard(){
+        // gets recyclerView
+        mRecyclerView = (RecyclerView) findViewById(R.id.list);
+        // manager for recyclerView
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        // animations for recyclerViews
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        card.setTitle("Location: " + location);
-        //Set card in the cardView
-        CardViewNative cardView = (CardViewNative) findViewById(R.id.carddemo);
-        cardView.setCard(card);
+        mAdapter = new GameAdapter(GameManager.getInstance().getGamesToPlay(), R.layout.card_view, this);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
 
