@@ -8,9 +8,10 @@ import java.util.List;
  */
 public class GameManager {
 
-    private static String[] gamesArray = {"Soccer \nLocation:" + " Boston",
-            "Soccer \nLocation:" + " Boston",
-            "Basketball \nLocation:" + " Cambridge",
+    private static String[] gamesArray = {"Post-HackUMass Soccer! " +
+            "18/22 Players\nRudd Field, UMass Amherst, MA 01002\n April 12th, 9:30pm",
+            "Make Zlatan Jealous (Soccer) 10/48 Players\nHampshire College Soccer Field, Amherst, MA 01002\nApril 15th, 4:00am",
+            "Sweet Hoops Basketball... Totally Chill  11/15 Players\n Boyden Gym, UMass Amherst, MA 01003\n April 16th, 2015 7:25pm",
             "Street Hockey \nLocation:" + " Malden",
             "Soccer \nLocation:" + " Medford" ,
             "Ultimate Frisbee \nLocation:" + " Somerville"};
