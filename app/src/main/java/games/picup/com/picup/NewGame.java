@@ -55,8 +55,9 @@ public class NewGame extends Activity {
                 bundle.putString("LOCATION", setLocation());
                 bundle.putString("DATE", setDate());
                 i.putExtras(bundle);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivityForResult(i, SECONDARY_ACTIVITY_REQUEST_CODE);
-                
+
                 Toast toast = Toast.makeText(NewGame.this, "New Event Created", Toast.LENGTH_LONG);
                 toast.show();
             }

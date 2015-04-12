@@ -110,7 +110,7 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback {
                         .add(new LatLng(42.375660, -72.536554)) // top left
                         .fillColor(Color.RED)
         );
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(42.375660, -72.536554), 17.0f));
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(42.375660, -72.536554), 15.0f));
     }
 
     public void onBostonSoccerOne(){
