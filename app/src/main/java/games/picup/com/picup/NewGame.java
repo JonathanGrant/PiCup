@@ -1,6 +1,7 @@
 package games.picup.com.picup;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -18,12 +19,17 @@ public class NewGame extends Activity {
     EditText setSport;
     EditText setLocation;
     EditText setDate;
+    private final int SECONDARY_ACTIVITY_REQUEST_CODE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creategame);
         setToolbar();
+        setSport();
+        setLocation();
+        setDate();
+        pushButton();
     }
 
     private void setToolbar() {
@@ -41,8 +47,14 @@ public class NewGame extends Activity {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameList gl = new GameList();
-                gl.getGameData(setSport(), setLocation(), setDate(), 4.6);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("SPORT", setSport());
+//                bundle.putString("LOCATION", setLocation());
+//                bundle.putString("DATE", setDate());
+//
+//                Intent i = new Intent(NewGame.this, GameList.class);
+//                i.putExtras(bundle);
+//                startActivityForResult(i, SECONDARY_ACTIVITY_REQUEST_CODE);
             }
         });
     }

@@ -26,7 +26,6 @@ public class GameList extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_games_list);
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Available Games");
 //        setSupportActionBar(toolbar);
