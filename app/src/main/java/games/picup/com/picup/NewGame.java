@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 /**
@@ -23,11 +24,6 @@ public class NewGame extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creategame);
         setToolbar();
-
-        setSport = (EditText) findViewById(R.id.sport_set);
-        setLocation = (EditText) findViewById(R.id.location_set);
-        setDate = (EditText) findViewById(R.id.date_set);
-
     }
 
     private void setToolbar() {
@@ -36,33 +32,37 @@ public class NewGame extends Activity {
             //setSupportActionBar(toolbar);
             //toolbar.setNavigationIcon(R.drawable.ic_action_back);
             toolbar.setTitle("Create New Game");
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onBackPressed();
-                    GameList gl = new GameList();
-                    gl.getGameData(setSport(), setLocation(), setDate(), 4.6);
-                }
-            });
         }
     }
 
-    public String setSport() {
+    private void pushButton() {
+        Button b1 = (Button) findViewById(R.id.enter);
 
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GameList gl = new GameList();
+                gl.getGameData(setSport(), setLocation(), setDate(), 4.6);
+            }
+        });
+    }
+
+    private String setSport() {
+        setSport = (EditText) findViewById(R.id.sport_set);
         String sport = String.valueOf(setSport.getText());
 
         return sport;
     }
 
-    public String setLocation() {
-
-
+    private String setLocation() {
+        setLocation = (EditText) findViewById(R.id.location_set);
         String location = String.valueOf(setLocation.getText());
+
         return location;
     }
 
-    public String setDate() {
-
+    private String setDate() {
+        setDate = (EditText) findViewById(R.id.date_set);
         String date = String.valueOf(setDate.getText());
 
         return date;

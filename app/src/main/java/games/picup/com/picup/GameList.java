@@ -32,8 +32,6 @@ public class GameList extends Activity {
 //        setSupportActionBar(toolbar);
         setUpButton();
 
-        NewGame g1 = new NewGame();
-        getGameData(g1.setSport(), g1.setLocation(), g1.setDate(), 4.6);
     }
 
     private void setUpButton() {
