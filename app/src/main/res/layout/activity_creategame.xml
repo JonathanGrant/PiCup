@@ -49,7 +49,10 @@
         android:text="Enter"
         android:layout_below="@+id/user_input"
         android:layout_centerHorizontal="true"
-        android:id="@+id/enter" />
+        android:layout_marginTop="10dp"
+        android:textColor="#fff"
+        android:id="@+id/enter"
+        android:background="@drawable/button_background1"/>
 
 
 </RelativeLayout>

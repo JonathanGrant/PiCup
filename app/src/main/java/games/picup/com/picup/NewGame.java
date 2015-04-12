@@ -48,12 +48,14 @@ public class NewGame extends Activity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(NewGame.this, GameList.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("SPORT", setSport());
-                bundle.putString("LOCATION", setLocation());
-                bundle.putString("DATE", setDate());
-                i.putExtras(bundle);
-                startActivityForResult(i, SECONDARY_ACTIVITY_REQUEST_CODE);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("SPORT", setSport());
+//                bundle.putString("LOCATION", setLocation());
+//                bundle.putString("DATE", setDate());
+//                i.putExtras(bundle);
+//                startActivityForResult(i, SECONDARY_ACTIVITY_REQUEST_CODE);
+
+
             }
         });
     }
