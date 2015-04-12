@@ -1,26 +1,32 @@
 package games.picup.com.picup;
 
 import android.app.Activity;
-
-/**
- * Created by Freddie4 on 4/11/2015.
- */
-import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
+/**
+ * Created by Freddie4 on 4/11/2015.
+ */
 
 public class CreateGameActivity extends Activity {
+
+    EditText setSport;
+    EditText setLocation;
+    EditText setDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creategame);
         setToolbar();
+
+        GameList gl = new GameList();
+        gl.getGameData(setSport(), setLocation(), setDate(), 4.6);
+
     }
 
     private void setToolbar() {
@@ -28,14 +34,37 @@ public class CreateGameActivity extends Activity {
         if (toolbar != null) {
             //setSupportActionBar(toolbar);
             //toolbar.setNavigationIcon(R.drawable.ic_action_back);
-            toolbar.setTitle("Create Game");
+            toolbar.setTitle("Create New Game");
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     onBackPressed();
+                    GameList gl = new GameList();
+                    gl.getGameData(setSport(), setLocation(), setDate(), 4.6);
                 }
             });
         }
+    }
+
+    private String setSport() {
+        setSport = (EditText) findViewById(R.id.sport_set);
+        String sport = String.valueOf(setSport.getText());
+
+        return sport;
+    }
+
+    private String setLocation() {
+        setLocation = (EditText) findViewById(R.id.location_set);
+        String location = String.valueOf(setLocation.getText());
+
+        return location;
+    }
+
+    private String setDate() {
+        setDate = (EditText) findViewById(R.id.date_set);
+        String date = String.valueOf(setDate.getText());
+
+        return date;
     }
 
 

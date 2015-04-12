@@ -4,26 +4,20 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.gc.materialdesign.views.Button;
 
 import it.gmariotti.cardslib.library.internal.Card;
-import it.gmariotti.cardslib.library.internal.CardExpand;
 import it.gmariotti.cardslib.library.internal.CardHeader;
-import it.gmariotti.cardslib.library.internal.ViewToClickToExpand;
 import it.gmariotti.cardslib.library.view.CardViewNative;
 
 /**
  * Created by Freddie4 on 4/11/2015.
  */
-public class GameListActivity extends Activity {
+public class GameList extends Activity {
 
     Toolbar toolbar;
     Button FAB;
@@ -37,8 +31,6 @@ public class GameListActivity extends Activity {
         toolbar.setTitle("Available Games");
 //        setSupportActionBar(toolbar);
         setUpButton();
-        getGameData("Soccer", "Boston", "4/11/2015", 0.0);
-
     }
 
     private void setUpButton() {
@@ -46,7 +38,7 @@ public class GameListActivity extends Activity {
         FAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(GameListActivity.this, LoginActivity.class);
+                Intent i = new Intent(GameList.this, CreateGameActivity.class);
                 startActivity(i);
             }
         });
