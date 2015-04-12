@@ -5,7 +5,7 @@
         android:layout_width="100dp"
         android:layout_height="75dp"
         android:color="#FF404040" />
-    <corners android:radius="20dp" />
+    <corners android:radius="5dp" />
     <gradient
         android:startColor="#d25353"
         android:centerColor="#bf0a0a"
