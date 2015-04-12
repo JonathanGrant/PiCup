@@ -3,7 +3,7 @@
 
 ## Motivation
 
-This Android Mobile app was made for [Hack UMass II](www.hackumass.com]
+This Android Mobile app was made for [Hack UMass II](www.hackumass.com)
 
 ## Collaborators
 
