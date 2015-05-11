@@ -49,21 +49,16 @@ public class NewGame extends Activity {
 
     private void addQuote(){
         try {
-            StringBuilder buf=new StringBuilder();
             InputStream json=getAssets().open("FootballQuotes.json");
-            BufferedReader in=
-                    new BufferedReader(new InputStreamReader(json, "UTF-8"));
-
-            int count = 0;
-            while ((str[count]=in.readLine()) != null) {
-                buf.append(str);
-                count++;
+            Scanner inz = new Scanner(json);
+            for(int i = 0; i<8; i++){
+                str[i] = inz.nextLine();
             }
-            in.close();
+            inz.close();
             //end of file i/o and reading
             //now change text view
             TextView t1 = (TextView)findViewById(R.id.quoter);
-            int num = (int)Math.random()*10;
+            int num = (int)(Math.random()*8);
             t1.setText(str[num]);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
