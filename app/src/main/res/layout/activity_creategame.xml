@@ -55,15 +55,17 @@
         android:background="@drawable/button_background1"/>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
         android:id="@+id/quoter"
         android:textColor="#000"
         android:textStyle="italic"
         android:text="Cannot Load Quote"
-        android:layout_above="@+id/user_input"
-        android:layout_below="@+id/toolbar"
-        android:layout_alignParentEnd="false" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/enter" />
 
 
 </RelativeLayout>
