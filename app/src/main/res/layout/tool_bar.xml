@@ -6,4 +6,6 @@
     android:elevation="2dp"
     android:background="@color/colorRed"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    app:theme="@style/myStyle" />
+    app:theme="@style/myStyle"
+
+    />
