@@ -10,7 +10,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.Scanner;
 
 /**
  * Authors: FreddieV4 & JonathanGrant
@@ -23,6 +33,7 @@ public class NewGame extends Activity {
     EditText setLocation;
     EditText setDate;
     private final int SECONDARY_ACTIVITY_REQUEST_CODE = 0;
+    String[] str = new String[10];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +44,34 @@ public class NewGame extends Activity {
         setLocation();
         setDate();
         pushButton();
+        addQuote();
+    }
+
+    private void addQuote(){
+        try {
+            StringBuilder buf=new StringBuilder();
+            InputStream json=getAssets().open("FootballQuotes.json");
+            BufferedReader in=
+                    new BufferedReader(new InputStreamReader(json, "UTF-8"));
+
+            int count = 0;
+            while ((str[count]=in.readLine()) != null) {
+                buf.append(str);
+                count++;
+            }
+            in.close();
+            //end of file i/o and reading
+            //now change text view
+            TextView t1 = (TextView)findViewById(R.id.quoter);
+            int num = (int)Math.random()*10;
+            t1.setText(str[num]);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void setToolbar() {
