@@ -3,6 +3,7 @@ package games.picup.com.picup;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.graphics.Color;
 import android.net.Uri;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.gc.materialdesign.views.Button;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -39,6 +41,7 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
     GameAdapter mAdapter;
     MapFragment map;
     private static double[] latlon = {0.0,0.0};
+    private final int SECONDARY_ACTIVITY_REQUEST_CODE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +71,37 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
 
 //        bundles();
         map.getMapAsync(this);
+        addLogOutButton();
+    }
+
+    public void addLogOutButton(){
+        android.widget.Button b1 = (android.widget.Button) findViewById(R.id.logout);
+
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(GameList.this, LoginActivity.class);
+
+                //now log out
+                logOut();
+
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivityForResult(i, SECONDARY_ACTIVITY_REQUEST_CODE);
+
+                Toast toast = Toast.makeText(GameList.this, "Successfully Logged Out Bro", Toast.LENGTH_LONG);
+                toast.show();
+            }
+        });
+    }
+
+    public void logOut(){
+        SharedPreferences sets = getSharedPreferences(LoginActivity.PREFFS, 0); // 0 - for private mode
+        SharedPreferences.Editor editor = sets.edit();
+        sets.edit().clear().commit();
+        //Set "hasLoggedIn" to true
+        editor.putBoolean("hasLoggedIn", false);
+        // Commit the edits!
+        editor.commit();
     }
 
     private void setUpButton() {
