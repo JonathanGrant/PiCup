@@ -46,6 +46,27 @@ public class NewGame extends Activity {
         setDate();
         pushButton();
         addQuote();
+        addLogOutButton();
+    }
+
+    private void addLogOutButton(){
+        Button b1 = (Button) findViewById(R.id.logout);
+
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(NewGame.this, LoginActivity.class);
+
+                //now log out
+                
+
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivityForResult(i, SECONDARY_ACTIVITY_REQUEST_CODE);
+
+                Toast toast = Toast.makeText(NewGame.this, "Successfully Logged Out Bro", Toast.LENGTH_LONG);
+                toast.show();
+            }
+        });
     }
 
     private void addQuote(){
