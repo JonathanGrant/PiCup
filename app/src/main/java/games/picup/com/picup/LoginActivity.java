@@ -45,6 +45,7 @@ public class LoginActivity extends FragmentActivity {
         Typeface tp = Typeface.createFromAsset(getAssets(), "Logo.ttf");
         TextView mit = (TextView) findViewById(R.id.Logz);
         mit.setTypeface(tp);
+        mit.setTextSize(100);
 
 //        SharedPreferences settings1 = getSharedPreferences(LoginActivity.PREFFS, 0);
 //        boolean parseInitialized = settings1.getBoolean("parseStarted", false);
