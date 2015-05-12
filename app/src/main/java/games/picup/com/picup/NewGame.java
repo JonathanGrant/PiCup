@@ -2,6 +2,7 @@ package games.picup.com.picup;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.Toolbar;
@@ -49,7 +50,7 @@ public class NewGame extends Activity {
         addLogOutButton();
     }
 
-    private void addLogOutButton(){
+    public void addLogOutButton(){
         Button b1 = (Button) findViewById(R.id.logout);
 
         b1.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +59,7 @@ public class NewGame extends Activity {
                 Intent i = new Intent(NewGame.this, LoginActivity.class);
 
                 //now log out
-                
+                logOut();
 
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivityForResult(i, SECONDARY_ACTIVITY_REQUEST_CODE);
@@ -67,6 +68,16 @@ public class NewGame extends Activity {
                 toast.show();
             }
         });
+    }
+
+    public void logOut(){
+        SharedPreferences sets = getSharedPreferences(LoginActivity.PREFFS, 0); // 0 - for private mode
+        SharedPreferences.Editor editor = sets.edit();
+        sets.edit().clear().commit();
+        //Set "hasLoggedIn" to true
+        editor.putBoolean("hasLoggedIn", false);
+        // Commit the edits!
+        editor.commit();
     }
 
     private void addQuote(){
