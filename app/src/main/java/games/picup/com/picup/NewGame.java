@@ -34,7 +34,7 @@ public class NewGame extends Activity {
     EditText setLocation;
     EditText setDate;
     private final int SECONDARY_ACTIVITY_REQUEST_CODE = 0;
-    public int numQuotes = 27;
+    public int numQuotes = 28;
     String[] str = new String[numQuotes];
 
     @Override
