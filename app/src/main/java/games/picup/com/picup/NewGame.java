@@ -33,7 +33,8 @@ public class NewGame extends Activity {
     EditText setLocation;
     EditText setDate;
     private final int SECONDARY_ACTIVITY_REQUEST_CODE = 0;
-    String[] str = new String[10];
+    public int numQuotes = 27;
+    String[] str = new String[numQuotes];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +52,14 @@ public class NewGame extends Activity {
         try {
             InputStream json=getAssets().open("FootballQuotes.json");
             Scanner inz = new Scanner(json);
-            for(int i = 0; i<8; i++){
+            for(int i = 0; i<numQuotes; i++){
                 str[i] = inz.nextLine();
             }
             inz.close();
             //end of file i/o and reading
             //now change text view
             TextView t1 = (TextView)findViewById(R.id.quoter);
-            int num = (int)(Math.random()*8);
+            int num = (int)(Math.random()*numQuotes);
             t1.setText(str[num]);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
