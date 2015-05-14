@@ -3,6 +3,7 @@ package games.picup.com.picup;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -16,9 +17,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
+
+import java.text.ParseException;
 
 /**
  * Authors: FreddieV4 & JonathanGrant
@@ -32,6 +38,7 @@ public class LoginActivity extends FragmentActivity {
     private static SignUpFragment sign;
     private static UserSignUpInfoFragment info;
     static Intent intent;
+    public static Toast toast;
 
     //Give your SharedPreferences file a name and save it to a static variable
     public static final String PREFFS = "LePrefs";
@@ -55,6 +62,8 @@ public class LoginActivity extends FragmentActivity {
 //            LoginActivity.this.finish();
 //        }
 
+        toast = Toast.makeText(getApplicationContext(), "Sign Up Failed", Toast.LENGTH_LONG);
+
         sign = new SignUpFragment();
 
         FragmentManager fm = getFragmentManager();
@@ -75,11 +84,11 @@ public class LoginActivity extends FragmentActivity {
     }
 
     public void startParse(){
+        ParseObject.registerSubclass(ParseUser.class);
         // Enable Local Datastore.
         Parse.enableLocalDatastore(this);
 
-        Parse.initialize(this, "AtjKLzP4q82ZmSNblvvsMt7mgyohcklLb8ryiMnR", "huX8xweyhhBZKdNBNpxQiOIgpZkutre2oX9rdM11");
-
+        Parse.initialize(this, "B4rIuWBWbeVaHrdtdnUZcC5ziI2cqAm1ZneexOXy", "mcGiMCshfXbCH29AXXiiK7lU9KBxrCRb0r00psWB");
         SharedPreferences sets1 = getSharedPreferences(LoginActivity.PREFFS, 0); // 0 - for private mode
         SharedPreferences.Editor editor1 = sets1.edit();
         sets1.edit().clear().commit();
@@ -125,7 +134,6 @@ public class LoginActivity extends FragmentActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_signup, container, false);
-//            Parse.initialize(getActivity(), "yzyZoFIKPhTU9yOrC6ZcNOxoemEhL35ldYQM6UzR", "arrposL9cr9UAem4aGikI2Ts2FYfhGT8jaZ6xLXh");
 
             mSignUpButton = (Button) view.findViewById(R.id.sign_up_button);
 
@@ -161,25 +169,43 @@ public class LoginActivity extends FragmentActivity {
                     String userString = mUsername.getText().toString();
                     String passString = mPassword.getText().toString();
 
-//                    ParseObject testObject = new ParseObject("SignUpObject");
-//                    testObject.put("Username", userString);
-//                    testObject.put("Password", passString);
-//                    testObject.saveInBackground();
+                    //create Parse User
+                    ParseObject.registerSubclass(ParseUser.class);
+                    ParseUser user = new ParseUser();
+                    user.setUsername(userString);
+                    //user.setEmail() no email functionality yet... needs to be added
+                    user.setPassword(passString);
 
-                    Intent i = new Intent(getActivity(), GameList.class);
-                    startActivity(i);
+                    //create account in database
+                    Parse.initialize(getActivity(), "B4rIuWBWbeVaHrdtdnUZcC5ziI2cqAm1ZneexOXy", "mcGiMCshfXbCH29AXXiiK7lU9KBxrCRb0r00psWB");
+                    user.signUpInBackground(new SignUpCallback() {
+                        public void done(com.parse.ParseException e) {
+                            if (e == null) {
+                                // Hooray! Let them use the app now.
+                                Intent i = new Intent(getActivity(), GameList.class);
+                                startActivity(i);
 
-                    // User has successfully logged in, save this information
-                    // We need an Editor object to make preference changes.
-                    SharedPreferences sets = getActivity().getSharedPreferences(LoginActivity.PREFFS, 0); // 0 - for private mode
-                    SharedPreferences.Editor editor = sets.edit();
-                    sets.edit().clear().commit();
-                    //Set "hasLoggedIn" to true
-                    editor.putBoolean("hasLoggedIn", true);
-                    // Commit the edits!
-                    editor.commit();
-                    startActivity(intent);
-                    getActivity().finish();
+                                // User has successfully logged in, save this information
+                                // We need an Editor object to make preference changes.
+                                SharedPreferences sets = getActivity().getSharedPreferences(LoginActivity.PREFFS, 0); // 0 - for private mode
+                                SharedPreferences.Editor editor = sets.edit();
+                                sets.edit().clear().commit();
+                                //Set "hasLoggedIn" to true
+                                editor.putBoolean("hasLoggedIn", true);
+                                // Commit the edits!
+                                editor.commit();
+                                startActivity(intent);
+                                getActivity().finish();
+
+                                toast.setText("Created Account!");
+                                toast.show();
+                            } else {
+                                // Sign up didn't succeed. Look at the ParseException
+                                // to figure out what went wrong
+                                toast.show();
+                            }
+                        }
+                    });
                 }
             });
 
