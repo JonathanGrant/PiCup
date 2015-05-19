@@ -12,7 +12,8 @@ import android.widget.TextView;
 public class showGameDetails extends ActionBarActivity {
 
     public static int gameID = 0;
-    private String game;
+    private String gameName = "Unable To Load Game's Name";
+    public Game game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +21,8 @@ public class showGameDetails extends ActionBarActivity {
         setContentView(R.layout.activity_show_game_details);
         //setToolbar();
         setTitleText();
-        game = GameManager.gamesArray[gameID];
+        game = GameManager.getGameById(gameID);
+        gameName = game.name;
     }
 
     private void setToolbar() {
@@ -28,13 +30,13 @@ public class showGameDetails extends ActionBarActivity {
         if (toolbar != null) {
             //setSupportActionBar(toolbar);
             //toolbar.setNavigationIcon(R.drawable.ic_action_back);
-            toolbar.setTitle(game);
+            toolbar.setTitle(gameName);
         }
     }
 
     public void setTitleText(){
         TextView title = (TextView) findViewById(R.id.gameName);
-        title.setText("Super Power");
+        title.setText(gameName);
     }
 
     @Override

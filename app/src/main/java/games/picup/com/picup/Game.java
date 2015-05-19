@@ -2,6 +2,7 @@ package games.picup.com.picup;
 
 import android.content.Context;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -11,8 +12,10 @@ public class Game {
     public String name;
     public String description;
     public String Location;
-    public Date date;
+    public Calendar date;
     public int time; //in the 24hr format, ex: 13:45
+    public int committedPlayers;
+    public int totalPlayers;
 
 
     public int getImageResourceId(Context context) {

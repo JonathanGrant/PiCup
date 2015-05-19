@@ -1,7 +1,9 @@
 package games.picup.com.picup;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Date;
 
 /**
  * Authors: FreddieV4 & JonathanGrant
@@ -18,7 +20,7 @@ public class GameManager {
             "Ultimate Frisbee \nLocation:" + " Somerville"};
 
     private static GameManager mInstance;
-    private List<Game> gamesToPlay;
+    private static List<Game> gamesToPlay;
 
     public static GameManager getInstance() {
         if (mInstance == null) {
@@ -36,14 +38,20 @@ public class GameManager {
             for (String gamesName : gamesArray) {
                 Game game1 = new Game();
                 game1.name = gamesName;
+                game1.date = Calendar.getInstance();
+                game1.committedPlayers = 14;
+                game1.totalPlayers = 22; //should I allow subs?
+                game1.description = "Alright faggots. We're going to play a world-class 11v11. No noobs. Bring both a white and dark shirt, and a ball. Messi, if you go, bring your fucking pump this time!";
+                game1.Location = "Heritage Oaks Park, Los Altos, CA";
+                game1.time = 1730;
                 gamesToPlay.add(game1);
             }
         }
         return gamesToPlay;
     }
 
-    public Game getGameById(int id){
-        List<Game> gameList = getGamesToPlay();
+    public static Game getGameById(int id){
+        List<Game> gameList = gamesToPlay;
         return gameList.get(id);
     }
 }
