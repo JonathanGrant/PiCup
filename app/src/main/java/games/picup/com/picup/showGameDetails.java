@@ -25,14 +25,14 @@ public class showGameDetails extends ActionBarActivity {
         gameName = game.name;
     }
 
-    private void setToolbar() {
+    /*private void setToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             //setSupportActionBar(toolbar);
             //toolbar.setNavigationIcon(R.drawable.ic_action_back);
             toolbar.setTitle(gameName);
         }
-    }
+    }*/
 
     public void setTitleText(){
         TextView title = (TextView) findViewById(R.id.gameName);
