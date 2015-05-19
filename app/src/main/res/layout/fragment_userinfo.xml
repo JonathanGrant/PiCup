@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:hint="Username"
+        android:hint="USC Email"
         android:ems="10"
         android:id="@+id/username"
         android:layout_gravity="center_horizontal"
