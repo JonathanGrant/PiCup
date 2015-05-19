@@ -2,6 +2,7 @@ package games.picup.com.picup;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -41,12 +42,14 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
     GameAdapter mAdapter;
     MapFragment map;
     private static double[] latlon = {0.0,0.0};
+    public static Context context;
     private final int SECONDARY_ACTIVITY_REQUEST_CODE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_games_list);
+        context = getApplicationContext();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Available Games");
 //        setSupportActionBar(toolbar);
@@ -113,6 +116,14 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
                 startActivity(i);
             }
         });
+    }
+
+    public void toGame(int gameID){
+        Log.println(1,"debugz","0");
+        //set id as the selected ID
+        showGameDetails.gameID = gameID;
+        Intent i = new Intent(GameList.this, showGameDetails.class);
+        startActivity(i);
     }
 
     private void bundles() {

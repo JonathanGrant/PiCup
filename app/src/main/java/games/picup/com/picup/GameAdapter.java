@@ -1,8 +1,10 @@
 package games.picup.com.picup;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +18,7 @@ import java.util.List;
  * Authors: FreddieV4 & JonathanGrant
  * Purpose: Hack UMass II (Apr. 11-12th, 2015)
  */
-public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> implements  View.OnLongClickListener {
+public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> implements  View.OnLongClickListener, View.OnClickListener {
     public TextView gameName;
 
     //        public ImageView teaImage;
@@ -39,8 +41,13 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
         // Set the view to the ViewHolder
         ViewHolder holder = new ViewHolder(v);
         holder.gameName.setOnLongClickListener(GameAdapter.this);
+        Log.println(1, "debugz", "3");
+        holder.gameName.setOnClickListener(GameAdapter.this);
         holder.gameName.setTag(holder);
         return holder;
+    }
+    public void onClick(View v) {
+        Log.println(1, "debugz", "2");
     }
 
     @Override
@@ -51,6 +58,10 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
             @Override
             public void onClick(View view) {
                 Toast.makeText(mContext, "Event #" + ((int) (viewHolder.getPosition()+1)), Toast.LENGTH_SHORT).show();
+                //set id as the selected ID
+                showGameDetails.gameID = ((int) (viewHolder.getPosition()));
+                Intent i = new Intent(GameList.context, showGameDetails.class);
+                mContext.startActivity(i);
             }
         });
     }

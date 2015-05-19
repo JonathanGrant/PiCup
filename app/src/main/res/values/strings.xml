@@ -2,4 +2,6 @@
     <string name="app_name">PiCup</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_show_game">showGame</string>
+    <string name="title_activity_show_game_details">showGameDetails</string>
 </resources>
