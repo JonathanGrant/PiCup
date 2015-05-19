@@ -2,12 +2,17 @@ package games.picup.com.picup;
 
 import android.content.Context;
 
+import java.util.Date;
+
 /**
  * Created by Freddie4 on 4/12/2015.
  */
 public class Game {
     public String name;
     public String description;
+    public String Location;
+    public Date date;
+    public int time; //in the 24hr format, ex: 13:45
 
 
     public int getImageResourceId(Context context) {

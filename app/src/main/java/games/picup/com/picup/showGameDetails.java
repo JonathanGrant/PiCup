@@ -2,6 +2,7 @@ package games.picup.com.picup;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,12 +12,24 @@ import android.widget.TextView;
 public class showGameDetails extends ActionBarActivity {
 
     public static int gameID = 0;
+    private String game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_game_details);
+        //setToolbar();
         setTitleText();
+        game = GameManager.gamesArray[gameID];
+    }
+
+    private void setToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            //setSupportActionBar(toolbar);
+            //toolbar.setNavigationIcon(R.drawable.ic_action_back);
+            toolbar.setTitle(game);
+        }
     }
 
     public void setTitleText(){
