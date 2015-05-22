@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 
@@ -26,15 +27,20 @@ public class showGameDetails extends Activity {
     }
 
     private void setToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            //setSupportActionBar(toolbar);
-            //toolbar.setNavigationIcon(R.drawable.ic_action_back);
-            toolbar.setTitle(gameName);
-        }
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarshow);
+        //setSupportActionBar(toolbar);
+        //toolbar.setNavigationIcon(R.drawable.ic_action_back);
+        toolbar.setTitle(gameName);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_undobar_undo));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
-    public void setTitleText(){
+    public void setTitleText() {
         TextView title = (TextView) findViewById(R.id.gameName);
         title.setText(gameName);
     }
