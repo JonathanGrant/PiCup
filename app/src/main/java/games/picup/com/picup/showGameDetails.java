@@ -1,6 +1,6 @@
 package games.picup.com.picup;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 
-public class showGameDetails extends ActionBarActivity {
+public class showGameDetails extends Activity {
 
     public static int gameID = 0;
     private String gameName = "Unable To Load Game's Name";
@@ -19,20 +19,20 @@ public class showGameDetails extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_game_details);
-        //setToolbar();
+        setToolbar();
         setTitleText();
         game = GameManager.getGameById(gameID);
         gameName = game.name;
     }
 
-    /*private void setToolbar() {
+    private void setToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             //setSupportActionBar(toolbar);
             //toolbar.setNavigationIcon(R.drawable.ic_action_back);
             toolbar.setTitle(gameName);
         }
-    }*/
+    }
 
     public void setTitleText(){
         TextView title = (TextView) findViewById(R.id.gameName);

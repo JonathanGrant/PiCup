@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -9,63 +10,63 @@
         layout="@layout/tool_bar"></include>
 
     <LinearLayout
+        android:id="@+id/user_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:id="@+id/user_input"
-        android:orientation="horizontal"
-        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Set sport"
             android:id="@+id/sport_set"
-            android:padding="10dp"
-            android:layout_marginRight="10dp" />
-
-        <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Set location"
-            android:id="@+id/location_set"
-            android:padding="10dp"
-            android:layout_marginRight="10dp" />
+            android:layout_marginRight="10dp"
+            android:hint="Set sport"
+            android:padding="10dp" />
 
         <EditText
+            android:id="@+id/location_set"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:hint="Set location"
+            android:padding="10dp" />
+
+        <EditText
+            android:id="@+id/date_set"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Set date"
-            android:id="@+id/date_set"
             android:padding="10dp" />
 
     </LinearLayout>
 
     <Button
+        android:id="@+id/enter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enter"
         android:layout_below="@+id/user_input"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:textColor="#fff"
-        android:id="@+id/enter"
-        android:background="@drawable/button_background1"/>
+        android:background="@drawable/button_background1"
+        android:text="Enter"
+        android:textColor="#fff" />
 
     <TextView
+        android:id="@+id/quoter"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:gravity="center"
-        android:id="@+id/quoter"
-        android:textColor="#000"
-        android:textStyle="italic"
-        android:text="Cannot Load Quote"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/enter" />
+        android:layout_below="@+id/enter"
+        android:gravity="center"
+        android:text="Cannot Load Quote"
+        android:textColor="#000"
+        android:textStyle="italic" />
 
 
 </RelativeLayout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:elevation="2dp"
+    android:background="@color/colorRed"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    app:theme="@style/myStyle">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Back"
+        android:layout_below="@+id/user_input"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:textColor="#fff"
+        android:id="@+id/back_button_show"
+        android:background="@drawable/button_background1"
+        android:layout_gravity="left"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/" />
+
+</android.support.v7.widget.Toolbar>
