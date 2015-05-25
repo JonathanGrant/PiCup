@@ -2,6 +2,7 @@ package games.picup.com.picup;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.telephony.SmsManager;
@@ -127,6 +128,56 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
         viewHolder.gameName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(mContext, "Event #" + ((int) (viewHolder.getPosition() + 1)), Toast.LENGTH_SHORT).show();
+                //set id as the selected ID
+                showGameDetails.gameID = game.id;
+                Intent i = new Intent(GameList.context, showGameDetails.class);
+                Bundle b = new Bundle();
+                ArrayList<String> l = new ArrayList<String>();
+                l.add(game.name);
+                l.add(game.date + "");
+                l.add(game.time + "");
+                l.add(game.Location);
+                l.add(game.committedPlayers + "");
+                l.add(game.totalPlayers + "");
+                l.add(game.description);
+                b.putStringArrayList("gamedata", l);
+                i.putExtras(b);
+                mContext.startActivity(i);
+            }
+        });
+        viewHolder.gameDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(mContext, "Event #" + ((int) (viewHolder.getPosition() + 1)), Toast.LENGTH_SHORT).show();
+                //set id as the selected ID
+                showGameDetails.gameID = game.id;
+                Intent i = new Intent(GameList.context, showGameDetails.class);
+                Bundle b = new Bundle();
+                ArrayList<String> l = new ArrayList<String>();
+                l.add(game.name);
+                l.add(game.date + "");
+                l.add(game.time + "");
+                l.add(game.Location);
+                l.add(game.committedPlayers + "");
+                l.add(game.totalPlayers + "");
+                l.add(game.description);
+                b.putStringArrayList("gamedata", l);
+                i.putExtras(b);
+                mContext.startActivity(i);
+            }
+        });
+        viewHolder.gameLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //change highlighted location
+                //Location l = new Location();
+                //onLocationChanged()
+            }
+        });
+        viewHolder.gamePlayers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Toast.makeText(mContext, "Event #" + ((int) (viewHolder.getPosition()+1)), Toast.LENGTH_SHORT).show();
                 //set id as the selected ID
                 showGameDetails.gameID = game.id;
@@ -147,6 +198,9 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
         });
     }
 
+    public void onClickListner(){
+
+    }
 
     @Override
     public int getItemCount() {

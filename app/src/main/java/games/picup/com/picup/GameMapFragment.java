@@ -28,7 +28,7 @@ public class GameMapFragment extends Fragment implements OnMapReadyCallback, Loc
 
     MapView mapView;
     GoogleMap googleMap;
-    private LocationManager locationManager;
+    public LocationManager locationManager;
     private static final long MIN_TIME = 400;
     private static final float MIN_DISTANCE = 1000;
 
