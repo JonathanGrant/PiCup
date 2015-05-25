@@ -61,7 +61,8 @@
             android:layout_height="wrap_content"
             android:background="#1E88E5"
             android:text="PLAY"
-            android:textColor="#fff"/>
+            android:textColor="#fff"
+            android:id="@+id/playButton"/>
     </LinearLayout>
 
 </RelativeLayout>

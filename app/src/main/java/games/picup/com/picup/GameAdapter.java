@@ -128,7 +128,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
         viewHolder.gameName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "Event #" + ((int) (viewHolder.getPosition() + 1)), Toast.LENGTH_SHORT).show();
                 //set id as the selected ID
                 showGameDetails.gameID = game.id;
                 Intent i = new Intent(GameList.context, showGameDetails.class);
@@ -148,7 +147,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
         viewHolder.gameDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "Event #" + ((int) (viewHolder.getPosition() + 1)), Toast.LENGTH_SHORT).show();
                 //set id as the selected ID
                 showGameDetails.gameID = game.id;
                 Intent i = new Intent(GameList.context, showGameDetails.class);
@@ -176,7 +174,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
         viewHolder.gamePlayers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "Event #" + ((int) (viewHolder.getPosition()+1)), Toast.LENGTH_SHORT).show();
                 //set id as the selected ID
                 showGameDetails.gameID = game.id;
                 Intent i = new Intent(GameList.context, showGameDetails.class);

@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -47,6 +48,7 @@ public class showGameDetails extends FragmentActivity implements OnMapReadyCallb
         setAllData();
         setToolbar();
         setText();
+        setButton();
 
         map = new MapFragment();
 
@@ -98,9 +100,22 @@ public class showGameDetails extends FragmentActivity implements OnMapReadyCallb
         TextView desc = (TextView) findViewById(R.id.gameDesc);
         desc.setText(description);
         TextView dati = (TextView) findViewById(R.id.gameDateTime);
-        dati.setText("\n\n"+datetime);
+        dati.setText("\n\n" + datetime);
         TextView play = (TextView) findViewById(R.id.gamePlayers);
-        play.setText(cPlayers+"/"+tPlayers+" Players\n");
+        play.setText(cPlayers + "/" + tPlayers + " Players\n");
+    }
+
+    public void setButton() {
+        Button play = (Button) findViewById((R.id.playButton));
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"Adding you to the game...", Toast.LENGTH_SHORT).show();
+                cPlayers++;
+                setText();
+            }
+        });
+        //Toast.makeText(mContext, "Event #" + ((int) (viewHolder.getPosition() + 1)), Toast.LENGTH_SHORT).show();
     }
 
     @Override
