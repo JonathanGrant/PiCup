@@ -22,10 +22,12 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.gc.materialdesign.views.Button;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolygonOptions;
 
@@ -41,7 +43,7 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
     Button FAB;
     RecyclerView mRecyclerView;
     GameAdapter mAdapter;
-    MapFragment map;
+    static MapFragment map;
     private static double[] latlon = {0.0,0.0};
     public static Context context;
     private final int SECONDARY_ACTIVITY_REQUEST_CODE = 0;
@@ -280,7 +282,15 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
     public static void changeField(String field){
         Location = field;
         LatLng latlng = new LatLng(cX,cY);
-        CameraUpdateFactory.newLatLngZoom(latlng, 17.0f);
+        if(field.equals("Crom"))
+            latlng = new LatLng(34.022007,-118.287832);
+        else if(field.equals("Brit"))
+            latlng = new LatLng(34.023129, -118.287639);
+        else if(field.equals("MCal"))
+            latlng = new LatLng(34.026535,-118.282747);
+        else if(field.equals("MCar"))
+            latlng = new LatLng(34.020913,-118.283122);
+        map.getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 17.0f));
     }
 
     public void onBostonSoccerOne(){
