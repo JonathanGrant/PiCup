@@ -63,6 +63,15 @@
             android:text="PLAY"
             android:textColor="#fff"
             android:id="@+id/playButton"/>
+
+        <TextView
+            android:id="@+id/gameTesting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/toolbar"
+            android:text="Debugger" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -141,6 +141,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
                 l.add(game.description);
                 l.add(GameList.uID);
                 b.putStringArrayList("gamedata", l);
+                b.putStringArrayList("users", game.cPlayers);
                 i.putExtras(b);
                 mContext.startActivity(i);
             }
@@ -161,6 +162,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
                 l.add(game.description);
                 l.add(GameList.uID);
                 b.putStringArrayList("gamedata", l);
+                b.putStringArrayList("users", game.cPlayers);
                 i.putExtras(b);
                 mContext.startActivity(i);
             }
@@ -189,6 +191,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
                 l.add(game.description);
                 l.add(GameList.uID);
                 b.putStringArrayList("gamedata", l);
+                b.putStringArrayList("users", game.cPlayers);
                 i.putExtras(b);
                 mContext.startActivity(i);
             }

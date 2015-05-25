@@ -39,6 +39,7 @@ public class showGameDetails extends FragmentActivity implements OnMapReadyCallb
     public int cPlayers = 0;
     public int tPlayers = 1;
     public String uID="";
+    public ArrayList<String> uList = new ArrayList<String>();
     MapFragment map;
 
 
@@ -72,9 +73,23 @@ public class showGameDetails extends FragmentActivity implements OnMapReadyCallb
             tPlayers = Integer.parseInt(data.get(4));
             description = data.get(5);
             uID = data.get(6);
+            uList = b.getStringArrayList("users");
         } catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    public void addPlayer(String uID){
+        uList.add(uID);
+        cPlayers++;
+    }
+
+    public boolean hasPlayerRSVPd(String uID){
+        for(int i = 0; i < uList.size(); i++){
+            if(uList.get(i).equals(uID))
+                return true; //then player is RSVP'd - side note: What does RSVP stand for?
+        }
+        return false;
     }
 
     private void setToolbar() {
@@ -112,19 +127,18 @@ public class showGameDetails extends FragmentActivity implements OnMapReadyCallb
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Adding you to the game...", Toast.LENGTH_SHORT).show();
-                if(game.hasPlayerRSVPd(uID)){
-                    Toast.makeText(getApplicationContext(),"You have already joined the game", Toast.LENGTH_SHORT).show();
-                } else if(cPlayers >= tPlayers) {
+                Toast.makeText(getApplicationContext(), "Adding you to the game...", Toast.LENGTH_SHORT).show();
+                if (hasPlayerRSVPd(uID)) {
+                    Toast.makeText(getApplicationContext(), "You have already joined the game", Toast.LENGTH_SHORT).show();
+                } else if (cPlayers >= tPlayers) {
                     Toast.makeText(getApplicationContext(), "Cannot join; this game is full", Toast.LENGTH_SHORT).show();
                 } else {
-                    game.addPlayer(uID);
+                    addPlayer(uID);
                     Toast.makeText(getApplicationContext(), "Successfully joined!", Toast.LENGTH_SHORT).show();
                 }
                 setText();
             }
         });
-        //Toast.makeText(mContext, "Event #" + ((int) (viewHolder.getPosition() + 1)), Toast.LENGTH_SHORT).show();
     }
 
     @Override
