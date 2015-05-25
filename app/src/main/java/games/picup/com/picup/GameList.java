@@ -154,14 +154,14 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
                 new LatLng(-18.142, 178.431), 2));
         // Polylines are useful for marking paths and routes on the map.
         map.addPolygon(new PolygonOptions().geodesic(true)
-                        .add(new LatLng(42.375660, -72.536554))  // top left
-                        .add(new LatLng(42.375192, -72.536619))  // bottom left
-                        .add(new LatLng(42.375089, -72.535407))  // bottom right
-                        .add(new LatLng(42.375573, -72.535345))  // top right
-                        .add(new LatLng(42.375660, -72.536554)) // top left
+                        .add(new LatLng(34.022551, -118.288223))  // top left
+                        .add(new LatLng(34.021879, -118.288565))  // bottom left
+                        .add(new LatLng(34.021418, -118.287526))  // bottom right
+                        .add(new LatLng(34.022018, -118.287010)) //top right
+                        .add(new LatLng(34.022551, -118.288223)) // top left
                         .fillColor(Color.RED)
         );
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(42.375660, -72.536554), 15.0f));
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(34.022007, -118.287832), 17.0f)); //where Cromwell is
 
         map.setOnMapClickListener(this);
         map.setOnMapLongClickListener(this);
