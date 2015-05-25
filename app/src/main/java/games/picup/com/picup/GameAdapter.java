@@ -2,6 +2,7 @@ package games.picup.com.picup;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.telephony.SmsManager;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,7 +53,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int i) {
-        Game game = games.get(i);
+        final Game game = games.get(i); //the final may screw it up, but i dont think so
         viewHolder.gameName.setText(game.name);
         viewHolder.gamePlayers.setText(game.committedPlayers+"/"+game.totalPlayers+" Players");
         viewHolder.gameName.setOnClickListener(new View.OnClickListener() {
@@ -59,8 +61,19 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
             public void onClick(View view) {
                 Toast.makeText(mContext, "Event #" + ((int) (viewHolder.getPosition()+1)), Toast.LENGTH_SHORT).show();
                 //set id as the selected ID
-                showGameDetails.gameID = ((int) (viewHolder.getPosition()));
+                showGameDetails.gameID = game.id;
                 Intent i = new Intent(GameList.context, showGameDetails.class);
+                Bundle b = new Bundle();
+                ArrayList<String> l = new ArrayList<String>();
+                l.add(game.name);
+                l.add(game.date+"");
+                l.add(game.time+"");
+                l.add(game.Location);
+                l.add(game.committedPlayers+"");
+                l.add(game.totalPlayers+"");
+                l.add(game.description);
+                b.putStringArrayList("gamedata", l);
+                i.putExtras(b);
                 mContext.startActivity(i);
             }
         });

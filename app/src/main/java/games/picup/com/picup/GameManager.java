@@ -12,12 +12,12 @@ import java.util.Date;
 public class GameManager {
     boolean[] ids = new boolean[1000];
 
-    public static String[] gamesArray = {"Post-HackUMass Soccer!"+"\n April 12th, 9:30pm",
-            "Make Zlatan Jealous (Soccer) 10/48 Players\nHampshire College Soccer Field, Amherst, MA 01002\nApril 15th, 4:00am",
-            "Sweet Hoops Basketball... Totally Chill  11/15 Players\n Boyden Gym, UMass Amherst, MA 01003\n April 16th, 2015 7:25pm",
-            "Street Hockey \nLocation:" + " Malden",
-            "Soccer \nLocation:" + " Medford" ,
-            "Ultimate Frisbee \nLocation:" + " Somerville"};
+    public static String[] gamesArray = {"Post-HackUMass Soccer!",
+            "Make Zlatan Jealous (Soccer)",
+            "Sweet Hoops Basketball... Totally Chill",
+            "Street Hockey",
+            "Soccer" ,
+            "Ultimate Frisbee"};
 
     private static GameManager mInstance;
     private static List<Game> gamesToPlay;
@@ -59,7 +59,10 @@ public class GameManager {
     }
 
     public static Game getGameById(int id){
-        List<Game> gameList = gamesToPlay;
-        return gameList.get(id);
+        for(int i = 0; i < gamesToPlay.size(); i++){
+            if(gamesToPlay.get(i).id == id)
+                return gamesToPlay.get(i);
+        }
+        return null;
     }
 }
