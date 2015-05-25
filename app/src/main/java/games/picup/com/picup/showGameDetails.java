@@ -99,6 +99,8 @@ public class showGameDetails extends FragmentActivity implements OnMapReadyCallb
         desc.setText(description);
         TextView dati = (TextView) findViewById(R.id.gameDateTime);
         dati.setText("\n\n"+datetime);
+        TextView play = (TextView) findViewById(R.id.gamePlayers);
+        play.setText(cPlayers+"/"+tPlayers+" Players\n");
     }
 
     @Override
