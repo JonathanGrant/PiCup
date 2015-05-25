@@ -10,14 +10,14 @@ import java.util.Date;
  * Purpose: Hack UMass II (Apr. 11-12th, 2015)
  */
 public class GameManager {
+    boolean[] ids = new boolean[1000];
 
-    public static String[] gamesArray = {"Post-HackUMass Soccer! " +
-            "18/22 Players\nRudd Field, UMass Amherst, MA 01002\n April 12th, 9:30pm",
-            "Make Zlatan Jealous (Soccer) 10/48 Players\nHampshire College Soccer Field, Amherst, MA 01002\nApril 15th, 4:00am",
-            "Sweet Hoops Basketball... Totally Chill  11/15 Players\n Boyden Gym, UMass Amherst, MA 01003\n April 16th, 2015 7:25pm",
-            "Street Hockey \nLocation:" + " Malden",
-            "Soccer \nLocation:" + " Medford" ,
-            "Ultimate Frisbee \nLocation:" + " Somerville"};
+    public static String[] gamesArray = {"Post-HackUMass Soccer!",
+            "Make Zlatan Jealous (Soccer)",
+            "Sweet Hoops Basketball... Totally Chill",
+            "Street Hockey",
+            "Soccer" ,
+            "Ultimate Frisbee"};
 
     private static GameManager mInstance;
     private static List<Game> gamesToPlay;
@@ -29,14 +29,22 @@ public class GameManager {
         return mInstance;
     }
 
+    public void setBoolean(){
+        for(boolean b : ids)
+            b = false;
+    }
 
     public List<Game> getGamesToPlay() {
 
         if (gamesToPlay == null) {
             gamesToPlay = new ArrayList<Game>();
+            setBoolean();
 
             for (String gamesName : gamesArray) {
-                Game game1 = new Game();
+                int randID = 0;
+                while(ids[randID]) //while the ID is taken, try again... This will not work when the app gets bigger
+                    randID = (int)(Math.random()*1000);
+                Game game1 = new Game(randID); //get random ID... but shit now I need to check to ensure it isn't taken already
                 game1.name = gamesName;
                 game1.date = Calendar.getInstance();
                 game1.committedPlayers = 14;
@@ -51,7 +59,10 @@ public class GameManager {
     }
 
     public static Game getGameById(int id){
-        List<Game> gameList = gamesToPlay;
-        return gameList.get(id);
+        for(int i = 0; i < gamesToPlay.size(); i++){
+            if(gamesToPlay.get(i).id == id)
+                return gamesToPlay.get(i);
+        }
+        return null;
     }
 }

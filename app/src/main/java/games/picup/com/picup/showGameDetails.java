@@ -10,27 +10,50 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 
 public class showGameDetails extends Activity {
 
     public static int gameID = 0;
-    private String gameName = "Unable To Load Game's Name";
+    public String gameName = "Unable To Load Game's Name";
     public Game game;
+    public String description = "Unable to Load Description";
+    public String Location = "Example Location";
+    public String date = "Example Date";
+    public int time = 1200;
+    public int cPlayers = 0;
+    public int tPlayers = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_game_details);
+        setAllData();
         setToolbar();
         setTitleText();
-        game = GameManager.getGameById(gameID);
-        gameName = game.name;
+    }
+
+    private void setAllData(){
+        try {
+            Bundle b = getIntent().getExtras();
+            ArrayList<String> data = b.getStringArrayList("gamedata");
+            gameName = data.get(0);
+            date = data.get(1);
+            time = Integer.parseInt(data.get(2));
+            Location = data.get(3);
+            cPlayers = Integer.parseInt(data.get(4));
+            tPlayers = Integer.parseInt(data.get(5));
+            description = data.get(6);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void setToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarshow);
-        //setSupportActionBar(toolbar);
-        //toolbar.setNavigationIcon(R.drawable.ic_action_back);
         //Now remove the log out button
         Button logOut = (Button) findViewById(R.id.logout);
         logOut.setVisibility(View.INVISIBLE);
