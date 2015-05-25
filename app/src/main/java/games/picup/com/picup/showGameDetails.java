@@ -38,6 +38,7 @@ public class showGameDetails extends FragmentActivity implements OnMapReadyCallb
     public String datetime = "Example Date and Time";
     public int cPlayers = 0;
     public int tPlayers = 1;
+    public String uID="";
     MapFragment map;
 
 
@@ -70,6 +71,7 @@ public class showGameDetails extends FragmentActivity implements OnMapReadyCallb
             cPlayers = Integer.parseInt(data.get(3));
             tPlayers = Integer.parseInt(data.get(4));
             description = data.get(5);
+            uID = data.get(6);
         } catch(Exception e){
             e.printStackTrace();
         }
@@ -111,7 +113,14 @@ public class showGameDetails extends FragmentActivity implements OnMapReadyCallb
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(),"Adding you to the game...", Toast.LENGTH_SHORT).show();
-                cPlayers++;
+                if(game.hasPlayerRSVPd(uID)){
+                    Toast.makeText(getApplicationContext(),"You have already joined the game", Toast.LENGTH_SHORT).show();
+                } else if(cPlayers >= tPlayers) {
+                    Toast.makeText(getApplicationContext(), "Cannot join; this game is full", Toast.LENGTH_SHORT).show();
+                } else {
+                    game.addPlayer(uID);
+                    Toast.makeText(getApplicationContext(), "Successfully joined!", Toast.LENGTH_SHORT).show();
+                }
                 setText();
             }
         });

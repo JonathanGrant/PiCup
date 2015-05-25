@@ -179,7 +179,7 @@ public class LoginActivity extends FragmentActivity {
                     {
                         //create Parse User
                         ParseObject.registerSubclass(ParseUser.class);
-                        ParseUser user = new ParseUser();
+                        final ParseUser user = new ParseUser();
                         user.setUsername(userString);
                         //user.setEmail() no email functionality yet... needs to be added
                         user.setPassword(passString);
@@ -190,7 +190,10 @@ public class LoginActivity extends FragmentActivity {
                             public void done(com.parse.ParseException e) {
                                 if (e == null) {
                                     // Hooray! Let them use the app now.
+                                    //But first, we need to transfer their unique String ID
+                                    String uID = user.getObjectId();
                                     Intent i = new Intent(getActivity(), GameList.class);
+                                    i.putExtra("uID",uID);
                                     startActivity(i);
 
                                     // User has successfully logged in, save this information

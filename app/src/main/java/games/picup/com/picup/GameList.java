@@ -44,6 +44,7 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
     private static double[] latlon = {0.0,0.0};
     public static Context context;
     private final int SECONDARY_ACTIVITY_REQUEST_CODE = 0;
+    public static String uID = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,10 +99,11 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
     }
 
     public void logOut(){
+        uID = ""; //Clear the uID
         SharedPreferences sets = getSharedPreferences(LoginActivity.PREFFS, 0); // 0 - for private mode
         SharedPreferences.Editor editor = sets.edit();
         sets.edit().clear().commit();
-        //Set "hasLoggedIn" to true
+        //Set "hasLoggedIn" to false
         editor.putBoolean("hasLoggedIn", false);
         // Commit the edits!
         editor.commit();
@@ -129,9 +131,10 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
     private void bundles() {
         Bundle e1 = getIntent().getExtras();
         if (e1 != null) {
-            String spo = e1.getString("SPORT");
-            String loc = e1.getString("LOCATION");
-            String date = e1.getString("DATE");
+            //String spo = e1.getString("SPORT");
+            //String loc = e1.getString("LOCATION");
+            //String date = e1.getString("DATE");
+            uID = e1.getString("uID");
         }
     }
 
