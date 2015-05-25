@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -26,7 +27,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class showGameDetails extends Activity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener {
+public class showGameDetails extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener {
 
     public static int gameID = 0;
     public String gameName = "Unable To Load Game's Name";
@@ -97,6 +98,7 @@ public class showGameDetails extends Activity implements OnMapReadyCallback, Goo
         TextView title = (TextView) findViewById(R.id.gameName);
         title.setText(gameName);
         TextView desc = (TextView) findViewById(R.id.gameDesc);
+        desc.setText(description);
     }
 
     @Override
@@ -125,13 +127,12 @@ public class showGameDetails extends Activity implements OnMapReadyCallback, Goo
         map.addPolygon(new PolygonOptions().geodesic(true)
                         .add(new LatLng(34.022551, -118.288223))  // top left
                         .add(new LatLng(34.021879, -118.288565))  // bottom left
-                        .add(new LatLng(34.022018, -118.287010))  // bottom right
-                        .add(new LatLng(34.021418, -118.287526))  // top right
+                        .add(new LatLng(34.021418, -118.287526))  // bottom right
+                        .add(new LatLng(34.022018, -118.287010)) //top right
                         .add(new LatLng(34.022551, -118.288223)) // top left
                         .fillColor(Color.RED)
         );
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(34.022007, -118.287832), 15.0f)); //where Cromwell is
-
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(34.022007, -118.287832), 17.0f)); //where Cromwell is
         map.setOnMapClickListener(this);
         map.setOnMapLongClickListener(this);
     }
