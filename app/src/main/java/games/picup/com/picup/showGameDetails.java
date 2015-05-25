@@ -34,8 +34,7 @@ public class showGameDetails extends FragmentActivity implements OnMapReadyCallb
     public Game game;
     public String description = "Unable to Load Description";
     public String Location = "Example Location";
-    public String date = "Example Date";
-    public int time = 1200;
+    public String datetime = "Example Date and Time";
     public int cPlayers = 0;
     public int tPlayers = 1;
     MapFragment map;
@@ -64,12 +63,11 @@ public class showGameDetails extends FragmentActivity implements OnMapReadyCallb
             Bundle b = getIntent().getExtras();
             ArrayList<String> data = b.getStringArrayList("gamedata");
             gameName = data.get(0);
-            date = data.get(1);
-            time = Integer.parseInt(data.get(2));
-            Location = data.get(3);
-            cPlayers = Integer.parseInt(data.get(4));
-            tPlayers = Integer.parseInt(data.get(5));
-            description = data.get(6);
+            datetime = data.get(1);
+            Location = data.get(2);
+            cPlayers = Integer.parseInt(data.get(3));
+            tPlayers = Integer.parseInt(data.get(4));
+            description = data.get(5);
         } catch(Exception e){
             e.printStackTrace();
         }
@@ -99,6 +97,8 @@ public class showGameDetails extends FragmentActivity implements OnMapReadyCallb
         title.setText(gameName);
         TextView desc = (TextView) findViewById(R.id.gameDesc);
         desc.setText(description);
+        TextView dati = (TextView) findViewById(R.id.gameDateTime);
+        dati.setText("\n\n"+datetime);
     }
 
     @Override
@@ -121,8 +121,7 @@ public class showGameDetails extends FragmentActivity implements OnMapReadyCallb
     }
 
     public void onMapReady(GoogleMap map) {
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(-18.142, 178.431), 2));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(34.022007, -118.287832), 17.0f)); //where Cromwell is
         // Polylines are useful for marking paths and routes on the map.
         map.addPolygon(new PolygonOptions().geodesic(true)
                         .add(new LatLng(34.022551, -118.288223))  // top left
@@ -132,7 +131,6 @@ public class showGameDetails extends FragmentActivity implements OnMapReadyCallb
                         .add(new LatLng(34.022551, -118.288223)) // top left
                         .fillColor(Color.RED)
         );
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(34.022007, -118.287832), 17.0f)); //where Cromwell is
         map.setOnMapClickListener(this);
         map.setOnMapLongClickListener(this);
     }

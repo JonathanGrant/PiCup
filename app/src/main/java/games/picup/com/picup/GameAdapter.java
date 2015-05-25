@@ -135,8 +135,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
                 Bundle b = new Bundle();
                 ArrayList<String> l = new ArrayList<String>();
                 l.add(game.name);
-                l.add(game.date + "");
-                l.add(game.time + "");
+                l.add(getNiceDate(game.date) + ", "+getNiceTime(game.time));
                 l.add(game.Location);
                 l.add(game.committedPlayers + "");
                 l.add(game.totalPlayers + "");
@@ -156,8 +155,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
                 Bundle b = new Bundle();
                 ArrayList<String> l = new ArrayList<String>();
                 l.add(game.name);
-                l.add(game.date + "");
-                l.add(game.time + "");
+                l.add(getNiceDate(game.date) + ", "+getNiceTime(game.time));
                 l.add(game.Location);
                 l.add(game.committedPlayers + "");
                 l.add(game.totalPlayers + "");
@@ -185,8 +183,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
                 Bundle b = new Bundle();
                 ArrayList<String> l = new ArrayList<String>();
                 l.add(game.name);
-                l.add(game.date+"");
-                l.add(game.time+"");
+                l.add(getNiceDate(game.date) + ", "+getNiceTime(game.time));
                 l.add(game.Location);
                 l.add(game.committedPlayers+"");
                 l.add(game.totalPlayers+"");
