@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <double name="Crom_top_left_x">34.022551</double>
+    <double name="Crom_top_left_y">-118.288223</double>
+    <double name="Crom_top_right_x">34.022018</double>
+    <double name="Crom_top_right_y">-118.287010</double>
+    <double name="Crom_bottom_left_x">34.021879</double>
+    <double name="Crom_bottom_left_y">-118.288565</double>
+    <double name="Crom_bottom_right_x">34.021418</double>
+    <double name="Crom_bottom_right_y">-118.287526</double>
+    <double name="Crom_center_x">34.022007</double>
+    <double name="Crom_center_y">-118.287832</double>
+    <double name="Crom_zoom">17f</double>
+
+    <double name="Brit_top_left_x">34.023446</double>
+    <double name="Brit_top_left_y">-118.287992</double>
+    <double name="Brit_top_right_x">34.023068</double>
+    <double name="Brit_top_right_y">-118.287153</double>
+    <double name="Brit_bottom_left_x">34.023119</double>
+    <double name="Brit_bottom_left_y">-118.288196</double>
+    <double name="Brit_bottom_right_x">34.022760</double>
+    <double name="Brit_bottom_right_y">-118.287366</double>
+    <double name="Brit_center_x">34.023129</double>
+    <double name="Brit_center_y">-118.287639</double>
+    <double name="Brit_zoom">17f</double>
+
+    <double name="MCar_top_left_x">34.022551</double>
+    <double name="MCar_top_left_y">-118.288223</double>
+    <double name="MCar_top_right_x">34.022018</double>
+    <double name="MCar_top_right_y">-118.287010</double>
+    <double name="MCar_bottom_left_x">34.021879</double>
+    <double name="MCar_bottom_left_y">-118.288565</double>
+    <double name="MCar_bottom_right_x">34.021418</double>
+    <double name="MCar_bottom_right_y">-118.287526</double>
+    <double name="MCar_center_x">34.022007</double>
+    <double name="MCar_center_y">-118.287832</double>
+    <double name="MCar_zoom">17f</double>
+
+    <double name="MCal_top_left_x">34.022551</double>
+    <double name="MCal_top_left_y">-118.288223</double>
+    <double name="MCal_top_right_x">34.022018</double>
+    <double name="MCal_top_right_y">-118.287010</double>
+    <double name="MCal_bottom_left_x">34.021879</double>
+    <double name="MCal_bottom_left_y">-118.288565</double>
+    <double name="MCal_bottom_right_x">34.021418</double>
+    <double name="MCal_bottom_right_y">-118.287526</double>
+    <double name="MCal_center_x">34.022007</double>
+    <double name="MCal_center_y">-118.287832</double>
+    <double name="MCal_zoom">17f</double>
+</resources>

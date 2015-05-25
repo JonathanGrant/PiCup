@@ -46,6 +46,7 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
     private final int SECONDARY_ACTIVITY_REQUEST_CODE = 0;
     public static String uID = "";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
