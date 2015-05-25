@@ -41,7 +41,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
         // Set the view to the ViewHolder
         ViewHolder holder = new ViewHolder(v);
         holder.gameName.setOnLongClickListener(GameAdapter.this);
-        Log.println(1, "debugz", "3");
         holder.gameName.setOnClickListener(GameAdapter.this);
         holder.gameName.setTag(holder);
         return holder;
@@ -95,12 +94,14 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView gameName;
+        public TextView gamePlayers;
         public ImageView teaImage;
 
         // Holds all of the cards within the RecyclerView
         public ViewHolder(final View itemView) {
             super(itemView);
-            gameName = (TextView) itemView.findViewById(R.id.gameName);
+            gameName = (TextView) itemView.findViewById(R.id.gameNameCardText);
+            gamePlayers = (TextView) itemView.findViewById(R.id.gamePlayersCardText);
         }
 
     }
