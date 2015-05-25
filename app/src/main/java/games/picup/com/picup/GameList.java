@@ -48,8 +48,7 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
     public static String uID = "";
     public static String Location = "Crom";
     boolean first = true;
-    double tLX = 0, tLR = 0, bLX = 0, bLR = 0, tRX = 0, tRR = 0, bRX = 0, bRR = 0, cX = 0, cY = 0, zoomSize = 17.0f;
-
+    static double tLX = 0, tLR = 0, bLX = 0, bLR = 0, tRX = 0, tRR = 0, bRX = 0, bRR = 0, cX = 0, cY = 0, zoomSize = 17.0f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,7 +162,7 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
                 new LatLng(27.6200, 75.1500), 2)); //Sikar, India
         // Polylines are useful for marking paths and routes on the map.
         first = false;
-
+        setMapValues();
         map.addPolygon(new PolygonOptions().geodesic(true)
                         .add(new LatLng(tLX, tLR))  // top left
                         .add(new LatLng(bLX, bLR))  // bottom left
@@ -280,6 +279,8 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
 
     public static void changeField(String field){
         Location = field;
+        LatLng latlng = new LatLng(cX,cY);
+        CameraUpdateFactory.newLatLngZoom(latlng, 17.0f);
     }
 
     public void onBostonSoccerOne(){
