@@ -44,13 +44,16 @@ public class GameManager {
                 int randID = 0;
                 while(ids[randID]) //while the ID is taken, try again... This will not work when the app gets bigger
                     randID = (int)(Math.random()*1000);
+                ids[randID] = true; //set random id to be taken
                 Game game1 = new Game(randID); //get random ID... but shit now I need to check to ensure it isn't taken already
                 game1.name = gamesName;
                 game1.date = Calendar.getInstance();
                 game1.committedPlayers = 14;
                 game1.totalPlayers = 22; //should I allow subs?
                 game1.description = "Alright faggots. We're going to play a world-class 11v11. No noobs. Bring both a white and dark shirt, and a ball. Messi, if you go, bring your fucking pump this time!";
-                game1.Location = "Heritage Oaks Park, Los Altos, CA";
+                game1.Location = "Cromwell Field";
+                if((1+randID)%7==0) //don't make the first IM...
+                    game1.Location = "Intramural Field"; //Sometimes Krommie is taken
                 game1.time = 1730;
                 gamesToPlay.add(game1);
             }

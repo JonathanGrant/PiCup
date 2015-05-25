@@ -151,7 +151,7 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
 
     public void onMapReady(GoogleMap map) {
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(-18.142, 178.431), 2));
+                new LatLng(27.6200, 75.1500), 2)); //Sikar, India
         // Polylines are useful for marking paths and routes on the map.
         map.addPolygon(new PolygonOptions().geodesic(true)
                         .add(new LatLng(34.022551, -118.288223))  // top left
