@@ -171,8 +171,14 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
             @Override
             public void onClick(View view) {
                 //change highlighted location
-                //Location l = new Location();
-                //onLocationChanged()
+                if(game.Location.startsWith("Crom"))
+                    GameList.changeField("Crom");
+                else if(game.Location.startsWith("Brit"))
+                    GameList.changeField("Brit");
+                else if(game.Location.startsWith("McCar"))
+                    GameList.changeField("MCar");
+                else if(game.Location.startsWith("McCal"))
+                    GameList.changeField("MCal");
             }
         });
         viewHolder.gamePlayers.setOnClickListener(new View.OnClickListener() {

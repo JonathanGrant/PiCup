@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <double name="Crom_top_left_x">34.022551</double>
-    <double name="Crom_top_left_y">-118.288223</double>
-    <double name="Crom_top_right_x">34.022018</double>
-    <double name="Crom_top_right_y">-118.287010</double>
-    <double name="Crom_bottom_left_x">34.021879</double>
-    <double name="Crom_bottom_left_y">-118.288565</double>
-    <double name="Crom_bottom_right_x">34.021418</double>
-    <double name="Crom_bottom_right_y">-118.287526</double>
-    <double name="Crom_center_x">34.022007</double>
-    <double name="Crom_center_y">-118.287832</double>
-    <double name="Crom_zoom">17f</double>
+    <item format="float" type="dimen" name="Crom_top_left_x">34.022551</item>
+    <item format="float" type="dimen" name="Crom_top_left_y">-118.288223</item>
+    <item format="float" type="dimen" name="Crom_top_right_x">34.022018</item>
+    <item format="float" type="dimen" name="Crom_top_right_y">-118.287010</item>
+    <item format="float" type="dimen" name="Crom_bottom_left_x">34.021879</item>
+    <item format="float" type="dimen" name="Crom_bottom_left_y">-118.288565</item>
+    <item format="float" type="dimen" name="Crom_bottom_right_x">34.021418</item>
+    <item format="float" type="dimen" name="Crom_bottom_right_y">-118.287526</item>
+    <item format="float" type="dimen" name="Crom_center_x">34.022007</item>
+    <item format="float" type="dimen" name="Crom_center_y">-118.287832</item>
+    <item format="float" type="dimen" name="Crom_zoom">17.0</item>
 
-    <double name="Brit_top_left_x">34.023446</double>
-    <double name="Brit_top_left_y">-118.287992</double>
-    <double name="Brit_top_right_x">34.023068</double>
-    <double name="Brit_top_right_y">-118.287153</double>
-    <double name="Brit_bottom_left_x">34.023119</double>
-    <double name="Brit_bottom_left_y">-118.288196</double>
-    <double name="Brit_bottom_right_x">34.022760</double>
-    <double name="Brit_bottom_right_y">-118.287366</double>
-    <double name="Brit_center_x">34.023129</double>
-    <double name="Brit_center_y">-118.287639</double>
-    <double name="Brit_zoom">17f</double>
+    <item format="float" type="dimen" name="Brit_top_left_x">34.023446</item>
+    <item format="float" type="dimen" name="Brit_top_left_y">-118.287992</item>
+    <item format="float" type="dimen" name="Brit_top_right_x">34.023068</item>
+    <item format="float" type="dimen" name="Brit_top_right_y">-118.287153</item>
+    <item format="float" type="dimen" name="Brit_bottom_left_x">34.023119</item>
+    <item format="float" type="dimen" name="Brit_bottom_left_y">-118.288196</item>
+    <item format="float" type="dimen" name="Brit_bottom_right_x">34.022760</item>
+    <item format="float" type="dimen" name="Brit_bottom_right_y">-118.287366</item>
+    <item format="float" type="dimen" name="Brit_center_x">34.023129</item>
+    <item format="float" type="dimen" name="Brit_center_y">-118.287639</item>
+    <item format="float" type="dimen" name="Brit_zoom">17.0</item>
 
-    <double name="MCar_top_left_x">34.021408</double>
-    <double name="MCar_top_left_y">-118.283128</double>
-    <double name="MCar_top_right_x">34.021168</double>
-    <double name="MCar_top_right_y">-118.282656</double>
-    <double name="MCar_bottom_left_x">34.020670</double>
-    <double name="MCar_bottom_left_y">-118.283589</double>
-    <double name="MCar_bottom_right_x">34.020461</double>
-    <double name="MCar_bottom_right_y">-118.283117</double>
-    <double name="MCar_center_x">34.020913</double>
-    <double name="MCar_center_y">-118.283122</double>
-    <double name="MCar_zoom">17f</double>
+    <item format="float" type="dimen" name="MCar_top_left_x">34.021408</item>
+    <item format="float" type="dimen" name="MCar_top_left_y">-118.283128</item>
+    <item format="float" type="dimen" name="MCar_top_right_x">34.021168</item>
+    <item format="float" type="dimen" name="MCar_top_right_y">-118.282656</item>
+    <item format="float" type="dimen" name="MCar_bottom_left_x">34.020670</item>
+    <item format="float" type="dimen" name="MCar_bottom_left_y">-118.283589</item>
+    <item format="float" type="dimen" name="MCar_bottom_right_x">34.020461</item>
+    <item format="float" type="dimen" name="MCar_bottom_right_y">-118.283117</item>
+    <item format="float" type="dimen" name="MCar_center_x">34.020913</item>
+    <item format="float" type="dimen" name="MCar_center_y">-118.283122</item>
+    <item format="float" type="dimen" name="MCar_zoom">17.0</item>
 
-    <double name="MCal_top_left_x">34.027028</double>
-    <double name="MCal_top_left_y">-118.283112</double>
-    <double name="MCal_top_right_x">34.026579</double>
-    <double name="MCal_top_right_y">-118.282060</double>
-    <double name="MCal_bottom_left_x">34.026535</double>
-    <double name="MCal_bottom_left_y">-118.283423</double>
-    <double name="MCal_bottom_right_x">34.026085</double>
-    <double name="MCal_bottom_right_y">-118.282366</double>
-    <double name="MCal_center_x">34.026535</double>
-    <double name="MCal_center_y">-118.282747</double>
-    <double name="MCal_zoom">17f</double>
+    <item format="float" type="dimen" name="MCal_top_left_x">34.027028</item>
+    <item format="float" type="dimen" name="MCal_top_left_y">-118.283112</item>
+    <item format="float" type="dimen" name="MCal_top_right_x">34.026579</item>
+    <item format="float" type="dimen" name="MCal_top_right_y">-118.282060</item>
+    <item format="float" type="dimen" name="MCal_bottom_left_x">34.026535</item>
+    <item format="float" type="dimen" name="MCal_bottom_left_y">-118.283423</item>
+    <item format="float" type="dimen" name="MCal_bottom_right_x">34.026085</item>
+    <item format="float" type="dimen" name="MCal_bottom_right_y">-118.282366</item>
+    <item format="float" type="dimen" name="MCal_center_x">34.026535</item>
+    <item format="float" type="dimen" name="MCal_center_y">-118.282747</item>
+    <item format="float" type="dimen" name="MCal_zoom">17.0</item>
 </resources>

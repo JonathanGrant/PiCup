@@ -15,6 +15,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,6 +46,9 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
     public static Context context;
     private final int SECONDARY_ACTIVITY_REQUEST_CODE = 0;
     public static String uID = "";
+    public static String Location = "Crom";
+    boolean first = true;
+    double tLX = 0, tLR = 0, bLX = 0, bLR = 0, tRX = 0, tRR = 0, bRX = 0, bRR = 0, cX = 0, cY = 0, zoomSize = 17.0f;
 
 
     @Override
@@ -154,21 +158,128 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
 //    }
 
     public void onMapReady(GoogleMap map) {
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(
+        if(first)
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(27.6200, 75.1500), 2)); //Sikar, India
         // Polylines are useful for marking paths and routes on the map.
+        first = false;
+
         map.addPolygon(new PolygonOptions().geodesic(true)
-                        .add(new LatLng(34.022551, -118.288223))  // top left
-                        .add(new LatLng(34.021879, -118.288565))  // bottom left
-                        .add(new LatLng(34.021418, -118.287526))  // bottom right
-                        .add(new LatLng(34.022018, -118.287010)) //top right
-                        .add(new LatLng(34.022551, -118.288223)) // top left
+                        .add(new LatLng(tLX, tLR))  // top left
+                        .add(new LatLng(bLX, bLR))  // bottom left
+                        .add(new LatLng(bRX, bRR))  // bottom right
+                        .add(new LatLng(tRX, tRR)) //top right
+                        .add(new LatLng(tLX, tLR)) // top left
                         .fillColor(Color.RED)
         );
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(34.022007, -118.287832), 17.0f)); //where Cromwell is
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(cX, cY), (float)zoomSize)); //where Cromwell is
 
         map.setOnMapClickListener(this);
         map.setOnMapLongClickListener(this);
+    }
+
+    public void setMapValues(){
+        if(Location.equals("Crom")){
+            TypedValue outValue = new TypedValue();
+            getResources().getValue(R.dimen.Crom_top_left_x, outValue, true);
+            tLX = outValue.getFloat();
+            getResources().getValue(R.dimen.Crom_top_left_y, outValue, true);
+            tLR = outValue.getFloat();
+            getResources().getValue(R.dimen.Crom_bottom_left_x, outValue, true);
+            bLX = outValue.getFloat();
+            getResources().getValue(R.dimen.Crom_bottom_left_y, outValue, true);
+            bLR = outValue.getFloat();
+            getResources().getValue(R.dimen.Crom_top_right_x, outValue, true);
+            tRX = outValue.getFloat();
+            getResources().getValue(R.dimen.Crom_top_right_y, outValue, true);
+            tRR = outValue.getFloat();
+            getResources().getValue(R.dimen.Crom_bottom_right_x, outValue, true);
+            bRX = outValue.getFloat();
+            getResources().getValue(R.dimen.Crom_bottom_right_y, outValue, true);
+            bRR = outValue.getFloat();
+            getResources().getValue(R.dimen.Crom_center_x, outValue, true);
+            cX = outValue.getFloat();
+            getResources().getValue(R.dimen.Crom_center_y, outValue, true);
+            cY = outValue.getFloat();
+            getResources().getValue(R.dimen.Crom_zoom, outValue, true);
+            zoomSize = outValue.getFloat();
+        } else if(Location.equals("Brit")){
+            TypedValue outValue = new TypedValue();
+            getResources().getValue(R.dimen.Brit_top_left_x, outValue, true);
+            tLX = outValue.getFloat();
+            getResources().getValue(R.dimen.Brit_top_left_y, outValue, true);
+            tLR = outValue.getFloat();
+            getResources().getValue(R.dimen.Brit_bottom_left_x, outValue, true);
+            bLX = outValue.getFloat();
+            getResources().getValue(R.dimen.Brit_bottom_left_y, outValue, true);
+            bLR = outValue.getFloat();
+            getResources().getValue(R.dimen.Brit_top_right_x, outValue, true);
+            tRX = outValue.getFloat();
+            getResources().getValue(R.dimen.Brit_top_right_y, outValue, true);
+            tRR = outValue.getFloat();
+            getResources().getValue(R.dimen.Brit_bottom_right_x, outValue, true);
+            bRX = outValue.getFloat();
+            getResources().getValue(R.dimen.Brit_bottom_right_y, outValue, true);
+            bRR = outValue.getFloat();
+            getResources().getValue(R.dimen.Brit_center_x, outValue, true);
+            cX = outValue.getFloat();
+            getResources().getValue(R.dimen.Brit_center_y, outValue, true);
+            cY = outValue.getFloat();
+            getResources().getValue(R.dimen.Brit_zoom, outValue, true);
+            zoomSize = outValue.getFloat();
+        } else if(Location.equals("MCar")){
+            TypedValue outValue = new TypedValue();
+            getResources().getValue(R.dimen.MCar_top_left_x, outValue, true);
+            tLX = outValue.getFloat();
+            getResources().getValue(R.dimen.MCar_top_left_y, outValue, true);
+            tLR = outValue.getFloat();
+            getResources().getValue(R.dimen.MCar_bottom_left_x, outValue, true);
+            bLX = outValue.getFloat();
+            getResources().getValue(R.dimen.MCar_bottom_left_y, outValue, true);
+            bLR = outValue.getFloat();
+            getResources().getValue(R.dimen.MCar_top_right_x, outValue, true);
+            tRX = outValue.getFloat();
+            getResources().getValue(R.dimen.MCar_top_right_y, outValue, true);
+            tRR = outValue.getFloat();
+            getResources().getValue(R.dimen.MCar_bottom_right_x, outValue, true);
+            bRX = outValue.getFloat();
+            getResources().getValue(R.dimen.MCar_bottom_right_y, outValue, true);
+            bRR = outValue.getFloat();
+            getResources().getValue(R.dimen.MCar_center_x, outValue, true);
+            cX = outValue.getFloat();
+            getResources().getValue(R.dimen.MCar_center_y, outValue, true);
+            cY = outValue.getFloat();
+            getResources().getValue(R.dimen.MCar_zoom, outValue, true);
+            zoomSize = outValue.getFloat();
+        } else if(Location.equals("MCal")){
+            TypedValue outValue = new TypedValue();
+            getResources().getValue(R.dimen.MCal_top_left_x, outValue, true);
+            tLX = outValue.getFloat();
+            getResources().getValue(R.dimen.MCal_top_left_y, outValue, true);
+            tLR = outValue.getFloat();
+            getResources().getValue(R.dimen.MCal_bottom_left_x, outValue, true);
+            bLX = outValue.getFloat();
+            getResources().getValue(R.dimen.MCal_bottom_left_y, outValue, true);
+            bLR = outValue.getFloat();
+            getResources().getValue(R.dimen.MCal_top_right_x, outValue, true);
+            tRX = outValue.getFloat();
+            getResources().getValue(R.dimen.MCal_top_right_y, outValue, true);
+            tRR = outValue.getFloat();
+            getResources().getValue(R.dimen.MCal_bottom_right_x, outValue, true);
+            bRX = outValue.getFloat();
+            getResources().getValue(R.dimen.MCal_bottom_right_y, outValue, true);
+            bRR = outValue.getFloat();
+            getResources().getValue(R.dimen.MCal_center_x, outValue, true);
+            cX = outValue.getFloat();
+            getResources().getValue(R.dimen.MCal_center_y, outValue, true);
+            cY = outValue.getFloat();
+            getResources().getValue(R.dimen.MCal_zoom, outValue, true);
+            zoomSize = outValue.getFloat();
+        }
+    }
+
+    public static void changeField(String field){
+        Location = field;
     }
 
     public void onBostonSoccerOne(){
