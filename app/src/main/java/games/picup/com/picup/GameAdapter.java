@@ -53,6 +53,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
     public void onBindViewHolder(final ViewHolder viewHolder, int i) {
         Game game = games.get(i);
         viewHolder.gameName.setText(game.name);
+        viewHolder.gamePlayers.setText(game.committedPlayers+"/"+game.totalPlayers+" Players");
         viewHolder.gameName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
