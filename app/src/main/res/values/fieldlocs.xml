@@ -24,27 +24,27 @@
     <double name="Brit_center_y">-118.287639</double>
     <double name="Brit_zoom">17f</double>
 
-    <double name="MCar_top_left_x">34.022551</double>
-    <double name="MCar_top_left_y">-118.288223</double>
-    <double name="MCar_top_right_x">34.022018</double>
-    <double name="MCar_top_right_y">-118.287010</double>
-    <double name="MCar_bottom_left_x">34.021879</double>
-    <double name="MCar_bottom_left_y">-118.288565</double>
-    <double name="MCar_bottom_right_x">34.021418</double>
-    <double name="MCar_bottom_right_y">-118.287526</double>
-    <double name="MCar_center_x">34.022007</double>
-    <double name="MCar_center_y">-118.287832</double>
+    <double name="MCar_top_left_x">34.021408</double>
+    <double name="MCar_top_left_y">-118.283128</double>
+    <double name="MCar_top_right_x">34.021168</double>
+    <double name="MCar_top_right_y">-118.282656</double>
+    <double name="MCar_bottom_left_x">34.020670</double>
+    <double name="MCar_bottom_left_y">-118.283589</double>
+    <double name="MCar_bottom_right_x">34.020461</double>
+    <double name="MCar_bottom_right_y">-118.283117</double>
+    <double name="MCar_center_x">34.020913</double>
+    <double name="MCar_center_y">-118.283122</double>
     <double name="MCar_zoom">17f</double>
 
-    <double name="MCal_top_left_x">34.022551</double>
-    <double name="MCal_top_left_y">-118.288223</double>
-    <double name="MCal_top_right_x">34.022018</double>
-    <double name="MCal_top_right_y">-118.287010</double>
-    <double name="MCal_bottom_left_x">34.021879</double>
-    <double name="MCal_bottom_left_y">-118.288565</double>
-    <double name="MCal_bottom_right_x">34.021418</double>
-    <double name="MCal_bottom_right_y">-118.287526</double>
-    <double name="MCal_center_x">34.022007</double>
-    <double name="MCal_center_y">-118.287832</double>
+    <double name="MCal_top_left_x">34.027028</double>
+    <double name="MCal_top_left_y">-118.283112</double>
+    <double name="MCal_top_right_x">34.026579</double>
+    <double name="MCal_top_right_y">-118.282060</double>
+    <double name="MCal_bottom_left_x">34.026535</double>
+    <double name="MCal_bottom_left_y">-118.283423</double>
+    <double name="MCal_bottom_right_x">34.026085</double>
+    <double name="MCal_bottom_right_y">-118.282366</double>
+    <double name="MCal_center_x">34.026535</double>
+    <double name="MCal_center_y">-118.282747</double>
     <double name="MCal_zoom">17f</double>
 </resources>
