@@ -16,7 +16,11 @@ public class Game {
     public int time = 1200; //in the 24hr format, ex: 13:45
     public int committedPlayers = 22;
     public int totalPlayers = 25;
+    public int id = 000;
 
+    public Game(int id){
+        this.id = id;
+    }
 
     public int getImageResourceId(Context context) {
         try {
