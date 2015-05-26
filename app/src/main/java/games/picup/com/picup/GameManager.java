@@ -47,7 +47,7 @@ public class GameManager {
     }
 
     public List<Game> getGamesFromParse(){
-        gIDs = new ArrayList<String>();
+        gIDs.clear();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("gIDs");
         query.getInBackground("r7lHWJwsoa", new GetCallback<ParseObject>() {
             public void done(ParseObject object, com.parse.ParseException e) {

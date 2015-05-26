@@ -14,10 +14,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.GetCallback;
 import com.parse.Parse;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -157,10 +160,26 @@ public class NewGame extends Activity {
                 game1.put("TPLAYERS", 25);
                 game1.put("RPLAYERS", rsvpd);
                 game1.saveInBackground();
-                String gameID = game1.getObjectId();
+                final String gameID = game1.getObjectId();
 
                 //add Game ID to Parse Object of Game ID's
-
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("gIDs");
+                query.getInBackground("r7lHWJwsoa", new GetCallback<ParseObject>() {
+                    public void done(ParseObject object, com.parse.ParseException e) {
+                        if (e == null) {
+                            try {
+                                JSONArray jar = object.getJSONArray("gIDsArray");
+                                jar.put(gameID);
+                                object.put("gIDsArray", jar);
+                                object.saveInBackground();
+                            } catch (java.lang.NullPointerException e1){
+                                e1.printStackTrace();
+                            }
+                        } else {
+                            // something went wrong
+                        }
+                    }
+                });
 
                 Intent i = new Intent(NewGame.this, GameList.class);
                 Bundle bundle = new Bundle();
