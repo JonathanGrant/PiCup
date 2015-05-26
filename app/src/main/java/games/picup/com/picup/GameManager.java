@@ -1,11 +1,14 @@
 package games.picup.com.picup;
 
+import android.telephony.SmsManager;
+
 import com.parse.GetCallback;
 import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -44,18 +47,27 @@ public class GameManager {
     }
 
     public List<Game> getGamesFromParse(){
-
+        gIDs = new ArrayList<String>();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("gIDs");
-        /*query.getInBackground("xWMyZ4YEGZ", new GetCallback<ParseObject>() {
+        query.getInBackground("r7lHWJwsoa", new GetCallback<ParseObject>() {
             public void done(ParseObject object, com.parse.ParseException e) {
                 if (e == null) {
-                    JSONArray jar = object.getJSONArray("gIDsArray");
-                    //get game ids from jar
+                    try {
+                        JSONArray jar = object.getJSONArray("gIDsArray");
+                        //get game ids from jar
+                        for (int i = 0; i < jar.length(); i++) {
+                            gIDs.add(jar.getString(i));
+                        }
+                    } catch (JSONException e1) {
+                        e1.printStackTrace();
+                    } catch (java.lang.NullPointerException e1){
+                        e1.printStackTrace();
+                    }
                 } else {
                     // something went wrong
                 }
             }
-        });*/
+        });
 
         if(gIDs.size() == 0) gIDs.add("P5kDFiziY5");
 

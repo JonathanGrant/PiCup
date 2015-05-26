@@ -80,7 +80,7 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
 
 
         //first initialize parse
-        Parse.enableLocalDatastore(this); //what does this do? What if I didn't have this?
+        //Parse.enableLocalDatastore(this); //what does this do? What if I didn't have this?
         //start Parse
         Parse.initialize(this, "B4rIuWBWbeVaHrdtdnUZcC5ziI2cqAm1ZneexOXy", "mcGiMCshfXbCH29AXXiiK7lU9KBxrCRb0r00psWB");
         mAdapter = new GameAdapter(GameManager.getInstance().getGamesFromParse(), R.layout.card_view, this);
@@ -97,6 +97,8 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 Intent i = new Intent(GameList.this, LoginActivity.class);
 
                 //now log out

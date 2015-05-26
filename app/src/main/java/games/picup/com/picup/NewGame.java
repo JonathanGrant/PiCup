@@ -60,7 +60,7 @@ public class NewGame extends Activity {
             uID = e1.getString("uID");
         }
         //Now Parse
-        Parse.enableLocalDatastore(this); //what does this do? What if I didn't have this?
+//        Parse.enableLocalDatastore(this); //what does this do? What if I didn't have this?
         //start Parse
         Parse.initialize(this, "B4rIuWBWbeVaHrdtdnUZcC5ziI2cqAm1ZneexOXy", "mcGiMCshfXbCH29AXXiiK7lU9KBxrCRb0r00psWB");
     }
@@ -81,7 +81,7 @@ public class NewGame extends Activity {
 
                 Toast toast = Toast.makeText(NewGame.this, "Successfully Logged Out Bro", Toast.LENGTH_LONG);
                 toast.show();
-            }
+                }
         });
     }
 
