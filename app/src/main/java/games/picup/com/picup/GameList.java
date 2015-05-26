@@ -49,6 +49,7 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
     private final int SECONDARY_ACTIVITY_REQUEST_CODE = 0;
     public static String uID = "";
     public static String Location = "Crom";
+    public static boolean[] usedFields = {false, false, false, false}; //Crom, Brit, MCar, MCal
     boolean first = true;
     static double tLX = 0, tLR = 0, bLX = 0, bLR = 0, tRX = 0, tRR = 0, bRX = 0, bRR = 0, cX = 0, cY = 0, zoomSize = 17.0f;
 
@@ -162,10 +163,100 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
         if(first)
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(27.6200, 75.1500), 2)); //Sikar, India
-        // Polylines are useful for marking paths and routes on the map.
+
+        //now make all the fields used Green
+        String locHolder = Location; //temp change Location, to trick the system
+        Location = "Crom";
+        setMapValues();
+        if(usedFields[0]){
+            map.addPolygon(new PolygonOptions().geodesic(true) //selected field
+                            .add(new LatLng(tLX, tLR))  // top left
+                            .add(new LatLng(bLX, bLR))  // bottom left
+                            .add(new LatLng(bRX, bRR))  // bottom right
+                            .add(new LatLng(tRX, tRR)) //top right
+                            .add(new LatLng(tLX, tLR)) // top left
+                            .fillColor(Color.GREEN)
+            );
+        } else {
+            map.addPolygon(new PolygonOptions().geodesic(true) //selected field
+                            .add(new LatLng(tLX, tLR))  // top left
+                            .add(new LatLng(bLX, bLR))  // bottom left
+                            .add(new LatLng(bRX, bRR))  // bottom right
+                            .add(new LatLng(tRX, tRR)) //top right
+                            .add(new LatLng(tLX, tLR)) // top left
+                            .fillColor(Color.GRAY)
+            );
+        }
+        Location = "Brit";
+        setMapValues();
+        if(usedFields[1]){
+            map.addPolygon(new PolygonOptions().geodesic(true) //selected field
+                            .add(new LatLng(tLX, tLR))  // top left
+                            .add(new LatLng(bLX, bLR))  // bottom left
+                            .add(new LatLng(bRX, bRR))  // bottom right
+                            .add(new LatLng(tRX, tRR)) //top right
+                            .add(new LatLng(tLX, tLR)) // top left
+                            .fillColor(Color.GREEN)
+            );
+        } else {
+            map.addPolygon(new PolygonOptions().geodesic(true) //selected field
+                            .add(new LatLng(tLX, tLR))  // top left
+                            .add(new LatLng(bLX, bLR))  // bottom left
+                            .add(new LatLng(bRX, bRR))  // bottom right
+                            .add(new LatLng(tRX, tRR)) //top right
+                            .add(new LatLng(tLX, tLR)) // top left
+                            .fillColor(Color.GRAY)
+            );
+        }
+        Location = "MCal";
+        setMapValues();
+        if(usedFields[2]){
+            map.addPolygon(new PolygonOptions().geodesic(true) //selected field
+                            .add(new LatLng(tLX, tLR))  // top left
+                            .add(new LatLng(bLX, bLR))  // bottom left
+                            .add(new LatLng(bRX, bRR))  // bottom right
+                            .add(new LatLng(tRX, tRR)) //top right
+                            .add(new LatLng(tLX, tLR)) // top left
+                            .fillColor(Color.GREEN)
+            );
+        } else {
+            map.addPolygon(new PolygonOptions().geodesic(true) //selected field
+                            .add(new LatLng(tLX, tLR))  // top left
+                            .add(new LatLng(bLX, bLR))  // bottom left
+                            .add(new LatLng(bRX, bRR))  // bottom right
+                            .add(new LatLng(tRX, tRR)) //top right
+                            .add(new LatLng(tLX, tLR)) // top left
+                            .fillColor(Color.GRAY)
+            );
+        }
+        Location = "MCar";
+        setMapValues();
+        if(usedFields[3]){
+            map.addPolygon(new PolygonOptions().geodesic(true) //selected field
+                            .add(new LatLng(tLX, tLR))  // top left
+                            .add(new LatLng(bLX, bLR))  // bottom left
+                            .add(new LatLng(bRX, bRR))  // bottom right
+                            .add(new LatLng(tRX, tRR)) //top right
+                            .add(new LatLng(tLX, tLR)) // top left
+                            .fillColor(Color.GREEN)
+            );
+        } else {
+            map.addPolygon(new PolygonOptions().geodesic(true) //selected field
+                            .add(new LatLng(tLX, tLR))  // top left
+                            .add(new LatLng(bLX, bLR))  // bottom left
+                            .add(new LatLng(bRX, bRR))  // bottom right
+                            .add(new LatLng(tRX, tRR)) //top right
+                            .add(new LatLng(tLX, tLR)) // top left
+                            .fillColor(Color.GRAY)
+            );
+        }
+        Location = locHolder;
+        //these colored rects are called Poly Lines or something
+        //Polly is named after the girl from the book Obedience by Will Lavender
+        //You cannot underline in Android Studio
         first = false;
         setMapValues();
-        map.addPolygon(new PolygonOptions().geodesic(true)
+        map.addPolygon(new PolygonOptions().geodesic(true) //selected field
                         .add(new LatLng(tLX, tLR))  // top left
                         .add(new LatLng(bLX, bLR))  // bottom left
                         .add(new LatLng(bRX, bRR))  // bottom right
@@ -290,7 +381,7 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
             latlng = new LatLng(34.026535,-118.282747);
         else if(field.equals("MCar"))
             latlng = new LatLng(34.020913,-118.283122);
-        map.getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 17.0f));
+        map.getMap().animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 17.0f));
     }
 
     public void onBostonSoccerOne(){
