@@ -6,6 +6,11 @@
     <include
         android:id="@+id/toolbarshow"
         layout="@layout/tool_bar"></include>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/container"
+        android:layout_below="@+id/toolbarshow"></FrameLayout>
 
     <LinearLayout
         android:id="@+id/user_input"
@@ -14,8 +19,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
+        android:layout_below="@+id/container"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/gameName"
@@ -25,7 +31,47 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/toolbar"
             android:text="Error: Unable to Load Name" />
+        <TextView
+            android:id="@+id/gameDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/toolbar"
+            android:text="Error: Unable to Load Name" />
+        <TextView
+            android:id="@+id/gameDateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/toolbar"
+            android:text="Error: Unable to Load Date and Time" />
+        <TextView
+            android:id="@+id/gamePlayers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/toolbar"
+            android:text="Error: Unable to Load Players" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1E88E5"
+            android:text="PLAY"
+            android:textColor="#fff"
+            android:id="@+id/playButton"/>
+
+        <TextView
+            android:id="@+id/gameTesting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/toolbar"
+            android:text="Debugger" />
     </LinearLayout>
 
 </RelativeLayout>

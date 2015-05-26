@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item format="float" type="dimen" name="Crom_top_left_x">34.022551</item>
+    <item format="float" type="dimen" name="Crom_top_left_y">-118.288223</item>
+    <item format="float" type="dimen" name="Crom_top_right_x">34.022018</item>
+    <item format="float" type="dimen" name="Crom_top_right_y">-118.287010</item>
+    <item format="float" type="dimen" name="Crom_bottom_left_x">34.021879</item>
+    <item format="float" type="dimen" name="Crom_bottom_left_y">-118.288565</item>
+    <item format="float" type="dimen" name="Crom_bottom_right_x">34.021418</item>
+    <item format="float" type="dimen" name="Crom_bottom_right_y">-118.287526</item>
+    <item format="float" type="dimen" name="Crom_center_x">34.022007</item>
+    <item format="float" type="dimen" name="Crom_center_y">-118.287832</item>
+    <item format="float" type="dimen" name="Crom_zoom">17.0</item>
+
+    <item format="float" type="dimen" name="Brit_top_left_x">34.023446</item>
+    <item format="float" type="dimen" name="Brit_top_left_y">-118.287992</item>
+    <item format="float" type="dimen" name="Brit_top_right_x">34.023068</item>
+    <item format="float" type="dimen" name="Brit_top_right_y">-118.287153</item>
+    <item format="float" type="dimen" name="Brit_bottom_left_x">34.023119</item>
+    <item format="float" type="dimen" name="Brit_bottom_left_y">-118.288196</item>
+    <item format="float" type="dimen" name="Brit_bottom_right_x">34.022760</item>
+    <item format="float" type="dimen" name="Brit_bottom_right_y">-118.287366</item>
+    <item format="float" type="dimen" name="Brit_center_x">34.023129</item>
+    <item format="float" type="dimen" name="Brit_center_y">-118.287639</item>
+    <item format="float" type="dimen" name="Brit_zoom">17.0</item>
+
+    <item format="float" type="dimen" name="MCar_top_left_x">34.021408</item>
+    <item format="float" type="dimen" name="MCar_top_left_y">-118.283128</item>
+    <item format="float" type="dimen" name="MCar_top_right_x">34.021168</item>
+    <item format="float" type="dimen" name="MCar_top_right_y">-118.282656</item>
+    <item format="float" type="dimen" name="MCar_bottom_left_x">34.020670</item>
+    <item format="float" type="dimen" name="MCar_bottom_left_y">-118.283589</item>
+    <item format="float" type="dimen" name="MCar_bottom_right_x">34.020461</item>
+    <item format="float" type="dimen" name="MCar_bottom_right_y">-118.283117</item>
+    <item format="float" type="dimen" name="MCar_center_x">34.020913</item>
+    <item format="float" type="dimen" name="MCar_center_y">-118.283122</item>
+    <item format="float" type="dimen" name="MCar_zoom">17.0</item>
+
+    <item format="float" type="dimen" name="MCal_top_left_x">34.027028</item>
+    <item format="float" type="dimen" name="MCal_top_left_y">-118.283112</item>
+    <item format="float" type="dimen" name="MCal_top_right_x">34.026579</item>
+    <item format="float" type="dimen" name="MCal_top_right_y">-118.282060</item>
+    <item format="float" type="dimen" name="MCal_bottom_left_x">34.026535</item>
+    <item format="float" type="dimen" name="MCal_bottom_left_y">-118.283423</item>
+    <item format="float" type="dimen" name="MCal_bottom_right_x">34.026085</item>
+    <item format="float" type="dimen" name="MCal_bottom_right_y">-118.282366</item>
+    <item format="float" type="dimen" name="MCal_center_x">34.026535</item>
+    <item format="float" type="dimen" name="MCal_center_y">-118.282747</item>
+    <item format="float" type="dimen" name="MCal_zoom">17.0</item>
+</resources>

@@ -128,20 +128,20 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
         viewHolder.gameName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "Event #" + ((int) (viewHolder.getPosition() + 1)), Toast.LENGTH_SHORT).show();
                 //set id as the selected ID
                 showGameDetails.gameID = game.id;
                 Intent i = new Intent(GameList.context, showGameDetails.class);
                 Bundle b = new Bundle();
                 ArrayList<String> l = new ArrayList<String>();
                 l.add(game.name);
-                l.add(game.date + "");
-                l.add(game.time + "");
+                l.add(getNiceDate(game.date) + ", "+getNiceTime(game.time));
                 l.add(game.Location);
                 l.add(game.committedPlayers + "");
                 l.add(game.totalPlayers + "");
                 l.add(game.description);
+                l.add(GameList.uID);
                 b.putStringArrayList("gamedata", l);
+                b.putStringArrayList("users", game.cPlayers);
                 i.putExtras(b);
                 mContext.startActivity(i);
             }
@@ -149,20 +149,20 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
         viewHolder.gameDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "Event #" + ((int) (viewHolder.getPosition() + 1)), Toast.LENGTH_SHORT).show();
                 //set id as the selected ID
                 showGameDetails.gameID = game.id;
                 Intent i = new Intent(GameList.context, showGameDetails.class);
                 Bundle b = new Bundle();
                 ArrayList<String> l = new ArrayList<String>();
                 l.add(game.name);
-                l.add(game.date + "");
-                l.add(game.time + "");
+                l.add(getNiceDate(game.date) + ", "+getNiceTime(game.time));
                 l.add(game.Location);
                 l.add(game.committedPlayers + "");
                 l.add(game.totalPlayers + "");
                 l.add(game.description);
+                l.add(GameList.uID);
                 b.putStringArrayList("gamedata", l);
+                b.putStringArrayList("users", game.cPlayers);
                 i.putExtras(b);
                 mContext.startActivity(i);
             }
@@ -171,27 +171,33 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
             @Override
             public void onClick(View view) {
                 //change highlighted location
-                //Location l = new Location();
-                //onLocationChanged()
+                if(game.Location.startsWith("Crom"))
+                    GameList.changeField("Crom");
+                else if(game.Location.startsWith("Brit"))
+                    GameList.changeField("Brit");
+                else if(game.Location.startsWith("McCar"))
+                    GameList.changeField("MCar");
+                else if(game.Location.startsWith("McCal"))
+                    GameList.changeField("MCal");
             }
         });
         viewHolder.gamePlayers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "Event #" + ((int) (viewHolder.getPosition()+1)), Toast.LENGTH_SHORT).show();
                 //set id as the selected ID
                 showGameDetails.gameID = game.id;
                 Intent i = new Intent(GameList.context, showGameDetails.class);
                 Bundle b = new Bundle();
                 ArrayList<String> l = new ArrayList<String>();
                 l.add(game.name);
-                l.add(game.date+"");
-                l.add(game.time+"");
+                l.add(getNiceDate(game.date) + ", "+getNiceTime(game.time));
                 l.add(game.Location);
                 l.add(game.committedPlayers+"");
                 l.add(game.totalPlayers+"");
                 l.add(game.description);
+                l.add(GameList.uID);
                 b.putStringArrayList("gamedata", l);
+                b.putStringArrayList("users", game.cPlayers);
                 i.putExtras(b);
                 mContext.startActivity(i);
             }
