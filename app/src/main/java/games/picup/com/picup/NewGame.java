@@ -14,6 +14,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.Parse;
+import com.parse.ParseObject;
+
+import org.json.JSONArray;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,6 +41,7 @@ public class NewGame extends Activity {
     private final int SECONDARY_ACTIVITY_REQUEST_CODE = 0;
     public int numQuotes = 28;
     String[] str = new String[numQuotes];
+    String uID = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,15 @@ public class NewGame extends Activity {
         pushButton();
         addQuote();
         addLogOutButton();
+        //now get uID
+        Bundle e1 = getIntent().getExtras();
+        if (e1 != null) {
+            uID = e1.getString("uID");
+        }
+        //Now Parse
+        Parse.enableLocalDatastore(this); //what does this do? What if I didn't have this?
+        //start Parse
+        Parse.initialize(this, "B4rIuWBWbeVaHrdtdnUZcC5ziI2cqAm1ZneexOXy", "mcGiMCshfXbCH29AXXiiK7lU9KBxrCRb0r00psWB");
     }
 
     public void addLogOutButton(){
@@ -117,16 +132,30 @@ public class NewGame extends Activity {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //First send to Parse, then send to local database
+                ParseObject game1 = new ParseObject("Game");
+                //need to create a JSON Array of the id's that are RSVP'd
+                JSONArray rsvpd = new JSONArray();
+                rsvpd.put(uID);
+                game1.put("NAME", setSport());
+                //game1.put("DESCRIPTION", )
+                game1.put("LOCATION", setLocation());
+                game1.put("DATE", setDate());
+                game1.put("TIME", 1200);
+                game1.put("CPLAYERS", 12);
+                game1.put("TPLAYERS", 25);
+                game1.put("RPLAYERS", rsvpd);
+                game1.saveInBackground();
+                String gameID = game1.getObjectId();
+
                 Intent i = new Intent(NewGame.this, GameList.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("SPORT", setSport());
-                bundle.putString("LOCATION", setLocation());
-                bundle.putString("DATE", setDate());
+                bundle.putString("gID", gameID);
                 i.putExtras(bundle);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivityForResult(i, SECONDARY_ACTIVITY_REQUEST_CODE);
 
-                Toast toast = Toast.makeText(NewGame.this, "New Event Created", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(NewGame.this, "New Event Created", Toast.LENGTH_SHORT);
                 toast.show();
             }
         });

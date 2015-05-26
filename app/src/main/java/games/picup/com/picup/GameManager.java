@@ -1,5 +1,10 @@
 package games.picup.com.picup;
 
+import com.parse.GetCallback;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -32,6 +37,20 @@ public class GameManager {
     public void setBoolean(){
         for(boolean b : ids)
             b = false;
+    }
+
+    public List<Game> getGamesFromParse(){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
+        query.getInBackground("xWMyZ4YEGZ", new GetCallback<ParseObject>() {
+            public void done(ParseObject parseObject, com.parse.ParseException e) {
+                if (e == null) {
+                    // object will be your game score
+                } else {
+                    // something went wrong
+                }
+            }
+        });
+        return null;
     }
 
     public List<Game> getGamesToPlay() {

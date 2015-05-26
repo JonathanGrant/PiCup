@@ -122,6 +122,7 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(GameList.this, NewGame.class);
+                i.putExtra("uID",uID);
                 startActivity(i);
             }
         });
