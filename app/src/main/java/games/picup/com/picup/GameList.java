@@ -30,6 +30,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolygonOptions;
+import com.parse.Parse;
 
 import java.util.List;
 
@@ -77,7 +78,12 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
         // animations for recyclerViews
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        mAdapter = new GameAdapter(GameManager.getInstance().getGamesToPlay(), R.layout.card_view, this);
+
+        //first initialize parse
+        Parse.enableLocalDatastore(this); //what does this do? What if I didn't have this?
+        //start Parse
+        Parse.initialize(this, "B4rIuWBWbeVaHrdtdnUZcC5ziI2cqAm1ZneexOXy", "mcGiMCshfXbCH29AXXiiK7lU9KBxrCRb0r00psWB");
+        mAdapter = new GameAdapter(GameManager.getInstance().getGamesFromParse(), R.layout.card_view, this);
         mRecyclerView.setAdapter(mAdapter);
 
 //        bundles();
@@ -128,7 +134,7 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
         });
     }
 
-    public void toGame(int gameID){
+    public void toGame(String gameID){
         Log.println(1,"debugz","0");
         //set id as the selected ID
         showGameDetails.gameID = gameID;
@@ -139,26 +145,10 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
     private void bundles() {
         Bundle e1 = getIntent().getExtras();
         if (e1 != null) {
-            //String spo = e1.getString("SPORT");
-            //String loc = e1.getString("LOCATION");
-            //String date = e1.getString("DATE");
+            String gID = e1.getString("gID");
             uID = e1.getString("uID");
         }
     }
-
-//    private String[] addGames(String[] A){
-//        Bundle e1 = getIntent().getExtras();
-//        if(e1 != null) {
-//            String spo = e1.getString("SPORT");
-//            String loc = e1.getString("LOCATION");
-//            String date = e1.getString("DATE");
-//
-//            for(int i = 0; i < A.length-1; i++){
-//                A[i] = spo;
-//            }
-//        }
-//        return A;
-//    }
 
     public void onMapReady(GoogleMap map) {
         if(first)

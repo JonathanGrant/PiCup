@@ -30,7 +30,7 @@ import java.util.ArrayList;
 
 public class showGameDetails extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener {
 
-    public static int gameID = 0;
+    public static String gameID = "";
     public String gameName = "Unable To Load Game's Name";
     public Game game;
     public String description = "Unable to Load Description";

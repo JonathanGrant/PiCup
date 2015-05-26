@@ -138,8 +138,19 @@ public class NewGame extends Activity {
                 JSONArray rsvpd = new JSONArray();
                 rsvpd.put(uID);
                 game1.put("NAME", setSport());
-                //game1.put("DESCRIPTION", )
-                game1.put("LOCATION", setLocation());
+                game1.put("DESCRIPTION", "DER KLASIK. BVB Dortmund v Bayern München\nWelchen ist der Beste? Ich weiß dass Bayern ist besser als Dortmund, aber seine penalty kickers sind schwer. SEHR schwer...");
+                String locat = "Cromwell Field";
+                int randID = (int)(Math.random()*1000);
+                if((1+randID)%4==0) { //don't make the first IM...
+                    locat = "Brittingham Field"; //Sometimes Krommie is taken
+                }
+                else if((1+randID)%8== 0) {
+                    locat = "McCalister Field";
+                }
+                else if((1+randID)%16==0) { //Once a blue moon
+                    locat = "McCarthy Quad";
+                }
+                game1.put("LOCATION", locat);
                 game1.put("DATE", setDate());
                 game1.put("TIME", 1200);
                 game1.put("CPLAYERS", 12);
@@ -147,6 +158,9 @@ public class NewGame extends Activity {
                 game1.put("RPLAYERS", rsvpd);
                 game1.saveInBackground();
                 String gameID = game1.getObjectId();
+
+                //add Game ID to Parse Object of Game ID's
+
 
                 Intent i = new Intent(NewGame.this, GameList.class);
                 Bundle bundle = new Bundle();

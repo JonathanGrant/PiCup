@@ -1,8 +1,11 @@
 package games.picup.com.picup;
 
 import com.parse.GetCallback;
+import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+
+import org.json.JSONArray;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -23,6 +26,7 @@ public class GameManager {
             "Street Hockey",
             "Soccer" ,
             "Ultimate Frisbee"};
+    public static ArrayList<String> gIDs = new ArrayList<String>();
 
     private static GameManager mInstance;
     private static List<Game> gamesToPlay;
@@ -40,17 +44,56 @@ public class GameManager {
     }
 
     public List<Game> getGamesFromParse(){
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
-        query.getInBackground("xWMyZ4YEGZ", new GetCallback<ParseObject>() {
-            public void done(ParseObject parseObject, com.parse.ParseException e) {
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("gIDs");
+        /*query.getInBackground("xWMyZ4YEGZ", new GetCallback<ParseObject>() {
+            public void done(ParseObject object, com.parse.ParseException e) {
                 if (e == null) {
-                    // object will be your game score
+                    JSONArray jar = object.getJSONArray("gIDsArray");
+                    //get game ids from jar
                 } else {
                     // something went wrong
                 }
             }
-        });
-        return null;
+        });*/
+
+        if(gIDs.size() == 0) gIDs.add("P5kDFiziY5");
+
+        gamesToPlay = new ArrayList<Game>();
+        setBoolean();
+        for(int i = 0; i < gIDs.size(); i++) {
+            query = ParseQuery.getQuery("Game");
+            query.getInBackground(gIDs.get(i), new GetCallback<ParseObject>() {
+                public void done(ParseObject g, com.parse.ParseException e) {
+                    if (e == null) {
+                        // object will be your game score
+                        Game game1 = new Game(g.getObjectId()); //get random ID... but shit now I need to check to ensure it isn't taken already
+                        game1.name = g.getString("NAME");
+                        Date d = g.getCreatedAt();
+                        Calendar c = Calendar.getInstance();
+                        c.setTime(d);
+                        game1.date = c;
+                        game1.committedPlayers = g.getInt("CPLAYERS");
+                        game1.totalPlayers = g.getInt("TPLAYERS"); //should I allow subs?
+                        game1.description = g.getString("DESCRIPTION");
+                        game1.Location = g.getString("LOCATION");
+                        int i = 0;
+                        switch(game1.Location){
+                            case "Brittingham Field": i=1;break;
+                            case "McCalister Field": i=2; break;
+                            case "McCarthy Quad": i = 3; break;
+                            default: i=1; break;
+                        } //WOW a switch case :)
+                        game1.time = g.getInt("TIME");
+                        gamesToPlay.add(game1);
+                        GameList.usedFields[i] = true;
+                    } else {
+                        // something went wrong
+                    }
+                }
+            });
+        }
+        return gamesToPlay;
     }
 
     public List<Game> getGamesToPlay() {
@@ -64,7 +107,7 @@ public class GameManager {
                 while(ids[randID]) //while the ID is taken, try again... This will not work when the app gets bigger
                     randID = (int)(Math.random()*1000);
                 ids[randID] = true; //set random id to be taken
-                Game game1 = new Game(randID); //get random ID... but shit now I need to check to ensure it isn't taken already
+                Game game1 = new Game(randID+""); //get random ID... but shit now I need to check to ensure it isn't taken already
                 game1.name = gamesName;
                 game1.date = Calendar.getInstance();
                 game1.committedPlayers = 14;
@@ -94,7 +137,7 @@ public class GameManager {
 
     public static Game getGameById(int id){
         for(int i = 0; i < gamesToPlay.size(); i++){
-            if(gamesToPlay.get(i).id == id)
+            if(gamesToPlay.get(i).id.equals(id))
                 return gamesToPlay.get(i);
         }
         return null;
