@@ -175,7 +175,7 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
                             .add(new LatLng(bRX, bRR))  // bottom right
                             .add(new LatLng(tRX, tRR)) //top right
                             .add(new LatLng(tLX, tLR)) // top left
-                            .fillColor(Color.GREEN)
+                            .fillColor(Color.parseColor("#1E88E5"))
             );
         } else {
             map.addPolygon(new PolygonOptions().geodesic(true) //selected field
@@ -196,7 +196,7 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
                             .add(new LatLng(bRX, bRR))  // bottom right
                             .add(new LatLng(tRX, tRR)) //top right
                             .add(new LatLng(tLX, tLR)) // top left
-                            .fillColor(Color.GREEN)
+                            .fillColor(Color.parseColor("#1E88E5"))
             );
         } else {
             map.addPolygon(new PolygonOptions().geodesic(true) //selected field
@@ -217,7 +217,7 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
                             .add(new LatLng(bRX, bRR))  // bottom right
                             .add(new LatLng(tRX, tRR)) //top right
                             .add(new LatLng(tLX, tLR)) // top left
-                            .fillColor(Color.GREEN)
+                            .fillColor(Color.parseColor("#1E88E5"))
             );
         } else {
             map.addPolygon(new PolygonOptions().geodesic(true) //selected field
@@ -238,7 +238,7 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
                             .add(new LatLng(bRX, bRR))  // bottom right
                             .add(new LatLng(tRX, tRR)) //top right
                             .add(new LatLng(tLX, tLR)) // top left
-                            .fillColor(Color.GREEN)
+                            .fillColor(Color.parseColor("#1E88E5"))
             );
         } else {
             map.addPolygon(new PolygonOptions().geodesic(true) //selected field
@@ -262,7 +262,7 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
                         .add(new LatLng(bRX, bRR))  // bottom right
                         .add(new LatLng(tRX, tRR)) //top right
                         .add(new LatLng(tLX, tLR)) // top left
-                        .fillColor(Color.RED)
+                        .fillColor(Color.parseColor("#4DBD33"))
         );
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(cX, cY), (float)zoomSize)); //where Cromwell is
 
@@ -381,6 +381,8 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
             latlng = new LatLng(34.026535,-118.282747);
         else if(field.equals("MCar"))
             latlng = new LatLng(34.020913,-118.283122);
+        //Now change the color of the selected field
+        //HOW.
         map.getMap().animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 17.0f));
     }
 
