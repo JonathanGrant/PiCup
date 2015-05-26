@@ -86,7 +86,7 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
         mAdapter = new GameAdapter(GameManager.getInstance().getGamesFromParse(), R.layout.card_view, this);
         mRecyclerView.setAdapter(mAdapter);
 
-//        bundles();
+        bundles();
         map.getMapAsync(this);
         addLogOutButton();
     }
