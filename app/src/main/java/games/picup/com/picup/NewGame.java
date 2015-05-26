@@ -172,7 +172,16 @@ public class NewGame extends Activity {
                                 jar.put(gameID);
                                 object.put("gIDsArray", jar);
                                 object.saveInBackground();
-                            } catch (java.lang.NullPointerException e1){
+                                Intent i = new Intent(NewGame.this, GameList.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putString("gID", gameID);
+                                i.putExtras(bundle);
+                                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivityForResult(i, SECONDARY_ACTIVITY_REQUEST_CODE);
+
+                                Toast toast = Toast.makeText(NewGame.this, "New Event Created", Toast.LENGTH_SHORT);
+                                toast.show();
+                            } catch (java.lang.NullPointerException e1) {
                                 e1.printStackTrace();
                             }
                         } else {
@@ -181,15 +190,7 @@ public class NewGame extends Activity {
                     }
                 });
 
-                Intent i = new Intent(NewGame.this, GameList.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("gID", gameID);
-                i.putExtras(bundle);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivityForResult(i, SECONDARY_ACTIVITY_REQUEST_CODE);
 
-                Toast toast = Toast.makeText(NewGame.this, "New Event Created", Toast.LENGTH_SHORT);
-                toast.show();
             }
         });
     }

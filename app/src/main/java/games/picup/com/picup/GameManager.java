@@ -48,6 +48,7 @@ public class GameManager {
 
     public List<Game> getGamesFromParse(){
         gIDs.clear();
+        setBoolean();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("gIDs");
         query.getInBackground("r7lHWJwsoa", new GetCallback<ParseObject>() {
             public void done(ParseObject object, com.parse.ParseException e) {
@@ -58,9 +59,11 @@ public class GameManager {
                         for (int i = 0; i < jar.length(); i++) {
                             gIDs.add(jar.getString(i));
                         }
+                        gamesToPlay = getGamesFromGList();
+                        GameList.refresh();
                     } catch (JSONException e1) {
                         e1.printStackTrace();
-                    } catch (java.lang.NullPointerException e1){
+                    } catch (java.lang.NullPointerException e1) {
                         e1.printStackTrace();
                     }
                 } else {
@@ -69,16 +72,21 @@ public class GameManager {
             }
         });
 
-        if(gIDs.size() == 0) gIDs.add("P5kDFiziY5");
+        //gamesToPlay = getGamesToPlay();
 
-        gamesToPlay = new ArrayList<Game>();
-        setBoolean();
-        for(int i = 0; i < gIDs.size(); i++) {
-            query = ParseQuery.getQuery("Game");
+
+        return gamesToPlay;
+    }
+
+    public List<Game> getGamesFromGList(){
+        if (gamesToPlay == null)
+            gamesToPlay = new ArrayList<Game>();
+        if(gIDs.size() == 0) gIDs.add("P5kDFiziY5");
+        for (int i = 0; i < gIDs.size(); i++) {
+            ParseQuery<ParseObject>query = ParseQuery.getQuery("Game");
             query.getInBackground(gIDs.get(i), new GetCallback<ParseObject>() {
                 public void done(ParseObject g, com.parse.ParseException e) {
                     if (e == null) {
-                        // object will be your game score
                         Game game1 = new Game(g.getObjectId()); //get random ID... but shit now I need to check to ensure it isn't taken already
                         game1.name = g.getString("NAME");
                         Date d = g.getCreatedAt();
@@ -86,15 +94,23 @@ public class GameManager {
                         c.setTime(d);
                         game1.date = c;
                         game1.committedPlayers = g.getInt("CPLAYERS");
-                        game1.totalPlayers = g.getInt("TPLAYERS"); //should I allow subs?
+                        game1.totalPlayers = g.getInt("TPLAYERS");
                         game1.description = g.getString("DESCRIPTION");
                         game1.Location = g.getString("LOCATION");
                         int i = 0;
-                        switch(game1.Location){
-                            case "Brittingham Field": i=1;break;
-                            case "McCalister Field": i=2; break;
-                            case "McCarthy Quad": i = 3; break;
-                            default: i=1; break;
+                        switch (game1.Location) {
+                            case "Brittingham Field":
+                                i = 1;
+                                break;
+                            case "McCalister Field":
+                                i = 2;
+                                break;
+                            case "McCarthy Quad":
+                                i = 3;
+                                break;
+                            default:
+                                i = 1;
+                                break;
                         } //WOW a switch case :)
                         game1.time = g.getInt("TIME");
                         gamesToPlay.add(game1);

@@ -19,6 +19,7 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.gc.materialdesign.views.Button;
@@ -130,7 +131,7 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(GameList.this, NewGame.class);
-                i.putExtra("uID",uID);
+                i.putExtra("uID", uID);
                 startActivity(i);
             }
         });
@@ -361,6 +362,9 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
             getResources().getValue(R.dimen.MCal_zoom, outValue, true);
             zoomSize = outValue.getFloat();
         }
+    }
+
+    public static void refresh(){
     }
 
     public static void changeField(String field){
