@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.parse.GetCallback;
 import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -84,7 +85,7 @@ public class NewGame extends Activity {
 
                 Toast toast = Toast.makeText(NewGame.this, "Successfully Logged Out Bro", Toast.LENGTH_LONG);
                 toast.show();
-                }
+            }
         });
     }
 
@@ -178,7 +179,6 @@ public class NewGame extends Activity {
                                 i.putExtras(bundle);
                                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivityForResult(i, SECONDARY_ACTIVITY_REQUEST_CODE);
-
                                 Toast toast = Toast.makeText(NewGame.this, "New Event Created", Toast.LENGTH_SHORT);
                                 toast.show();
                             } catch (java.lang.NullPointerException e1) {
@@ -189,8 +189,6 @@ public class NewGame extends Activity {
                         }
                     }
                 });
-
-
             }
         });
     }

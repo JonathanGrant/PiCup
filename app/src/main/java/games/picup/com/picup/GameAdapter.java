@@ -114,6 +114,8 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
         } else if(time/100 == 12 || time/100 == 0){
             hour = 12 +"";
         }
+        if(time/100==12)
+            ampm="pm";
         niceTime = hour + ":"+min.substring(2)+ampm;
         return niceTime;
     }
