@@ -53,15 +53,15 @@ public class GameManager {
                 game1.description = "Alright faggots. We're going to play a world-class 11v11. No noobs. Bring both a white and dark shirt, and a ball. Messi, if you go, bring your fucking pump this time!";
                 game1.Location = "Cromwell Field";
                 int i = 0;
-                if((1+randID)%7==0) { //don't make the first IM...
+                if((1+randID)%4==0) { //don't make the first IM...
                     game1.Location = "Brittingham Field"; //Sometimes Krommie is taken
                     i = 1;
                 }
-                else if((1+randID)%13==0) {
+                else if((1+randID)%8==0) {
                     game1.Location = "McCalister Field";
                     i = 2;
                 }
-                else if((1+randID)%17==0) { //Once a blue moon
+                else if((1+randID)%16==0) { //Once a blue moon
                     game1.Location = "McCarthy Quad";
                     i = 3;
                 }

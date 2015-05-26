@@ -371,18 +371,70 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
     }
 
     public static void changeField(String field){
+        //First color the previous field blue
+        map.getMap().addPolygon(new PolygonOptions().geodesic(true) //selected field
+                        .add(new LatLng(tLX, tLR))  // top left
+                        .add(new LatLng(bLX, bLR))  // bottom left
+                        .add(new LatLng(bRX, bRR))  // bottom right
+                        .add(new LatLng(tRX, tRR)) //top right
+                        .add(new LatLng(tLX, tLR)) // top left
+                        .fillColor(Color.parseColor("#1E88E5"))
+        ); //then move to the next field, which is colored green now! easy...
         Location = field;
         LatLng latlng = new LatLng(cX,cY);
-        if(field.equals("Crom"))
-            latlng = new LatLng(34.022007,-118.287832);
-        else if(field.equals("Brit"))
+        if(field.equals("Crom")) {
+            latlng = new LatLng(34.022007, -118.287832);
+            tLX = 34.022551;
+            tLR = -118.288223;
+            bLX = 34.021879;
+            bLR = -118.288565;
+            tRX = 34.022018;
+            tRR = -118.287010;
+            bRX = 34.021418;
+            bRR = -118.287526;
+        }
+        else if(field.equals("Brit")) {
             latlng = new LatLng(34.023129, -118.287639);
-        else if(field.equals("MCal"))
-            latlng = new LatLng(34.026535,-118.282747);
-        else if(field.equals("MCar"))
-            latlng = new LatLng(34.020913,-118.283122);
+            tLX = 34.023446;
+            tLR = -118.287992;
+            bLX = 34.023119;
+            bLR = -118.288196;
+            tRX = 34.023068;
+            tRR = -118.287153;
+            bRX = 34.022760;
+            bRR = -118.287366;
+        }
+        else if(field.equals("MCal")) {
+            latlng = new LatLng(34.026535, -118.282747);
+            tLX = 34.027028;
+            tLR = -118.283112;
+            bLX = 34.026535;
+            bLR = -118.283423;
+            tRX = 34.026579;
+            tRR = -118.282060;
+            bRX = 34.026085;
+            bRR = -118.282366;
+        }
+        else if(field.equals("MCar")) {
+            latlng = new LatLng(34.020913, -118.283122);
+            tLX = 34.021408;
+            tLR = -118.283128;
+            bLX = 34.020670;
+            bLR = -118.283589;
+            tRX = 34.021168;
+            tRR = -118.282656;
+            bRX = 34.020461;
+            bRR = -118.283117;
+        }
         //Now change the color of the selected field
-        //HOW.
+        map.getMap().addPolygon(new PolygonOptions().geodesic(true) //selected field
+                        .add(new LatLng(tLX, tLR))  // top left
+                        .add(new LatLng(bLX, bLR))  // bottom left
+                        .add(new LatLng(bRX, bRR))  // bottom right
+                        .add(new LatLng(tRX, tRR)) //top right
+                        .add(new LatLng(tLX, tLR)) // top left
+                        .fillColor(Color.parseColor("#4DBD33"))
+        );
         map.getMap().animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 17.0f));
     }
 
