@@ -23,7 +23,7 @@ import java.util.List;
  * Authors: FreddieV4 & JonathanGrant
  * Purpose: Hack UMass II (Apr. 11-12th, 2015)
  */
-public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> implements  View.OnLongClickListener, View.OnClickListener {
+public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> implements View.OnLongClickListener, View.OnClickListener {
     public TextView gameName;
 
     //        public ImageView teaImage;

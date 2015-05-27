@@ -10,16 +10,19 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.gc.materialdesign.views.Button;
@@ -39,7 +42,7 @@ import java.util.List;
  * Authors: FreddieV4 & JonathanGrant
  * Purpose: Hack UMass II (Apr. 11-12th, 2015)
  */
-public class GameList extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener {
+public class GameList extends FragmentActivity implements SwipeRefreshLayout.OnRefreshListener, OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener {
 
     Toolbar toolbar;
     Button FAB;
@@ -54,6 +57,7 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
     public static boolean[] usedFields = {false, false, false, false}; //Crom, Brit, MCar, MCal
     boolean first = true;
     static double tLX = 0, tLR = 0, bLX = 0, bLR = 0, tRX = 0, tRR = 0, bRX = 0, bRR = 0, cX = 0, cY = 0, zoomSize = 17.0f;
+    private SwipeRefreshLayout mySwipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,12 +91,34 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
         mAdapter = new GameAdapter(GameManager.getInstance().getGamesFromParse(), R.layout.card_view, this);
         mRecyclerView.setAdapter(mAdapter);
 
+        mySwipe = (SwipeRefreshLayout) findViewById(R.id.contentView);
+        mySwipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                //fetchTimelineAsync(0);
+                mySwipe.setRefreshing(false); //once done refreshing
+            }
+        });
+
+        mySwipe.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+
         bundles();
         map.getMapAsync(this);
         addLogOutButton();
     }
 
-    public void addLogOutButton(){
+    public void onRefresh(){
+        //code for refresh
+    }
+
+    public void addLogOutButton() {
         android.widget.Button b1 = (android.widget.Button) findViewById(R.id.logout);
 
         b1.setOnClickListener(new View.OnClickListener() {
@@ -135,14 +161,6 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
                 startActivity(i);
             }
         });
-    }
-
-    public void toGame(String gameID){
-        Log.println(1,"debugz","0");
-        //set id as the selected ID
-        showGameDetails.gameID = gameID;
-        Intent i = new Intent(GameList.this, showGameDetails.class);
-        startActivity(i);
     }
 
     private void bundles() {

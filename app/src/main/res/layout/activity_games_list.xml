@@ -29,15 +29,31 @@
         <!--android:layout_marginTop="12dp">-->
 
         <!--</it.gmariotti.cardslib.library.view.CardViewNative>-->
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/list"
-            android:scrollbars="vertical"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/contentView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:visibility="gone">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list"
+                android:scrollbars="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </android.support.v4.widget.SwipeRefreshLayout>
 
     </LinearLayout>
     <!-- ... XML CODE -->
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/itemsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
+    </android.support.v4.widget.SwipeRefreshLayout>
     <com.gc.materialdesign.views.ButtonFloat
         android:id="@+id/buttonFloat"
         android:layout_width="wrap_content"
