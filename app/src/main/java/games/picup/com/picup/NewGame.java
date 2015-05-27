@@ -50,6 +50,7 @@ public class NewGame extends Activity {
     public int numQuotes = 28;
     String[] str = new String[numQuotes];
     String uID = "";
+    ParseObject game1 = new ParseObject("Game");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,7 +171,6 @@ public class NewGame extends Activity {
 
     private void addGame(){
         //First send to Parse, then send to local database
-        final ParseObject game1 = new ParseObject("Game");
         //need to create a JSON Array of the id's that are RSVP'd
         JSONArray rsvpd = new JSONArray();
         rsvpd.put(uID);
@@ -197,7 +197,7 @@ public class NewGame extends Activity {
             public void done(ParseException e) { //and we dont enter the id until it is saved
                 if (e == null) {
                     //game saved, now get game's id
-                    final String gameID = game1.getObjectId();
+                    final String gameID = getObjectID(game1);
                     //add Game ID to Parse Object of Game ID's
                     ParseQuery<ParseObject> query = ParseQuery.getQuery("gIDs");
                     query.getInBackground("r7lHWJwsoa", new GetCallback<ParseObject>() {
@@ -205,10 +205,7 @@ public class NewGame extends Activity {
                             if (e == null) {
                                 try {
                                     JSONArray jar = object.getJSONArray("gIDsArray");
-                                    SmsManager.getDefault().sendTextMessage("6507993840", null, jar.toString(), null, null);
                                     jar.put(gameID);
-                                    SmsManager.getDefault().sendTextMessage("6507993840", null, gameID, null, null);
-                                    SmsManager.getDefault().sendTextMessage("6507993840", null, jar.toString(), null, null);
                                     object.put("gIDsArray", jar);
                                     object.saveInBackground();
                                     Intent i = new Intent(NewGame.this, GameList.class);
@@ -224,14 +221,20 @@ public class NewGame extends Activity {
                                 }
                             } else {
                                 // something went wrong
+                                Toast.makeText(NewGame.this,"Could not retrieve game id list", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
                 } else {
                     //failed
+                    Toast.makeText(NewGame.this,"Error saving game, try again.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    private String getObjectID(ParseObject o){
+        return o.getObjectId();
     }
 
     private void pushButton() {
