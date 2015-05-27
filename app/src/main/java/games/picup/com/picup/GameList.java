@@ -96,6 +96,7 @@ public class GameList extends FragmentActivity implements OnRefreshListener, OnM
             @Override
             public void onRefresh() {
                 mAdapter.notifyDataSetChanged();
+                mRecyclerView.invalidate(); //should refresh
                 mySwipe.setRefreshing(false); //once done refreshing
             }
         });
