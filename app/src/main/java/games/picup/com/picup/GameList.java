@@ -91,7 +91,7 @@ public class GameList extends FragmentActivity implements OnRefreshListener, OnM
         mAdapter = new GameAdapter(GameManager.getInstance().getGamesFromParse(), R.layout.card_view, this);
         mRecyclerView.setAdapter(mAdapter);
 
-        /*mySwipe = (SwipeRefreshLayout) findViewById(R.id.contentView);
+        mySwipe = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         mySwipe.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -103,7 +103,7 @@ public class GameList extends FragmentActivity implements OnRefreshListener, OnM
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-*/
+
         bundles();
         map.getMapAsync(this);
         addLogOutButton();
