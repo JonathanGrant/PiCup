@@ -38,11 +38,13 @@ import com.parse.Parse;
 
 import java.util.List;
 
+import static android.support.v4.widget.SwipeRefreshLayout.*;
+
 /**
  * Authors: FreddieV4 & JonathanGrant
  * Purpose: Hack UMass II (Apr. 11-12th, 2015)
  */
-public class GameList extends FragmentActivity implements SwipeRefreshLayout.OnRefreshListener, OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener {
+public class GameList extends FragmentActivity implements OnRefreshListener, OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener {
 
     Toolbar toolbar;
     Button FAB;
@@ -79,11 +81,9 @@ public class GameList extends FragmentActivity implements SwipeRefreshLayout.OnR
         // gets recyclerView
         mRecyclerView = (RecyclerView) findViewById(R.id.list);
         // manager for recyclerView
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
         // animations for recyclerViews
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
-
         //first initialize parse
         //Parse.enableLocalDatastore(this); //what does this do? What if I didn't have this?
         //start Parse
@@ -91,24 +91,19 @@ public class GameList extends FragmentActivity implements SwipeRefreshLayout.OnR
         mAdapter = new GameAdapter(GameManager.getInstance().getGamesFromParse(), R.layout.card_view, this);
         mRecyclerView.setAdapter(mAdapter);
 
-        mySwipe = (SwipeRefreshLayout) findViewById(R.id.contentView);
-        mySwipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        /*mySwipe = (SwipeRefreshLayout) findViewById(R.id.contentView);
+        mySwipe.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // Your code to refresh the list here.
-                // Make sure you call swipeContainer.setRefreshing(false)
-                // once the network request has completed successfully.
-                //fetchTimelineAsync(0);
+                mAdapter.notifyDataSetChanged();
                 mySwipe.setRefreshing(false); //once done refreshing
             }
         });
-
         mySwipe.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-
-
+*/
         bundles();
         map.getMapAsync(this);
         addLogOutButton();
