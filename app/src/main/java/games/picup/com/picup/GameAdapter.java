@@ -206,10 +206,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
         });
     }
 
-    public void onClickListner(){
-
-    }
-
     @Override
     public int getItemCount() {
         return games == null ? 0 : games.size();
