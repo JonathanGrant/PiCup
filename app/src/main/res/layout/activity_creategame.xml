@@ -17,13 +17,27 @@
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/name_set"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Set Name"
+            android:padding="10dp" />
+
+        <EditText
+            android:id="@+id/tplayers_set"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Maximum Players"
+            android:inputType="number"
+            android:padding="10dp" />
 
         <EditText
             android:id="@+id/sport_set"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
             android:hint="Set sport"
             android:padding="10dp" />
 
@@ -31,7 +45,6 @@
             android:id="@+id/location_set"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
             android:hint="Set location"
             android:padding="10dp" />
 
@@ -40,6 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Set date"
+            android:inputType="date"
             android:padding="10dp" />
 
     </LinearLayout>
@@ -50,9 +64,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/user_input"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
         android:background="@drawable/button_background1"
-        android:text="Enter"
+        android:text="Create"
         android:textColor="#fff" />
 
     <TextView

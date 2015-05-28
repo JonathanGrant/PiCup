@@ -46,6 +46,7 @@ public class NewGame extends Activity {
     EditText setSport;
     EditText setLocation;
     EditText setDate;
+    EditText setTPlayers;
     private final int SECONDARY_ACTIVITY_REQUEST_CODE = 0;
     public int numQuotes = 28;
     String[] str = new String[numQuotes];
@@ -250,6 +251,10 @@ public class NewGame extends Activity {
         String sport = String.valueOf(setSport.getText());
 
         return sport;
+    }
+
+    public void setPlayers() {
+        setTPlayers = (EditText) findViewById(R.id.tplayers_set);
     }
 
     public String setLocation() {
