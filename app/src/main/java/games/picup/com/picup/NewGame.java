@@ -1,20 +1,28 @@
 package games.picup.com.picup;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.SmsManager;
+import android.text.InputType;
+import android.text.format.DateFormat;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.parse.GetCallback;
@@ -34,6 +42,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.Scanner;
 
 /**
@@ -52,6 +63,8 @@ public class NewGame extends Activity {
     String[] str = new String[numQuotes];
     String uID = "";
     ParseObject game1 = new ParseObject("Game");
+    private SimpleDateFormat dateFormatter;
+    DatePickerDialog dpd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +78,7 @@ public class NewGame extends Activity {
         addQuote();
         addLogOutButton();
         onEnter();
+        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         //now get uID
         Bundle e1 = getIntent().getExtras();
         if (e1 != null) {
@@ -264,10 +278,31 @@ public class NewGame extends Activity {
         return location;
     }
 
+    private void setDateTimeField() {
+        setDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dpd.show();
+            }
+        });
+
+        Calendar newCalendar = Calendar.getInstance();
+        dpd = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                setDate.setText(dateFormatter.format(newDate.getTime()));
+            }
+
+        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+    }
+
     public String setDate() {
         setDate = (EditText) findViewById(R.id.date_set);
         String date = String.valueOf(setDate.getText());
-
+        setDate.setInputType(InputType.TYPE_NULL);
+        setDateTimeField();
         return date;
     }
 
