@@ -39,6 +39,10 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
         this.mContext = context;
     }
 
+    public void refresh(){
+        games = GameManager.getInstance().getGamesFromParse();
+    }
+
     @Override
     public GameAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         final View v = LayoutInflater.from(viewGroup.getContext()).inflate(rowLayout, viewGroup, false);

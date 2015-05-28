@@ -209,7 +209,7 @@ public class NewGame extends Activity {
                                     object.put("gIDsArray", jar);
                                     object.saveInBackground();
                                     Intent i = new Intent(NewGame.this, GameList.class);
-                                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); //What does this do?
                                     startActivityForResult(i, SECONDARY_ACTIVITY_REQUEST_CODE);
                                     Toast toast = Toast.makeText(NewGame.this, "New Event Created", Toast.LENGTH_SHORT);
                                     toast.show();
