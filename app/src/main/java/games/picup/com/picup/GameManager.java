@@ -47,6 +47,7 @@ public class GameManager {
     }
 
     public List<Game> getGamesFromParse(){
+        gamesToPlay = new ArrayList<Game>();
         gIDs.clear();
         setBoolean();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("gIDs");
