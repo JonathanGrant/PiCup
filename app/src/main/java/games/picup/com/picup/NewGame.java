@@ -209,9 +209,6 @@ public class NewGame extends Activity {
                                     object.put("gIDsArray", jar);
                                     object.saveInBackground();
                                     Intent i = new Intent(NewGame.this, GameList.class);
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString("gID", gameID);
-                                    i.putExtras(bundle);
                                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivityForResult(i, SECONDARY_ACTIVITY_REQUEST_CODE);
                                     Toast toast = Toast.makeText(NewGame.this, "New Event Created", Toast.LENGTH_SHORT);
