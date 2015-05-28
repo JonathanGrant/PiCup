@@ -74,7 +74,6 @@ public class GameList extends FragmentActivity implements OnRefreshListener, OnM
         context = getApplicationContext();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Available Games");
-//        setSupportActionBar(toolbar);
         setUpButton();
 
         map = new MapFragment();
