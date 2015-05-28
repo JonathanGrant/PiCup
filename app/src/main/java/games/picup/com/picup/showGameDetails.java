@@ -23,6 +23,8 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolygonOptions;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -80,6 +82,8 @@ public class showGameDetails extends FragmentActivity implements OnMapReadyCallb
     }
 
     public void addPlayer(String uID){
+        //first get the list of players
+        //ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
         uList.add(uID);
         cPlayers++;
     }

@@ -94,6 +94,7 @@ public class GameManager {
                         game1.totalPlayers = g.getInt("TPLAYERS");
                         game1.description = g.getString("DESCRIPTION");
                         game1.Location = g.getString("LOCATION");
+                        game1.id = g.getObjectId();
                         int i = 0;
                         switch (game1.Location) {
                             case "Brittingham Field":
