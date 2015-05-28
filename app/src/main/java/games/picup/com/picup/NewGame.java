@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.telephony.SmsManager;
 import android.text.InputType;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,12 +53,13 @@ import java.util.Scanner;
  * Purpose: Hack UMass II (Apr. 11-12th, 2015)
  */
 
-public class NewGame extends Activity {
+public class NewGame extends Activity implements View.OnKeyListener {
 
     EditText setSport;
     EditText setLocation;
     EditText setDate;
     EditText setTPlayers;
+    EditText setName;
     private final int SECONDARY_ACTIVITY_REQUEST_CODE = 0;
     public int numQuotes = 28;
     String[] str = new String[numQuotes];
@@ -74,6 +76,8 @@ public class NewGame extends Activity {
         setSport();
         setLocation();
         setDate();
+        setTPlayers();
+        setName();
         pushButton();
         addQuote();
         addLogOutButton();
@@ -263,18 +267,14 @@ public class NewGame extends Activity {
     public String setSport() {
         setSport = (EditText) findViewById(R.id.sport_set);
         String sport = String.valueOf(setSport.getText());
-
+        setSport.setOnKeyListener(this);
         return sport;
-    }
-
-    public void setPlayers() {
-        setTPlayers = (EditText) findViewById(R.id.tplayers_set);
     }
 
     public String setLocation() {
         setLocation = (EditText) findViewById(R.id.location_set);
         String location = String.valueOf(setLocation.getText());
-
+        setLocation.setOnKeyListener(this);
         return location;
     }
 
@@ -303,8 +303,22 @@ public class NewGame extends Activity {
         String date = String.valueOf(setDate.getText());
         setDate.setInputType(InputType.TYPE_NULL);
         setDateTimeField();
+        setDate.setOnKeyListener(this);
         return date;
     }
+
+    public String setName() {
+        setName = (EditText) findViewById(R.id.name_set);
+        setName.setOnKeyListener(this);
+        return String.valueOf(setName);
+    }
+
+    public String setTPlayers() {
+        setTPlayers = (EditText) findViewById(R.id.tplayers_set);
+        setTPlayers.setOnKeyListener(this);
+        return String.valueOf(setTPlayers);
+    }
+
 
 
     @Override
@@ -327,5 +341,25 @@ public class NewGame extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+
+    @Override
+    public boolean onKey(View v, int actionId, KeyEvent event) {
+        if(actionId == EditorInfo.IME_ACTION_SEARCH ||
+                actionId == EditorInfo.IME_ACTION_DONE ||
+                event.getAction() == KeyEvent.ACTION_DOWN &&
+                        event.getKeyCode() == KeyEvent.KEYCODE_ENTER){
+            //if user presses enter, switch the edittext to the next one
+            if(v.equals(setName)){
+                setTPlayers.requestFocus();
+            } else if(v.equals(setSport)){
+                setLocation.requestFocus();
+            } else if(v.equals(setLocation)){
+                dpd.show();
+            }
+        }
+        return false;
     }
 }
