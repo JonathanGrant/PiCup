@@ -110,7 +110,7 @@ public class GameList extends FragmentActivity implements OnRefreshListener, OnM
     }
 
     public void onRefresh(){
-        mAdapter.refresh();
+        mAdapter.refresh(mySwipe);
         mySwipe.setRefreshing(false);
     }
 

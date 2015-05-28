@@ -47,7 +47,6 @@ public class GameManager {
     }
 
     public List<Game> getGamesFromParse(){
-        gamesToPlay = new ArrayList<Game>();
         gIDs.clear();
         setBoolean();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("gIDs");
@@ -55,6 +54,7 @@ public class GameManager {
             public void done(ParseObject object, com.parse.ParseException e) {
                 if (e == null) {
                     try {
+                        gamesToPlay = new ArrayList<Game>();
                         JSONArray jar = object.getJSONArray("gIDsArray");
                         //get game ids from jar
                         for (int i = 0; i < jar.length(); i++) {
@@ -71,9 +71,6 @@ public class GameManager {
                 }
             }
         });
-
-        //gamesToPlay = getGamesToPlay();
-
 
         return gamesToPlay;
     }

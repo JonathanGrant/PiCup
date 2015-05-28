@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.telephony.SmsManager;
 import android.util.Log;
@@ -39,8 +40,17 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
         this.mContext = context;
     }
 
-    public void refresh(){
+    public void refresh(SwipeRefreshLayout mySwipe){
         games = GameManager.getInstance().getGamesFromParse();
+        int count = 0;
+        while(games == null){
+            //do nothing, just wait
+            //this only works if the user is connected to internet
+            count++;
+            if(count>=999999999) //if connection takes too long
+                break;
+        }
+        mySwipe.setRefreshing(false);
     }
 
     @Override
