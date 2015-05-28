@@ -6,9 +6,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsManager;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,6 +22,7 @@ import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.SaveCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,6 +50,7 @@ public class NewGame extends Activity {
     public int numQuotes = 28;
     String[] str = new String[numQuotes];
     String uID = "";
+    ParseObject game1 = new ParseObject("Game");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +63,7 @@ public class NewGame extends Activity {
         pushButton();
         addQuote();
         addLogOutButton();
+        onEnter();
         //now get uID
         Bundle e1 = getIntent().getExtras();
         if (e1 != null) {
@@ -67,6 +73,39 @@ public class NewGame extends Activity {
 //        Parse.enableLocalDatastore(this); //what does this do? What if I didn't have this?
         //start Parse
         Parse.initialize(this, "B4rIuWBWbeVaHrdtdnUZcC5ziI2cqAm1ZneexOXy", "mcGiMCshfXbCH29AXXiiK7lU9KBxrCRb0r00psWB");
+    }
+
+    public void onEnter(){
+        EditText name = (EditText) findViewById(R.id.sport_set);
+        EditText date = (EditText) findViewById(R.id.date_set);
+        EditText loc = (EditText) findViewById(R.id.location_set);
+        name.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == KeyEvent.KEYCODE_ENTER) {
+                    addGame();
+                }
+                return false;
+            }
+        });
+        date.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == KeyEvent.KEYCODE_ENTER) {
+                    addGame();
+                }
+                return false;
+            }
+        });
+        loc.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == KeyEvent.KEYCODE_ENTER) {
+                    addGame();
+                }
+                return false;
+            }
+        });
     }
 
     public void addLogOutButton(){
@@ -130,65 +169,78 @@ public class NewGame extends Activity {
         }
     }
 
+    private void addGame(){
+        //First send to Parse, then send to local database
+        //need to create a JSON Array of the id's that are RSVP'd
+        JSONArray rsvpd = new JSONArray();
+        rsvpd.put(uID);
+        game1.put("NAME", setSport());
+        game1.put("DESCRIPTION", "DER KLASIK. BVB Dortmund v Bayern München\nWelchen ist der Beste? Ich weiß dass Bayern ist besser als Dortmund, aber seine penalty kickers sind schwer. SEHR schwer...");
+        String locat = "Cromwell Field";
+        int randID = (int)(Math.random()*1000);
+        if((1+randID)%4==0) { //don't make the first IM...
+            locat = "Brittingham Field"; //Sometimes Krommie is taken
+        }
+        else if((1+randID)%8== 0) {
+            locat = "McCalister Field";
+        }
+        else if((1+randID)%16==0) { //Once a blue moon
+            locat = "McCarthy Quad";
+        }
+        game1.put("LOCATION", locat);
+        game1.put("DATE", setDate());
+        game1.put("TIME", 1200);
+        game1.put("CPLAYERS", 12);
+        game1.put("TPLAYERS", 25);
+        game1.put("RPLAYERS", rsvpd);
+        game1.saveInBackground(new SaveCallback() { //this way, we dont ask for the object's id until after it is saved
+            public void done(ParseException e) { //and we dont enter the id until it is saved
+                if (e == null) {
+                    //game saved, now get game's id
+                    final String gameID = getObjectID(game1);
+                    //add Game ID to Parse Object of Game ID's
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("gIDs");
+                    query.getInBackground("r7lHWJwsoa", new GetCallback<ParseObject>() {
+                        public void done(ParseObject object, com.parse.ParseException e) {
+                            if (e == null) {
+                                try {
+                                    JSONArray jar = object.getJSONArray("gIDsArray");
+                                    jar.put(gameID);
+                                    object.put("gIDsArray", jar);
+                                    object.saveInBackground();
+                                    Intent i = new Intent(NewGame.this, GameList.class);
+                                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); //What does this do?
+                                    startActivityForResult(i, SECONDARY_ACTIVITY_REQUEST_CODE);
+                                    Toast toast = Toast.makeText(NewGame.this, "New Event Created", Toast.LENGTH_SHORT);
+                                    toast.show();
+                                } catch (java.lang.NullPointerException e1) {
+                                    e1.printStackTrace();
+                                }
+                            } else {
+                                // something went wrong
+                                Toast.makeText(NewGame.this,"Could not retrieve game id list", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                } else {
+                    //failed
+                    Toast.makeText(NewGame.this,"Error saving game, try again.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private String getObjectID(ParseObject o){
+        return o.getObjectId();
+    }
+
     private void pushButton() {
         Button b1 = (Button) findViewById(R.id.enter);
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //First send to Parse, then send to local database
-                ParseObject game1 = new ParseObject("Game");
-                //need to create a JSON Array of the id's that are RSVP'd
-                JSONArray rsvpd = new JSONArray();
-                rsvpd.put(uID);
-                game1.put("NAME", setSport());
-                game1.put("DESCRIPTION", "DER KLASIK. BVB Dortmund v Bayern München\nWelchen ist der Beste? Ich weiß dass Bayern ist besser als Dortmund, aber seine penalty kickers sind schwer. SEHR schwer...");
-                String locat = "Cromwell Field";
-                int randID = (int)(Math.random()*1000);
-                if((1+randID)%4==0) { //don't make the first IM...
-                    locat = "Brittingham Field"; //Sometimes Krommie is taken
-                }
-                else if((1+randID)%8== 0) {
-                    locat = "McCalister Field";
-                }
-                else if((1+randID)%16==0) { //Once a blue moon
-                    locat = "McCarthy Quad";
-                }
-                game1.put("LOCATION", locat);
-                game1.put("DATE", setDate());
-                game1.put("TIME", 1200);
-                game1.put("CPLAYERS", 12);
-                game1.put("TPLAYERS", 25);
-                game1.put("RPLAYERS", rsvpd);
-                game1.saveInBackground();
-                final String gameID = game1.getObjectId();
-
-                //add Game ID to Parse Object of Game ID's
-                ParseQuery<ParseObject> query = ParseQuery.getQuery("gIDs");
-                query.getInBackground("r7lHWJwsoa", new GetCallback<ParseObject>() {
-                    public void done(ParseObject object, com.parse.ParseException e) {
-                        if (e == null) {
-                            try {
-                                JSONArray jar = object.getJSONArray("gIDsArray");
-                                jar.put(gameID);
-                                object.put("gIDsArray", jar);
-                                object.saveInBackground();
-                                Intent i = new Intent(NewGame.this, GameList.class);
-                                Bundle bundle = new Bundle();
-                                bundle.putString("gID", gameID);
-                                i.putExtras(bundle);
-                                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivityForResult(i, SECONDARY_ACTIVITY_REQUEST_CODE);
-                                Toast toast = Toast.makeText(NewGame.this, "New Event Created", Toast.LENGTH_SHORT);
-                                toast.show();
-                            } catch (java.lang.NullPointerException e1) {
-                                e1.printStackTrace();
-                            }
-                        } else {
-                            // something went wrong
-                        }
-                    }
-                });
+                addGame();
             }
         });
     }

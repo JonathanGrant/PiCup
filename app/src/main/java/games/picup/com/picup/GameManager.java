@@ -60,7 +60,6 @@ public class GameManager {
                             gIDs.add(jar.getString(i));
                         }
                         gamesToPlay = getGamesFromGList();
-                        GameList.refresh();
                     } catch (JSONException e1) {
                         e1.printStackTrace();
                     } catch (java.lang.NullPointerException e1) {

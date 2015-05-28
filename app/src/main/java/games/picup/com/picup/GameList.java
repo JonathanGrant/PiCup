@@ -8,7 +8,10 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -22,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -35,6 +39,8 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolygonOptions;
 import com.parse.Parse;
+
+import org.json.JSONArray;
 
 import java.util.List;
 
@@ -92,14 +98,7 @@ public class GameList extends FragmentActivity implements OnRefreshListener, OnM
         mRecyclerView.setAdapter(mAdapter);
 
         mySwipe = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
-        mySwipe.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mAdapter.notifyDataSetChanged();
-                mRecyclerView.invalidate(); //should refresh
-                mySwipe.setRefreshing(false); //once done refreshing
-            }
-        });
+        mySwipe.setOnRefreshListener(this);
         mySwipe.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
@@ -111,7 +110,8 @@ public class GameList extends FragmentActivity implements OnRefreshListener, OnM
     }
 
     public void onRefresh(){
-        //code for refresh
+        mAdapter.refresh();
+        mySwipe.setRefreshing(false);
     }
 
     public void addLogOutButton() {
@@ -120,8 +120,6 @@ public class GameList extends FragmentActivity implements OnRefreshListener, OnM
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 Intent i = new Intent(GameList.this, LoginActivity.class);
 
                 //now log out
@@ -376,9 +374,6 @@ public class GameList extends FragmentActivity implements OnRefreshListener, OnM
             getResources().getValue(R.dimen.MCal_zoom, outValue, true);
             zoomSize = outValue.getFloat();
         }
-    }
-
-    public static void refresh(){
     }
 
     public static void changeField(String field){
