@@ -189,9 +189,9 @@ public class NewGame extends Activity {
         }
         game1.put("LOCATION", locat);
         game1.put("DATE", setDate());
-        game1.put("TIME", 1200);
-        game1.put("CPLAYERS", 12);
-        game1.put("TPLAYERS", 25);
+        game1.put("TIME", 1730);
+        game1.put("CPLAYERS", 1);
+        game1.put("TPLAYERS", 5);
         game1.put("RPLAYERS", rsvpd);
         game1.saveInBackground(new SaveCallback() { //this way, we dont ask for the object's id until after it is saved
             public void done(ParseException e) { //and we dont enter the id until it is saved
@@ -210,7 +210,7 @@ public class NewGame extends Activity {
                                     object.saveInBackground();
                                     Intent i = new Intent(NewGame.this, GameList.class);
                                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); //What does this do?
-                                    startActivityForResult(i, SECONDARY_ACTIVITY_REQUEST_CODE);
+                                    startActivity(i);
                                     Toast toast = Toast.makeText(NewGame.this, "New Event Created", Toast.LENGTH_SHORT);
                                     toast.show();
                                 } catch (java.lang.NullPointerException e1) {
