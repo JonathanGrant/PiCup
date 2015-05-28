@@ -78,7 +78,7 @@ public class GameManager {
     public List<Game> getGamesFromGList(){
         if (gamesToPlay == null)
             gamesToPlay = new ArrayList<Game>();
-        if(gIDs.size() == 0) gIDs.add("P5kDFiziY5");
+        //if(gIDs.size() == 0) gIDs.add("P5kDFiziY5");
         for (int i = 0; i < gIDs.size(); i++) {
             ParseQuery<ParseObject>query = ParseQuery.getQuery("Game");
             query.getInBackground(gIDs.get(i), new GetCallback<ParseObject>() {

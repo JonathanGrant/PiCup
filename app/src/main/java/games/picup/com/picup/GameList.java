@@ -18,6 +18,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsManager;
 import android.text.Layout;
 import android.util.Log;
 import android.util.TypedValue;
@@ -39,6 +40,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolygonOptions;
 import com.parse.Parse;
+import com.parse.ParseUser;
 
 import org.json.JSONArray;
 
@@ -161,6 +163,15 @@ public class GameList extends FragmentActivity implements OnRefreshListener, OnM
         if (e1 != null) {
             String gID = e1.getString("gID");
             uID = e1.getString("uID");
+        } else {
+            //get uID another way
+            final ParseUser user = ParseUser.getCurrentUser();
+            if (user != null) {
+                //set user id then
+                uID = user.getObjectId();
+            } else {
+                // go to the login activity
+            }
         }
     }
 

@@ -193,7 +193,7 @@ public class LoginActivity extends FragmentActivity {
                                     //But first, we need to transfer their unique String ID
                                     String uID = user.getObjectId();
                                     Intent i = new Intent(getActivity(), GameList.class);
-                                    i.putExtra("uID",uID);
+                                    i.putExtra("uID", uID);
                                     startActivity(i);
 
                                     // User has successfully logged in, save this information
