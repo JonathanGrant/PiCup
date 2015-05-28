@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/PiCup.iml" filepath="$PROJECT_DIR$/PiCup.iml" />
       <module fileurl="file://$PROJECT_DIR$/PicUp.iml" filepath="$PROJECT_DIR$/PicUp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

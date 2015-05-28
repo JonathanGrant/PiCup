@@ -1,5 +1,16 @@
 package games.picup.com.picup;
 
+import android.telephony.SmsManager;
+
+import com.parse.GetCallback;
+import com.parse.Parse;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -18,6 +29,7 @@ public class GameManager {
             "Street Hockey",
             "Soccer" ,
             "Ultimate Frisbee"};
+    public static ArrayList<String> gIDs = new ArrayList<String>();
 
     private static GameManager mInstance;
     private static List<Game> gamesToPlay;
@@ -34,6 +46,82 @@ public class GameManager {
             b = false;
     }
 
+    public List<Game> getGamesFromParse(){
+        gIDs.clear();
+        setBoolean();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("gIDs");
+        query.getInBackground("r7lHWJwsoa", new GetCallback<ParseObject>() {
+            public void done(ParseObject object, com.parse.ParseException e) {
+                if (e == null) {
+                    try {
+                        gamesToPlay = new ArrayList<Game>();
+                        JSONArray jar = object.getJSONArray("gIDsArray");
+                        //get game ids from jar
+                        for (int i = 0; i < jar.length(); i++) {
+                            gIDs.add(jar.getString(i));
+                        }
+                        gamesToPlay = getGamesFromGList();
+                    } catch (JSONException e1) {
+                        e1.printStackTrace();
+                    } catch (java.lang.NullPointerException e1) {
+                        e1.printStackTrace();
+                    }
+                } else {
+                    // something went wrong
+                }
+            }
+        });
+
+        return gamesToPlay;
+    }
+
+    public List<Game> getGamesFromGList(){
+        if (gamesToPlay == null)
+            gamesToPlay = new ArrayList<Game>();
+        //if(gIDs.size() == 0) gIDs.add("P5kDFiziY5");
+        for (int i = 0; i < gIDs.size(); i++) {
+            ParseQuery<ParseObject>query = ParseQuery.getQuery("Game");
+            query.getInBackground(gIDs.get(i), new GetCallback<ParseObject>() {
+                public void done(ParseObject g, com.parse.ParseException e) {
+                    if (e == null) {
+                        Game game1 = new Game(g.getObjectId()); //get random ID... but shit now I need to check to ensure it isn't taken already
+                        game1.name = g.getString("NAME");
+                        Date d = g.getCreatedAt();
+                        Calendar c = Calendar.getInstance();
+                        c.setTime(d);
+                        game1.date = c;
+                        game1.committedPlayers = g.getInt("CPLAYERS");
+                        game1.totalPlayers = g.getInt("TPLAYERS");
+                        game1.description = g.getString("DESCRIPTION");
+                        game1.Location = g.getString("LOCATION");
+                        game1.id = g.getObjectId();
+                        int i = 0;
+                        switch (game1.Location) {
+                            case "Brittingham Field":
+                                i = 1;
+                                break;
+                            case "McCalister Field":
+                                i = 2;
+                                break;
+                            case "McCarthy Quad":
+                                i = 3;
+                                break;
+                            default:
+                                i = 1;
+                                break;
+                        } //WOW a switch case :)
+                        game1.time = g.getInt("TIME");
+                        gamesToPlay.add(game1);
+                        GameList.usedFields[i] = true;
+                    } else {
+                        // something went wrong
+                    }
+                }
+            });
+        }
+        return gamesToPlay;
+    }
+
     public List<Game> getGamesToPlay() {
 
         if (gamesToPlay == null) {
@@ -45,7 +133,7 @@ public class GameManager {
                 while(ids[randID]) //while the ID is taken, try again... This will not work when the app gets bigger
                     randID = (int)(Math.random()*1000);
                 ids[randID] = true; //set random id to be taken
-                Game game1 = new Game(randID); //get random ID... but shit now I need to check to ensure it isn't taken already
+                Game game1 = new Game(randID+""); //get random ID... but shit now I need to check to ensure it isn't taken already
                 game1.name = gamesName;
                 game1.date = Calendar.getInstance();
                 game1.committedPlayers = 14;
@@ -75,7 +163,7 @@ public class GameManager {
 
     public static Game getGameById(int id){
         for(int i = 0; i < gamesToPlay.size(); i++){
-            if(gamesToPlay.get(i).id == id)
+            if(gamesToPlay.get(i).id.equals(id))
                 return gamesToPlay.get(i);
         }
         return null;

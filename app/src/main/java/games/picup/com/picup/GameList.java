@@ -8,17 +8,26 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsManager;
+import android.text.Layout;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.gc.materialdesign.views.Button;
@@ -30,14 +39,20 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolygonOptions;
+import com.parse.Parse;
+import com.parse.ParseUser;
+
+import org.json.JSONArray;
 
 import java.util.List;
+
+import static android.support.v4.widget.SwipeRefreshLayout.*;
 
 /**
  * Authors: FreddieV4 & JonathanGrant
  * Purpose: Hack UMass II (Apr. 11-12th, 2015)
  */
-public class GameList extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener {
+public class GameList extends FragmentActivity implements OnRefreshListener, OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener {
 
     Toolbar toolbar;
     Button FAB;
@@ -52,6 +67,7 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
     public static boolean[] usedFields = {false, false, false, false}; //Crom, Brit, MCar, MCal
     boolean first = true;
     static double tLX = 0, tLR = 0, bLX = 0, bLR = 0, tRX = 0, tRR = 0, bRX = 0, bRR = 0, cX = 0, cY = 0, zoomSize = 17.0f;
+    private SwipeRefreshLayout mySwipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +76,6 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
         context = getApplicationContext();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Available Games");
-//        setSupportActionBar(toolbar);
         setUpButton();
 
         map = new MapFragment();
@@ -73,19 +88,34 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
         // gets recyclerView
         mRecyclerView = (RecyclerView) findViewById(R.id.list);
         // manager for recyclerView
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
         // animations for recyclerViews
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        mAdapter = new GameAdapter(GameManager.getInstance().getGamesToPlay(), R.layout.card_view, this);
+        //first initialize parse
+        //Parse.enableLocalDatastore(this); //what does this do? What if I didn't have this?
+        //start Parse
+        Parse.initialize(this, "B4rIuWBWbeVaHrdtdnUZcC5ziI2cqAm1ZneexOXy", "mcGiMCshfXbCH29AXXiiK7lU9KBxrCRb0r00psWB");
+        mAdapter = new GameAdapter(GameManager.getInstance().getGamesFromParse(), R.layout.card_view, this);
         mRecyclerView.setAdapter(mAdapter);
 
-//        bundles();
+        mySwipe = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        mySwipe.setOnRefreshListener(this);
+        mySwipe.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+        bundles();
         map.getMapAsync(this);
         addLogOutButton();
     }
 
-    public void addLogOutButton(){
+    public void onRefresh(){
+        mAdapter.refresh(mySwipe);
+        mySwipe.setRefreshing(false);
+    }
+
+    public void addLogOutButton() {
         android.widget.Button b1 = (android.widget.Button) findViewById(R.id.logout);
 
         b1.setOnClickListener(new View.OnClickListener() {
@@ -122,42 +152,28 @@ public class GameList extends FragmentActivity implements OnMapReadyCallback, Go
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(GameList.this, NewGame.class);
+                i.putExtra("uID", uID);
                 startActivity(i);
             }
         });
     }
 
-    public void toGame(int gameID){
-        Log.println(1,"debugz","0");
-        //set id as the selected ID
-        showGameDetails.gameID = gameID;
-        Intent i = new Intent(GameList.this, showGameDetails.class);
-        startActivity(i);
-    }
-
     private void bundles() {
         Bundle e1 = getIntent().getExtras();
         if (e1 != null) {
-            //String spo = e1.getString("SPORT");
-            //String loc = e1.getString("LOCATION");
-            //String date = e1.getString("DATE");
+            String gID = e1.getString("gID");
             uID = e1.getString("uID");
+        } else {
+            //get uID another way
+            final ParseUser user = ParseUser.getCurrentUser();
+            if (user != null) {
+                //set user id then
+                uID = user.getObjectId();
+            } else {
+                // go to the login activity
+            }
         }
     }
-
-//    private String[] addGames(String[] A){
-//        Bundle e1 = getIntent().getExtras();
-//        if(e1 != null) {
-//            String spo = e1.getString("SPORT");
-//            String loc = e1.getString("LOCATION");
-//            String date = e1.getString("DATE");
-//
-//            for(int i = 0; i < A.length-1; i++){
-//                A[i] = spo;
-//            }
-//        }
-//        return A;
-//    }
 
     public void onMapReady(GoogleMap map) {
         if(first)

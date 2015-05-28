@@ -23,6 +23,14 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolygonOptions;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.SaveCallback;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,7 +38,7 @@ import java.util.ArrayList;
 
 public class showGameDetails extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener {
 
-    public static int gameID = 0;
+    public static String gameID = "";
     public String gameName = "Unable To Load Game's Name";
     public Game game;
     public String description = "Unable to Load Description";
@@ -80,6 +88,7 @@ public class showGameDetails extends FragmentActivity implements OnMapReadyCallb
     }
 
     public void addPlayer(String uID){
+
         uList.add(uID);
         cPlayers++;
     }
@@ -127,16 +136,48 @@ public class showGameDetails extends FragmentActivity implements OnMapReadyCallb
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Adding you to the game...", Toast.LENGTH_SHORT).show();
-                if (hasPlayerRSVPd(uID)) {
-                    Toast.makeText(getApplicationContext(), "You have already joined the game", Toast.LENGTH_SHORT).show();
-                } else if (cPlayers >= tPlayers) {
-                    Toast.makeText(getApplicationContext(), "Cannot join; this game is full", Toast.LENGTH_SHORT).show();
-                } else {
-                    addPlayer(uID);
-                    Toast.makeText(getApplicationContext(), "Successfully joined!", Toast.LENGTH_SHORT).show();
-                }
-                setText();
+                final Toast t = new Toast(getApplicationContext());
+                t.makeText(getApplicationContext(), "Adding you to the game...", Toast.LENGTH_SHORT).show();
+                //first get the list of players
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
+                query.getInBackground(gameID, new GetCallback<ParseObject>() {
+                    public void done(ParseObject parseObject, ParseException e) {
+                        try {
+                            JSONArray jar = parseObject.getJSONArray("RPLAYERS");
+                            for (int i = 0; i < jar.length(); i++) {
+                                uList.add(jar.getString(i));
+                            }
+                            if (hasPlayerRSVPd(uID)) {
+                                t.cancel();
+                                Toast.makeText(getApplicationContext(), "You have already joined the game", Toast.LENGTH_SHORT).show();
+                            } else if (cPlayers >= tPlayers) {
+                                t.cancel();
+                                Toast.makeText(getApplicationContext(), "Cannot join; this game is full", Toast.LENGTH_SHORT).show();
+                            } else {
+                                addPlayer(uID);
+                                jar.put(uID);
+                                //now update the parse object
+                                parseObject.put("RPLAYERS", jar);
+                                int cPlay = parseObject.getInt("CPLAYERS") + 1;
+                                parseObject.put("CPLAYERS", cPlay);
+                                parseObject.saveInBackground(new SaveCallback() {
+                                    public void done(ParseException e) {
+                                        if (e == null) {
+                                            //save worked
+                                            setText();
+                                            t.cancel();
+                                            Toast.makeText(getApplicationContext(), "Successfully joined!", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            //Something went wrong
+                                        }
+                                    }
+                                });
+                            }
+                        } catch (JSONException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                });
             }
         });
     }

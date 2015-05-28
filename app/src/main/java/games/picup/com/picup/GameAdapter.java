@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.telephony.SmsManager;
 import android.util.Log;
@@ -23,7 +24,7 @@ import java.util.List;
  * Authors: FreddieV4 & JonathanGrant
  * Purpose: Hack UMass II (Apr. 11-12th, 2015)
  */
-public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> implements  View.OnLongClickListener, View.OnClickListener {
+public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> implements View.OnLongClickListener, View.OnClickListener {
     public TextView gameName;
 
     //        public ImageView teaImage;
@@ -37,6 +38,19 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
         this.games = games;
         this.rowLayout = rowLayout;
         this.mContext = context;
+    }
+
+    public void refresh(SwipeRefreshLayout mySwipe){
+        games = GameManager.getInstance().getGamesFromParse();
+        int count = 0;
+        while(games == null){
+            //do nothing, just wait
+            //this only works if the user is connected to internet
+            count++;
+            if(count>=999999999) //if connection takes too long
+                break;
+        }
+        mySwipe.setRefreshing(false);
     }
 
     @Override
@@ -114,6 +128,8 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
         } else if(time/100 == 12 || time/100 == 0){
             hour = 12 +"";
         }
+        if(time/100==12)
+            ampm="pm";
         niceTime = hour + ":"+min.substring(2)+ampm;
         return niceTime;
     }
@@ -202,10 +218,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> im
                 mContext.startActivity(i);
             }
         });
-    }
-
-    public void onClickListner(){
-
     }
 
     @Override
