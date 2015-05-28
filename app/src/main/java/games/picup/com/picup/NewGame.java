@@ -357,7 +357,7 @@ public class NewGame extends Activity implements View.OnKeyListener {
             } else if(v.equals(setSport)){
                 setLocation.requestFocus();
             } else if(v.equals(setLocation)){
-                dpd.show();
+                setLocation.clearFocus();
             }
         }
         return false;
