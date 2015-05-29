@@ -60,6 +60,7 @@ public class NewGame extends Activity implements View.OnKeyListener {
     EditText setDate;
     EditText setTPlayers;
     EditText setName;
+    EditText setTime;
     private final int SECONDARY_ACTIVITY_REQUEST_CODE = 0;
     public int numQuotes = 28;
     String[] str = new String[numQuotes];
@@ -75,14 +76,14 @@ public class NewGame extends Activity implements View.OnKeyListener {
         setToolbar();
         setSport();
         setLocation();
+        setTime();
         setDate();
         setTPlayers();
         setName();
         pushButton();
         addQuote();
         addLogOutButton();
-        onEnter();
-        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        dateFormatter = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
         //now get uID
         Bundle e1 = getIntent().getExtras();
         if (e1 != null) {
@@ -92,39 +93,6 @@ public class NewGame extends Activity implements View.OnKeyListener {
 //        Parse.enableLocalDatastore(this); //what does this do? What if I didn't have this?
         //start Parse
         Parse.initialize(this, "B4rIuWBWbeVaHrdtdnUZcC5ziI2cqAm1ZneexOXy", "mcGiMCshfXbCH29AXXiiK7lU9KBxrCRb0r00psWB");
-    }
-
-    public void onEnter(){
-        EditText name = (EditText) findViewById(R.id.sport_set);
-        EditText date = (EditText) findViewById(R.id.date_set);
-        EditText loc = (EditText) findViewById(R.id.location_set);
-        name.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == KeyEvent.KEYCODE_ENTER) {
-                    addGame();
-                }
-                return false;
-            }
-        });
-        date.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == KeyEvent.KEYCODE_ENTER) {
-                    addGame();
-                }
-                return false;
-            }
-        });
-        loc.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == KeyEvent.KEYCODE_ENTER) {
-                    addGame();
-                }
-                return false;
-            }
-        });
     }
 
     public void addLogOutButton(){
@@ -208,9 +176,9 @@ public class NewGame extends Activity implements View.OnKeyListener {
         }
         game1.put("LOCATION", locat);
         game1.put("DATE", setDate());
-        game1.put("TIME", 1730);
+        game1.put("TIME", setTime());
         game1.put("CPLAYERS", 1);
-        game1.put("TPLAYERS", 5);
+        game1.put("TPLAYERS", setTPlayers());
         game1.put("RPLAYERS", rsvpd);
         game1.saveInBackground(new SaveCallback() { //this way, we dont ask for the object's id until after it is saved
             public void done(ParseException e) { //and we dont enter the id until it is saved
@@ -286,6 +254,23 @@ public class NewGame extends Activity implements View.OnKeyListener {
             }
         });
 
+        setTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker = new TimePickerDialog(NewGame.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        setTime.setText(selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+            }
+        });
+
         Calendar newCalendar = Calendar.getInstance();
         dpd = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
@@ -313,10 +298,17 @@ public class NewGame extends Activity implements View.OnKeyListener {
         return String.valueOf(setName);
     }
 
-    public String setTPlayers() {
+    public int setTPlayers() {
         setTPlayers = (EditText) findViewById(R.id.tplayers_set);
         setTPlayers.setOnKeyListener(this);
-        return String.valueOf(setTPlayers);
+        return Integer.parseInt(String.valueOf(setTPlayers));
+    }
+
+    public String setTime() {
+        setTime = (EditText) findViewById(R.id.time_set);
+        setTime.setInputType(InputType.TYPE_NULL);
+        String twofour = String.valueOf(setTime).replace(":",""); //remove the symbol
+        return twofour;
     }
 
 
