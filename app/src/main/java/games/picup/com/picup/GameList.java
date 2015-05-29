@@ -147,8 +147,9 @@ public class GameList extends FragmentActivity implements OnRefreshListener, OnM
     }
 
     private void setUpButton() {
+        Log.println(1,"here","1");
         FAB = (Button) findViewById(R.id.buttonFloat);
-        MultiTouchListener touchListener=new MultiTouchListener(this);
+        //MultiTouchListener touchListener=new MultiTouchListener(this);
         //FAB.setOnTouchListener(touchListener);
         FAB.setOnClickListener(new View.OnClickListener() {
             @Override

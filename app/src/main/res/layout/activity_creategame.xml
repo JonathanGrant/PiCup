@@ -91,7 +91,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/enter"
         android:gravity="center"
-        android:text="Cannot Load Quote"
+        android:text=""
         android:textColor="#000"
         android:textStyle="italic" />
 

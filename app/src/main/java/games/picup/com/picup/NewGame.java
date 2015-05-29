@@ -76,6 +76,7 @@ public class NewGame extends Activity implements View.OnKeyListener {
         setToolbar();
         setSport();
         setLocation();
+        dateFormatter = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
         setTime();
         setDate();
         setTPlayers();
@@ -83,7 +84,6 @@ public class NewGame extends Activity implements View.OnKeyListener {
         pushButton();
         addQuote();
         addLogOutButton();
-        dateFormatter = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
         //now get uID
         Bundle e1 = getIntent().getExtras();
         if (e1 != null) {
@@ -178,7 +178,7 @@ public class NewGame extends Activity implements View.OnKeyListener {
         game1.put("DATE", setDate());
         game1.put("TIME", setTime());
         game1.put("CPLAYERS", 1);
-        game1.put("TPLAYERS", setTPlayers());
+        game1.put("TPLAYERS", Integer.parseInt(setTPlayers()));
         game1.put("RPLAYERS", rsvpd);
         game1.saveInBackground(new SaveCallback() { //this way, we dont ask for the object's id until after it is saved
             public void done(ParseException e) { //and we dont enter the id until it is saved
@@ -241,7 +241,7 @@ public class NewGame extends Activity implements View.OnKeyListener {
 
     public String setLocation() {
         setLocation = (EditText) findViewById(R.id.location_set);
-        String location = String.valueOf(setLocation.getText());
+        String location = setLocation.getText().toString();
         setLocation.setOnKeyListener(this);
         return location;
     }
@@ -251,23 +251,6 @@ public class NewGame extends Activity implements View.OnKeyListener {
             @Override
             public void onClick(View v) {
                 dpd.show();
-            }
-        });
-
-        setTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker = new TimePickerDialog(NewGame.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        setTime.setText(selectedHour + ":" + selectedMinute);
-                    }
-                }, hour, minute, true);
-                mTimePicker.setTitle("Select Time");
-                mTimePicker.show();
             }
         });
 
@@ -295,19 +278,35 @@ public class NewGame extends Activity implements View.OnKeyListener {
     public String setName() {
         setName = (EditText) findViewById(R.id.name_set);
         setName.setOnKeyListener(this);
-        return String.valueOf(setName);
+        return setName.getText().toString();
     }
 
-    public int setTPlayers() {
+    public String setTPlayers() {
         setTPlayers = (EditText) findViewById(R.id.tplayers_set);
         setTPlayers.setOnKeyListener(this);
-        return Integer.parseInt(String.valueOf(setTPlayers));
+        return setTPlayers.getText().toString();
     }
 
     public String setTime() {
         setTime = (EditText) findViewById(R.id.time_set);
         setTime.setInputType(InputType.TYPE_NULL);
         String twofour = String.valueOf(setTime).replace(":",""); //remove the symbol
+        setTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker = new TimePickerDialog(NewGame.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        setTime.setText(selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+            }
+        });
         return twofour;
     }
 
