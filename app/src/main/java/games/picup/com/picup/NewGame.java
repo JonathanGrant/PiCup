@@ -1,20 +1,29 @@
 package games.picup.com.picup;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.SmsManager;
+import android.text.InputType;
+import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.parse.GetCallback;
@@ -34,6 +43,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.Scanner;
 
 /**
@@ -41,17 +53,21 @@ import java.util.Scanner;
  * Purpose: Hack UMass II (Apr. 11-12th, 2015)
  */
 
-public class NewGame extends Activity {
+public class NewGame extends Activity implements View.OnKeyListener {
 
     EditText setSport;
     EditText setLocation;
     EditText setDate;
     EditText setTPlayers;
+    EditText setName;
+    EditText setTime;
     private final int SECONDARY_ACTIVITY_REQUEST_CODE = 0;
     public int numQuotes = 28;
     String[] str = new String[numQuotes];
     String uID = "";
     ParseObject game1 = new ParseObject("Game");
+    private SimpleDateFormat dateFormatter;
+    DatePickerDialog dpd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,11 +76,14 @@ public class NewGame extends Activity {
         setToolbar();
         setSport();
         setLocation();
+        dateFormatter = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+        setTime();
         setDate();
+        setTPlayers();
+        setName();
         pushButton();
         addQuote();
         addLogOutButton();
-        onEnter();
         //now get uID
         Bundle e1 = getIntent().getExtras();
         if (e1 != null) {
@@ -74,39 +93,6 @@ public class NewGame extends Activity {
 //        Parse.enableLocalDatastore(this); //what does this do? What if I didn't have this?
         //start Parse
         Parse.initialize(this, "B4rIuWBWbeVaHrdtdnUZcC5ziI2cqAm1ZneexOXy", "mcGiMCshfXbCH29AXXiiK7lU9KBxrCRb0r00psWB");
-    }
-
-    public void onEnter(){
-        EditText name = (EditText) findViewById(R.id.sport_set);
-        EditText date = (EditText) findViewById(R.id.date_set);
-        EditText loc = (EditText) findViewById(R.id.location_set);
-        name.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == KeyEvent.KEYCODE_ENTER) {
-                    addGame();
-                }
-                return false;
-            }
-        });
-        date.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == KeyEvent.KEYCODE_ENTER) {
-                    addGame();
-                }
-                return false;
-            }
-        });
-        loc.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == KeyEvent.KEYCODE_ENTER) {
-                    addGame();
-                }
-                return false;
-            }
-        });
     }
 
     public void addLogOutButton(){
@@ -190,9 +176,9 @@ public class NewGame extends Activity {
         }
         game1.put("LOCATION", locat);
         game1.put("DATE", setDate());
-        game1.put("TIME", 1730);
+        game1.put("TIME", setTime());
         game1.put("CPLAYERS", 1);
-        game1.put("TPLAYERS", 5);
+        game1.put("TPLAYERS", Integer.parseInt(setTPlayers()));
         game1.put("RPLAYERS", rsvpd);
         game1.saveInBackground(new SaveCallback() { //this way, we dont ask for the object's id until after it is saved
             public void done(ParseException e) { //and we dont enter the id until it is saved
@@ -249,27 +235,81 @@ public class NewGame extends Activity {
     public String setSport() {
         setSport = (EditText) findViewById(R.id.sport_set);
         String sport = String.valueOf(setSport.getText());
-
+        setSport.setOnKeyListener(this);
         return sport;
-    }
-
-    public void setPlayers() {
-        setTPlayers = (EditText) findViewById(R.id.tplayers_set);
     }
 
     public String setLocation() {
         setLocation = (EditText) findViewById(R.id.location_set);
-        String location = String.valueOf(setLocation.getText());
-
+        String location = setLocation.getText().toString();
+        setLocation.setOnKeyListener(this);
         return location;
+    }
+
+    private void setDateTimeField() {
+        setDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dpd.show();
+            }
+        });
+
+        Calendar newCalendar = Calendar.getInstance();
+        dpd = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                setDate.setText(dateFormatter.format(newDate.getTime()));
+            }
+
+        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
     }
 
     public String setDate() {
         setDate = (EditText) findViewById(R.id.date_set);
         String date = String.valueOf(setDate.getText());
-
+        setDate.setInputType(InputType.TYPE_NULL);
+        setDateTimeField();
+        setDate.setOnKeyListener(this);
         return date;
     }
+
+    public String setName() {
+        setName = (EditText) findViewById(R.id.name_set);
+        setName.setOnKeyListener(this);
+        return setName.getText().toString();
+    }
+
+    public String setTPlayers() {
+        setTPlayers = (EditText) findViewById(R.id.tplayers_set);
+        setTPlayers.setOnKeyListener(this);
+        return setTPlayers.getText().toString();
+    }
+
+    public String setTime() {
+        setTime = (EditText) findViewById(R.id.time_set);
+        setTime.setInputType(InputType.TYPE_NULL);
+        String twofour = String.valueOf(setTime).replace(":",""); //remove the symbol
+        setTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker = new TimePickerDialog(NewGame.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        setTime.setText(selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+            }
+        });
+        return twofour;
+    }
+
 
 
     @Override
@@ -292,5 +332,25 @@ public class NewGame extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+
+    @Override
+    public boolean onKey(View v, int actionId, KeyEvent event) {
+        if(actionId == EditorInfo.IME_ACTION_SEARCH ||
+                actionId == EditorInfo.IME_ACTION_DONE ||
+                event.getAction() == KeyEvent.ACTION_DOWN &&
+                        event.getKeyCode() == KeyEvent.KEYCODE_ENTER){
+            //if user presses enter, switch the edittext to the next one
+            if(v.equals(setName)){
+                setTPlayers.requestFocus();
+            } else if(v.equals(setSport)){
+                setLocation.requestFocus();
+            } else if(v.equals(setLocation)){
+                setLocation.clearFocus();
+            }
+        }
+        return false;
     }
 }
