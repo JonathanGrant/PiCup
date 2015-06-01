@@ -353,4 +353,15 @@ public class NewGame extends Activity implements View.OnKeyListener {
         }
         return false;
     }
+
+    public boolean testInfo(){ //this method looks at all the inputs and makes sure it is okay to send it to parse
+        //First, ensure there is a valid name
+        if(setName().isEmpty()){
+            //Highlight setName in red
+            setName.requestFocus();
+        }
+
+
+        return true;
+    }
 }
