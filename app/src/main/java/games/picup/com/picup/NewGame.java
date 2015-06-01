@@ -61,6 +61,7 @@ public class NewGame extends Activity implements View.OnKeyListener {
     EditText setTPlayers;
     EditText setName;
     EditText setTime;
+    EditText setDesc;
     private final int SECONDARY_ACTIVITY_REQUEST_CODE = 0;
     public int numQuotes = 28;
     String[] str = new String[numQuotes];
@@ -80,6 +81,7 @@ public class NewGame extends Activity implements View.OnKeyListener {
         setTime();
         setDate();
         setTPlayers();
+        setDesc();
         setName();
         pushButton();
         addQuote();
@@ -161,8 +163,8 @@ public class NewGame extends Activity implements View.OnKeyListener {
         //need to create a JSON Array of the id's that are RSVP'd
         JSONArray rsvpd = new JSONArray();
         rsvpd.put(uID);
-        game1.put("NAME", setSport());
-        game1.put("DESCRIPTION", "DER KLASIK. BVB Dortmund v Bayern München\nWelchen ist der Beste? Ich weiß dass Bayern ist besser als Dortmund, aber seine penalty kickers sind schwer. SEHR schwer...");
+        game1.put("NAME", setName());
+        game1.put("DESCRIPTION", setDesc());
         String locat = "Cromwell Field";
         int randID = (int)(Math.random()*1000);
         if((1+randID)%4==0) { //don't make the first IM...
@@ -279,6 +281,12 @@ public class NewGame extends Activity implements View.OnKeyListener {
         setName = (EditText) findViewById(R.id.name_set);
         setName.setOnKeyListener(this);
         return setName.getText().toString();
+    }
+
+    public String setDesc() {
+        setDesc = (EditText) findViewById(R.id.name_set);
+        setDesc.setOnKeyListener(this);
+        return setDesc.getText().toString();
     }
 
     public String setTPlayers() {
