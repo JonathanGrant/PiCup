@@ -229,14 +229,14 @@ public class NewGame extends Activity implements View.OnKeyListener {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addGame();
+                if(testInfo())addGame();
             }
         });
     }
 
     public void setSport(){
         setSport = (EditText) findViewById(R.id.sport_set);
-        //setSport.setOnKeyListener(this);
+        setSport.setOnKeyListener(this);
     }
 
     public String getSport() {
@@ -246,7 +246,7 @@ public class NewGame extends Activity implements View.OnKeyListener {
 
     public void setLocation(){
         setLocation = (EditText) findViewById(R.id.location_set);
-        //setLocation.setOnKeyListener(this);
+        setLocation.setOnKeyListener(this);
     }
 
     public String getLocation() {
@@ -289,7 +289,7 @@ public class NewGame extends Activity implements View.OnKeyListener {
 
     public void setName(){
         setName = (EditText) findViewById(R.id.name_set);
-        //setName.setOnKeyListener(this);
+        setName.setOnKeyListener(this);
     }
 
     public String getName() {
@@ -297,8 +297,9 @@ public class NewGame extends Activity implements View.OnKeyListener {
     }
 
     public void setDesc(){
-        setDesc = (EditText) findViewById(R.id.name_set);
-        //setDesc.setOnKeyListener(this);
+        setDesc = (EditText) findViewById(R.id.desc_set);
+        setDesc.setOnKeyListener(this);
+        setDesc.setImeOptions(EditorInfo.IME_ACTION_DONE);
     }
 
     public String getDesc() {
@@ -386,6 +387,9 @@ public class NewGame extends Activity implements View.OnKeyListener {
                 setLocation.requestFocus();
             } else if(v.equals(setLocation)){
                 setLocation.clearFocus();
+            } else if(v.equals(setDesc)){
+                if(testInfo())
+                    addGame();
             }
         }
         return false;
@@ -395,10 +399,23 @@ public class NewGame extends Activity implements View.OnKeyListener {
         //First, ensure there is a valid name
         if(getName().isEmpty()){
             //Highlight setName in red
-            setName.requestFocus();
-        }
-
-
+            setName.requestFocus(); //how to do red?
+            //Make toast
+            Toast.makeText(this,"You must create a name",Toast.LENGTH_SHORT).show();
+            return false;
+        } else if(getTPlayers().isEmpty()){
+            setTPlayers.requestFocus();
+            Toast.makeText(this,"You must have a maximum amount of players",Toast.LENGTH_SHORT).show();
+            return false;
+        } else if(getDate().isEmpty()){
+            setDate.requestFocus();
+            Toast.makeText(this,"You must set a date",Toast.LENGTH_SHORT).show();
+            return false;
+        } else if(getTime().isEmpty()){
+            setTime.requestFocus();
+            Toast.makeText(this,"You must set a time",Toast.LENGTH_SHORT).show();
+            return false;
+        }//otherwise,
         return true;
     }
 }
