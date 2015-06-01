@@ -326,7 +326,14 @@ public class NewGame extends Activity implements View.OnKeyListener {
                 TimePickerDialog mTimePicker = new TimePickerDialog(NewGame.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        setTime.setText(selectedHour + ":" + selectedMinute);
+                        if(selectedHour>=10 && selectedMinute>=10)
+                            setTime.setText(selectedHour + ":" + selectedMinute);
+                        else if(selectedHour>=10)
+                            setTime.setText(selectedHour+":"+"0"+selectedMinute);
+                        else if(selectedMinute>=10)
+                            setTime.setText("0"+selectedHour+":"+selectedMinute);
+                        else
+                            setTime.setText("0"+selectedHour+":0"+selectedMinute);
                     }
                 }, hour, minute, true);
                 mTimePicker.setTitle("Select Time");
