@@ -163,8 +163,8 @@ public class NewGame extends Activity implements View.OnKeyListener {
         //need to create a JSON Array of the id's that are RSVP'd
         JSONArray rsvpd = new JSONArray();
         rsvpd.put(uID);
-        game1.put("NAME", setName());
-        game1.put("DESCRIPTION", setDesc());
+        game1.put("NAME", getName());
+        game1.put("DESCRIPTION", getDesc());
         String locat = "Cromwell Field";
         int randID = (int)(Math.random()*1000);
         if((1+randID)%4==0) { //don't make the first IM...
@@ -177,10 +177,10 @@ public class NewGame extends Activity implements View.OnKeyListener {
             locat = "McCarthy Quad";
         }
         game1.put("LOCATION", locat);
-        game1.put("DATE", setDate());
-        game1.put("TIME", setTime());
+        game1.put("DATE", getDate());
+        game1.put("TIME", Integer.parseInt(getTime()));
         game1.put("CPLAYERS", 1);
-        game1.put("TPLAYERS", Integer.parseInt(setTPlayers()));
+        game1.put("TPLAYERS", Integer.parseInt(getTPlayers()));
         game1.put("RPLAYERS", rsvpd);
         game1.saveInBackground(new SaveCallback() { //this way, we dont ask for the object's id until after it is saved
             public void done(ParseException e) { //and we dont enter the id until it is saved
@@ -234,17 +234,23 @@ public class NewGame extends Activity implements View.OnKeyListener {
         });
     }
 
-    public String setSport() {
+    public void setSport(){
         setSport = (EditText) findViewById(R.id.sport_set);
+        //setSport.setOnKeyListener(this);
+    }
+
+    public String getSport() {
         String sport = String.valueOf(setSport.getText());
-        setSport.setOnKeyListener(this);
         return sport;
     }
 
-    public String setLocation() {
+    public void setLocation(){
         setLocation = (EditText) findViewById(R.id.location_set);
+        //setLocation.setOnKeyListener(this);
+    }
+
+    public String getLocation() {
         String location = setLocation.getText().toString();
-        setLocation.setOnKeyListener(this);
         return location;
     }
 
@@ -268,37 +274,49 @@ public class NewGame extends Activity implements View.OnKeyListener {
         },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
     }
 
-    public String setDate() {
+    public void setDate(){
         setDate = (EditText) findViewById(R.id.date_set);
-        String date = String.valueOf(setDate.getText());
         setDate.setInputType(InputType.TYPE_NULL);
         setDateTimeField();
         setDate.setOnKeyListener(this);
+
+    }
+
+    public String getDate() {
+        String date = String.valueOf(setDate.getText());
         return date;
     }
 
-    public String setName() {
+    public void setName(){
         setName = (EditText) findViewById(R.id.name_set);
-        setName.setOnKeyListener(this);
+        //setName.setOnKeyListener(this);
+    }
+
+    public String getName() {
         return setName.getText().toString();
     }
 
-    public String setDesc() {
+    public void setDesc(){
         setDesc = (EditText) findViewById(R.id.name_set);
-        setDesc.setOnKeyListener(this);
+        //setDesc.setOnKeyListener(this);
+    }
+
+    public String getDesc() {
         return setDesc.getText().toString();
     }
 
-    public String setTPlayers() {
+    public void setTPlayers(){
         setTPlayers = (EditText) findViewById(R.id.tplayers_set);
         setTPlayers.setOnKeyListener(this);
+    }
+
+    public String getTPlayers() {
         return setTPlayers.getText().toString();
     }
 
-    public String setTime() {
+    public void setTime(){
         setTime = (EditText) findViewById(R.id.time_set);
         setTime.setInputType(InputType.TYPE_NULL);
-        String twofour = String.valueOf(setTime).replace(":",""); //remove the symbol
         setTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -315,6 +333,10 @@ public class NewGame extends Activity implements View.OnKeyListener {
                 mTimePicker.show();
             }
         });
+    }
+
+    public String getTime() {
+        String twofour = setTime.getText().toString().replaceAll(":", "" ); //remove symbols
         return twofour;
     }
 
@@ -364,7 +386,7 @@ public class NewGame extends Activity implements View.OnKeyListener {
 
     public boolean testInfo(){ //this method looks at all the inputs and makes sure it is okay to send it to parse
         //First, ensure there is a valid name
-        if(setName().isEmpty()){
+        if(getName().isEmpty()){
             //Highlight setName in red
             setName.requestFocus();
         }
